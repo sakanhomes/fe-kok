@@ -1,0 +1,8 @@
+{
+  "locales": ["en"],
+  "defaultLocale": "en",
+  "logBuild": false,
+  "pages": {
+    "*": ["common", "inputs", "validation", "error"]
+  }
+}

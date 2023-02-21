@@ -1,0 +1,6 @@
+{
+  "404": "Ooooops.....Page not found",
+  "500": "INTERNAL SERVER ERROR",
+  "error": "Something went wrong",
+  "network-error-message": "Network connection lost..."
+}
