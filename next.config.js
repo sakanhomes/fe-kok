@@ -5,6 +5,9 @@ module.exports = () =>
     typescript: {
       ignoreBuildErrors: true,
     },
+    compiler: {
+      styledComponents: true,
+    },
     images: {
       domains: [],
     },

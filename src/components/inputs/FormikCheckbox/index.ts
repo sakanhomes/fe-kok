@@ -1,0 +1,1 @@
+export { FormikCheckbox } from './FormikCheckbox'

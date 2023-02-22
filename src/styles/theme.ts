@@ -25,6 +25,11 @@ const dark: DefaultTheme = {
     danger200: '#FD0505',
     warning: '#FC9904',
   },
+  network: {
+    eth: '#9DA2BE',
+    bnb: '#F3BA2F',
+    polygon: '#6F41D8',
+  },
 }
 
 export const theming: TThemingConfig = {

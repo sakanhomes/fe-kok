@@ -5,13 +5,11 @@ import store from 'store'
 import { Normalize } from 'styled-normalize'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-// eslint-disable-next-line import/no-unresolved
 import { GlobalError } from '@/containers/errors/GlobalError'
 import { injectStore } from '@/api/rest/instance'
 import { ThemeAppProvider } from '@/styles/ThemeAppProvider'
 import { GlobalStyle } from '@/styles/globalStyle'
-// import { Icon } from '@/components/Icon'
-// import '@/styling/fonts.css'
+import { CloseIcon } from '@/components/icons/CloseIcon'
 
 injectStore(store)
 
@@ -29,7 +27,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          // closeButton={<Icon id="close" color="basic300" />}
+          closeButton={<CloseIcon color="primary100" />}
         />
         <GlobalError />
         <Normalize />

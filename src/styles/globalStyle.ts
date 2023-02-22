@@ -10,6 +10,7 @@ html {
 body {
   width: 100%;
   padding-right: 0px !important;
+  font-family: 'Poppins';
 }
 
 div {

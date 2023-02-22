@@ -19,8 +19,15 @@ interface IPalette {
   warning: string
 }
 
+interface INetworkPalette {
+  eth: string
+  bnb: string
+  polygon: string
+}
+
 declare module 'styled-components' {
   export interface DefaultTheme {
     palette: IPalette
+    network: INetworkPalette
   }
 }
