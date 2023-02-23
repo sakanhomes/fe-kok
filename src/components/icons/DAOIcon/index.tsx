@@ -3,7 +3,7 @@ import { useTheme } from 'styled-components'
 import { SVG } from '../SVG'
 import { TIcon } from '../type'
 
-export const FanTokenIcon: FC<TIcon> = (props) => {
+export const DAOIcon: FC<TIcon> = (props) => {
   const theme = useTheme()
   const { color } = props
 

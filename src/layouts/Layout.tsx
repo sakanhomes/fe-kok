@@ -1,42 +1,37 @@
-import React from 'react'
-import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
+import React, { useState } from 'react'
 import { useRedux } from '@/hooks/use-redux'
-import { selectors, ErrorPage } from '@/containers/errors'
-import { Drawer } from './common/Drawer'
-import { Header } from './common/Header'
+import { selectors } from '@/containers/errors'
+import Box from '@/styles/Box'
+import { ErrorPage } from '@/containers/errors/PageError'
+import styled from 'styled-components'
+import { SideMenu } from './common/SideMenu'
 
-type TProps = {
-  header?: boolean
-  drawer?: boolean
-  toolbar?: boolean
-}
+const Wrapper = styled(Box)`
+  transition: 0.3s;
+`
 
-export const Layout: React.FC<TProps> = ({
-  children,
-  header = true,
-  drawer = true,
-  toolbar = true,
-}) => {
+const Body = styled(Box)`
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+`
+
+export const Layout: React.FC = ({ children }) => {
   const { select } = useRedux()
   const { errorPage } = select(selectors.errors)
+  const [openSideMenu, setOpenSideMenu] = useState(false)
+  const openMenutoggle = () => setOpenSideMenu(!openSideMenu)
 
   return (
-    <Box display="flex">
-      {!errorPage && (
-        <>
-          {header && <Header />}
-          {drawer && <Drawer />}
-          <Box component="main" flexGrow={1} bgcolor="white">
-            {toolbar && <Toolbar />}
-            <Box display="flex" flexDirection="column" alignItems="center" p={4}>
-              {!errorPage && children}
-            </Box>
-          </Box>
-        </>
-      )}
+    <Wrapper
+      display="grid"
+      gridTemplateColumns={[openSideMenu ? '215px auto' : '115px auto']}
+      gridGap={[35]}
+    >
+      <SideMenu open={openSideMenu} toggleMenu={openMenutoggle} />
+      {!errorPage && <Body display="flex">{children}</Body>}
 
       <ErrorPage status={errorPage} />
-    </Box>
+    </Wrapper>
   )
 }

@@ -5,6 +5,8 @@ import {
   layout,
   grid,
   position,
+  flexbox,
+  FlexboxProps,
   LayoutProps,
   SpaceProps,
   ColorProps,
@@ -23,7 +25,8 @@ type TBoxProps = {
   SpaceProps &
   ColorProps &
   GridProps &
-  PositionProps
+  PositionProps &
+  FlexboxProps
 
 const Box: StyledComponent<TTagType, DefaultTheme, TBoxProps, never> =
   styled.div<TBoxProps>(
@@ -34,6 +37,7 @@ const Box: StyledComponent<TTagType, DefaultTheme, TBoxProps, never> =
     color,
     layout,
     grid,
+    flexbox,
     position
   )
 
