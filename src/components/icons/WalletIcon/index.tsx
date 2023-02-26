@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { SVG } from '../SVG'
 import { TIcon } from '../type'
 
-export const WalletIcon: FC<TIcon> = (props) => (
+export const WalletIcon: FC<TIcon & { width?: string; height?: string }> = (props) => (
   <SVG
     width="28"
     height="20"

@@ -1,3 +1,4 @@
+import { ROUTES } from '@/constants/routes'
 import { CreatorCenterIcon } from '@/components/icons/CreatorCenterIcon'
 import { DAOIcon } from '@/components/icons/DAOIcon'
 import { FanTokenIcon } from '@/components/icons/FanTokenIcon'
@@ -5,33 +6,32 @@ import { HomeIcon } from '@/components/icons/HomeIcon'
 import { NoAvatarIcon } from '@/components/icons/NoAvatarIcon'
 import { StarIcon } from '@/components/icons/StarIcon'
 import { TreasuryIcon } from '@/components/icons/TreasuryIcon'
-import { ROUTES } from '@/constants/routes'
 import { TSidebarData } from '../SidebarList'
 
 export const menuData: TSidebarData = [
   {
-    name: 'Home',
+    name: 'home',
     icon: <HomeIcon />,
     link: ROUTES.HOME,
   },
   {
-    name: 'Creator center',
+    name: 'creatorCenter',
     icon: <CreatorCenterIcon />,
   },
   {
-    name: 'Fan Token EX',
+    name: 'fanToken',
     icon: <FanTokenIcon />,
   },
   {
-    name: 'DAO',
+    name: 'dao',
     icon: <DAOIcon />,
   },
   {
-    name: 'Treasury',
+    name: 'treasury',
     icon: <TreasuryIcon />,
   },
   {
-    name: 'Fan management',
+    name: 'fanManagement',
     icon: <StarIcon />,
   },
 ]

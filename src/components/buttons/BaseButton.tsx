@@ -8,6 +8,8 @@ const Button = styled.button<TButton>`
   background-color: transparent;
   display: flex;
   gap: 10px;
+  cursor: pointer;
+  align-items: center;
 `
 
 export const BaseButton: FC<TButton> = ({

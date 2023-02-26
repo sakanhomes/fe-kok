@@ -96,33 +96,18 @@ export const InputCont = styled.div<TInputContProps>((props) => {
 export const Input = styled.input`
   outline: none;
   box-sizing: border-box;
-
+  width: 100%;
   &:read-only {
     pointer-events: none;
   }
 `
 
-export const IconButton = styled.div<TIconButton>((props) => {
-  const isIconOutside = () => {
-    if (props.iconOutside) {
-      return css`
-        position: absolute;
-        top: 0;
-        right: 17px;
+export const IconButton = styled.div<TIconButton>`
+  position: absolute;
+  right: 19px;
 
-        & > button {
-          margin: 0;
-          height: 38px;
-
-          & > svg {
-            height: 20px;
-            width: 20px;
-          }
-        }
-      `
-    }
+  & > button {
+    margin: 0;
+    height: 38px;
   }
-  return css`
-    ${isIconOutside}
-  `
-})
+`

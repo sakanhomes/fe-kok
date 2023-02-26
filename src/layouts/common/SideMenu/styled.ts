@@ -1,5 +1,5 @@
-import { Logo } from '@/components/icons/Logo'
 import styled from 'styled-components'
+import { Logo } from '@/components/icons/Logo'
 
 export const Wrapper = styled.div<{ open: boolean }>`
   box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
@@ -14,4 +14,5 @@ export const StyledLogo = styled(Logo)<{ open: boolean }>`
   transform: translateX(-50%);
   left: ${({ open }) => (open ? 50 : 45)}%;
   transition: 0.3s;
+  cursor: pointer;
 `
