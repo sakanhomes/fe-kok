@@ -1,5 +1,4 @@
-import { TIconProps } from '@/components/Icon'
-import { IPalette } from '@/styling/styled'
+import { IPalette } from '@/styles/styled'
 import { StateManagerProps } from 'react-select/dist/declarations/src/useStateManager'
 import { CSSProperties } from 'styled-components'
 
@@ -10,7 +9,6 @@ export interface ISelectProps extends StateManagerProps {
   height?: number
   zIndex?: number
   icon?: {
-    id: TIconProps['id']
     color: keyof IPalette
     zIndex?: CSSProperties['zIndex']
   }
