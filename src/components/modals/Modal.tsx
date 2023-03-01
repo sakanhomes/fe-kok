@@ -1,44 +1,18 @@
-import { useEffect, useRef } from 'react'
-import { useClickAway } from 'react-use'
-import styled from 'styled-components'
-import PopupComponent from 'reactjs-popup'
-import Box from '@/styles/Box'
-
-export const Popup = styled(PopupComponent)`
-  &-overlay {
-    overflow-y: auto;
-    height: var(--window-height);
-    overscroll-behavior: none;
-    top: 0 !important;
-  }
-
-  &-content {
-    width: 100%;
-    padding: 40px;
-  }
-`
-
-export const Container = styled.div<{ maxWidth?: number }>`
-  width: 100%;
-  max-width: ${(props) => (props.maxWidth ? `${props.maxWidth}px` : '500px')};
-  background: tan;
-  border-radius: 16px;
-  height: 100px;
-  margin: 0 auto;
-  padding: 16px;
-`
-export const Close = styled.div``
+import { useEffect, useRef, useState } from 'react'
+import { useClickAway, useUnmount } from 'react-use'
+import { CloseIcon } from '../icons/CloseIcon'
+import { Text } from '../Text'
+import * as S from './styled'
 
 export type TModalBase = {
   open: boolean
   onClose?: () => void
-  maxWidth?: number
+  maxWidth?: string
   className?: string
   loading?: string
   closeOutside?: boolean
-  title: string
+  title?: string
 }
-
 export const Modal: React.FC<TModalBase> = ({
   open,
   onClose,
@@ -48,7 +22,11 @@ export const Modal: React.FC<TModalBase> = ({
   maxWidth,
   title,
 }) => {
+  const [isClient, setIsClient] = useState(false)
+
   const containerRef = useRef(null)
+
+  useEffect(() => setIsClient(true), [])
 
   useClickAway(containerRef, () => {
     if (!onClose || !closeOutside) return
@@ -57,71 +35,65 @@ export const Modal: React.FC<TModalBase> = ({
 
   function touchmoveHandler(e: Event) {
     const rootEl = document.getElementById('popup-root')
-
     let elem = e.target as HTMLElement
     let hasScroll = false
-
     while (!hasScroll && elem !== rootEl) {
       if (!elem) return
-
       const isContainer = containerRef.current === elem
       const isPopupContent = elem.classList.contains('popup-content')
-
-      hasScroll =
-        elem.scrollHeight > elem.clientHeight + 1 && !isContainer && !isPopupContent
-
+      hasScroll = elem.scrollHeight > elem.clientHeight && !isContainer && !isPopupContent
       if (hasScroll) {
         elem.style.overscrollBehavior = 'none'
       }
-
       if (!elem.parentElement) return
       elem = elem.parentElement
     }
-
     if (hasScroll) return
-
     e.preventDefault()
   }
 
   function stopScroll(active: boolean) {
+    const { body } = document
     if (active === true) {
+      const scrollWidth = window.innerWidth - document.documentElement.clientWidth
+      body.style.overflowY = 'hidden'
       document.body.addEventListener('touchmove', touchmoveHandler, { passive: false })
+      if (scrollWidth === 0) return
+      body.style.paddingRight = `${scrollWidth}px`
       return
     }
+    body.style.paddingRight = ''
+    body.style.overflowY = 'auto'
     document.body.removeEventListener('touchmove', touchmoveHandler)
   }
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
-    const { body } = document
     if (!open) {
-      body.style.paddingRight = ''
-      body.style.overflowY = 'auto'
       stopScroll(false)
       return
     }
-
-    const scrollWidth = window.innerWidth - document.documentElement.clientWidth
-    body.style.overflowY = 'hidden'
-
     stopScroll(true)
-
-    if (scrollWidth === 0) return
-
-    body.style.paddingRight = `${scrollWidth}px`
   }, [open])
 
+  useUnmount(() => stopScroll(false))
+
+  if (!isClient) return null
+
   return (
-    <Popup modal nested open={open} closeOnEscape closeOnDocumentClick onClose={onClose}>
-      <Container ref={containerRef} className={className} maxWidth={maxWidth}>
-        <Box>{title}</Box>
+    <S.Popup modal nested open={open} onClose={onClose}>
+      <S.Container ref={containerRef} className={className} maxWidth={maxWidth}>
+        {title && (
+          <Text variant="h7" tag="h2" margin="0 0 26px">
+            {title}
+          </Text>
+        )}
         {onClose && (
-          <button type="button" onClick={onClose}>
-            Close
-          </button>
+          <S.Close onClick={onClose}>
+            <CloseIcon />
+          </S.Close>
         )}
         {children}
-      </Container>
-    </Popup>
+      </S.Container>
+    </S.Popup>
   )
 }

@@ -2,10 +2,10 @@ import axios, { AxiosInstance } from 'axios'
 import { ERROR_MESSAGE, ERROR_STATUS } from '@/constants/error-status'
 import { API_REST_URL, AXIOS_TIMEOUT } from '@/constants/config'
 import createAuthRefreshInterceptor from 'axios-auth-refresh'
-import { actionsAsync, actionsAsync as userActionsAsync } from '@/containers/user'
 import { actions, actions as errorsActions } from '@/containers/errors'
 import { TStore } from '@/store'
 import { isClient } from '@/utils/isClient'
+import { actionsAsync } from '@/containers/auth/store'
 import { locale } from '../browser-api/locale'
 
 let store = {} as TStore
@@ -32,7 +32,7 @@ const refreshAuthLogic = async () =>
     .get('auth/refresh', axiosBaseConfig)
     .then(() => Promise.resolve())
     .catch((error) => {
-      store.dispatch(userActionsAsync.logout())
+      store.dispatch(actionsAsync.logout())
       return Promise.reject(error)
     })
 

@@ -10,29 +10,35 @@ import { injectStore } from '@/api/rest/instance'
 import { ThemeAppProvider } from '@/styles/ThemeAppProvider'
 import { GlobalStyle } from '@/styles/globalStyle'
 import { CloseIcon } from '@/components/icons/CloseIcon'
+import { Web3ReactProvider } from '@web3-react/core'
+import { getLibrary } from '@/utils/web3React'
+import { AuthModal } from '@/containers/auth/AuthModal'
 
 injectStore(store)
 
 const MyApp = ({ Component, pageProps }: AppProps) => (
   <>
     <Provider store={store}>
-      <ThemeAppProvider>
-        <GlobalStyle />
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar
-          newestOnTop
-          closeOnClick
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          closeButton={<CloseIcon color="primary100" />}
-        />
-        <GlobalError />
-        <Normalize />
-        <Component {...pageProps} />
-      </ThemeAppProvider>
+      <Web3ReactProvider getLibrary={getLibrary}>
+        <ThemeAppProvider>
+          <GlobalStyle />
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar
+            newestOnTop
+            closeOnClick
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            closeButton={<CloseIcon color="primary100" />}
+          />
+          <GlobalError />
+          <AuthModal />
+          <Normalize />
+          <Component {...pageProps} />
+        </ThemeAppProvider>
+      </Web3ReactProvider>
     </Provider>
   </>
 )

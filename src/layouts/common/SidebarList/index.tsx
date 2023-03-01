@@ -19,6 +19,7 @@ export const SidebarList: FC<{
   isUsersList?: boolean
 }> = ({ isOpen, data, title, isUsersList }) => {
   const { t } = useTranslation('layout')
+
   return (
     <Box display="grid" gridGap={[10]} my={42}>
       <S.StyledText isOpen={isOpen} variant="p4" color="secondary200">

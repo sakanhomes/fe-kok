@@ -5,6 +5,7 @@ import Box from '@/styles/Box'
 import useTranslation from 'next-translate/useTranslation'
 import Link from 'next/link'
 import React, { FC } from 'react'
+import { Logo } from '@/components/icons/Logo'
 import { SidebarList } from '../SidebarList'
 import { followingMockData, menuData } from './data'
 import * as S from './styled'
@@ -21,7 +22,9 @@ export const SideMenu: FC<{ open: boolean; toggleMenu: () => void }> = ({
       onMouseLeave={open ? toggleMenu : undefined}
     >
       <Link href={ROUTES.HOME} passHref>
-        <S.StyledLogo open={open} />
+        <S.StyledLogo open={open}>
+          <Logo />
+        </S.StyledLogo>
       </Link>
       <SidebarList title={t('menu')} data={menuData} isOpen={open} />
       <SidebarList

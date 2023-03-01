@@ -4,11 +4,10 @@ import { ROUTES } from '@/routes'
 import { useAuth } from '@/hooks/use-auth'
 
 export const PermissionAuth: FC = ({ children }) => {
-  const { user, userFetching } = useAuth()
+  const { user } = useAuth()
   const { replace } = useRouter()
 
   useEffect(() => {
-    if (userFetching) return
     if (user) {
       replace(ROUTES.HOME)
     }

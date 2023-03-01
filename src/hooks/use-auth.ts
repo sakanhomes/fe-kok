@@ -1,4 +1,4 @@
-import { TInit, actionsAsync, selectors } from '@/containers/user'
+import { actionsAsync, selectors, TInit } from '@/containers/auth/store'
 import { useRedux } from '@/hooks/use-redux'
 
 type TUseProfileData = TInit & {
@@ -8,7 +8,7 @@ type TUseProfileData = TInit & {
 
 export const useAuth = (): TUseProfileData => {
   const { select, dispatch } = useRedux()
-  const auth = select(selectors.user)
+  const auth = select(selectors.authSelector)
   const logout = () => dispatch(actionsAsync.logout())
   const logoutAsync = () => dispatch(actionsAsync.logoutAsync())
 

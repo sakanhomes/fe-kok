@@ -9,6 +9,7 @@ export type TVariant =
   | 'h4'
   | 'h5'
   | 'h6'
+  | 'h7'
   | 'p1'
   | 'p2'
   | 'p3'

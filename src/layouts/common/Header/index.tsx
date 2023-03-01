@@ -7,6 +7,8 @@ import useTranslation from 'next-translate/useTranslation'
 import React, { FC, ReactNode } from 'react'
 import styled from 'styled-components'
 import { BaseButton } from '@/components/buttons/BaseButton'
+import { useRedux } from '@/hooks/use-redux'
+import { actions } from '@/containers/auth'
 import { NetworksDropdown } from '../NetworksDropdown'
 import { UserMenu } from '../UserMenu'
 
@@ -27,7 +29,12 @@ const ConnectWallet = styled(BaseButton)`
 
 export const Header: FC<THeader> = ({ searchInput }) => {
   const { user } = useAuth()
+  const { dispatch } = useRedux()
   const { t } = useTranslation('layout')
+
+  const onConnectWallet = () => {
+    dispatch(actions.setOpenModal(true))
+  }
 
   return (
     <Box
@@ -56,6 +63,7 @@ export const Header: FC<THeader> = ({ searchInput }) => {
       </Box>
       {!user && (
         <ConnectWallet
+          onClick={onConnectWallet}
           icon={{ place: 'prepend', el: <WalletIcon width="25" height="18" /> }}
         >
           {t('connectWallet')}
