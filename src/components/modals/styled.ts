@@ -1,6 +1,7 @@
 import { rgba } from 'emotion-rgba'
 import PopupComponent from 'reactjs-popup'
 import styled, { CSSProperties } from 'styled-components'
+import { BaseButton } from '../buttons/BaseButton'
 
 export const Popup = styled(PopupComponent)`
   &-overlay {
@@ -31,4 +32,10 @@ export const Container = styled.div<{ maxWidth?: CSSProperties['maxWidth'] }>`
   padding: 20px 60px;
   margin: 0 auto;
   position: relative;
+`
+
+export const CloseButton = styled(BaseButton)`
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: ${({ theme }) => theme.palette.secondary200};
 `

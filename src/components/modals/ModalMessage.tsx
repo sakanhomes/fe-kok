@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import useTranslation from 'next-translate/useTranslation'
 import { Modal } from '@/components/modals/Modal'
 import Box from '@/styles/Box'
+import * as S from './styled'
 
 type TModalMessageProps = {
   buttonLabel?: string
@@ -30,6 +31,7 @@ export const ModalMessage: FC<TModalMessageProps> = ({
   return (
     <Modal
       open={open}
+      maxWidth="522px"
       onClose={onClose}
       title={title || (status === 'success' ? t('success') : t('error'))}
     >
@@ -43,9 +45,9 @@ export const ModalMessage: FC<TModalMessageProps> = ({
       </Box>
       {actions ||
         (onClickButton ? (
-          <button type="button" onClick={onClickButton}>
+          <S.CloseButton type="button" onClick={onClickButton}>
             {buttonLabel || t('close')}
-          </button>
+          </S.CloseButton>
         ) : null)}
     </Modal>
   )

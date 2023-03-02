@@ -6,6 +6,7 @@ import useTranslation from 'next-translate/useTranslation'
 import Link from 'next/link'
 import React, { FC } from 'react'
 import { Logo } from '@/components/icons/Logo'
+import { useAuth } from '@/hooks/use-auth'
 import { SidebarList } from '../SidebarList'
 import { followingMockData, menuData } from './data'
 import * as S from './styled'
@@ -15,6 +16,8 @@ export const SideMenu: FC<{ open: boolean; toggleMenu: () => void }> = ({
   toggleMenu,
 }) => {
   const { t } = useTranslation('layout')
+  const { user } = useAuth()
+
   return (
     <S.Wrapper
       open={open}
@@ -27,12 +30,14 @@ export const SideMenu: FC<{ open: boolean; toggleMenu: () => void }> = ({
         </S.StyledLogo>
       </Link>
       <SidebarList title={t('menu')} data={menuData} isOpen={open} />
-      <SidebarList
-        title={t('following')}
-        data={followingMockData}
-        isOpen={open}
-        isUsersList
-      />
+      {user && (
+        <SidebarList
+          title={t('following')}
+          data={followingMockData}
+          isOpen={open}
+          isUsersList
+        />
+      )}
       {open && (
         <Box display="flex" mb="22px" gridGap={[14]} alignItems="center">
           <LanguageIcon />

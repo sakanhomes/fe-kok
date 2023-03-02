@@ -13,6 +13,7 @@ import { CloseIcon } from '@/components/icons/CloseIcon'
 import { Web3ReactProvider } from '@web3-react/core'
 import { getLibrary } from '@/utils/web3React'
 import { AuthModal } from '@/containers/auth/AuthModal'
+import { InitUser } from '@/containers/permissions/InitUser'
 
 injectStore(store)
 
@@ -21,6 +22,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
     <Provider store={store}>
       <Web3ReactProvider getLibrary={getLibrary}>
         <ThemeAppProvider>
+          <InitUser />
           <GlobalStyle />
           <ToastContainer
             position="top-right"

@@ -6,7 +6,7 @@ import { WalletIcons } from '@/components/icons/WalletIcons'
 import { Web3Provider } from '@ethersproject/providers'
 import { useWeb3React } from '@web3-react/core'
 import { injected } from '@/utils/web3React'
-import { actions, authSelector } from './store'
+import { actions, actionsAsync, authSelector } from './store'
 import * as S from './styled'
 import { authApi } from './api/auth'
 
@@ -34,8 +34,8 @@ export const AuthModal: FC = () => {
             },
           } = await authApi.nonce(account)
           const signer = provider.getSigner(account)
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const signature = await signer.signMessage(nonce)
+          dispatch(actionsAsync.loginAsync({ address: account, signature }))
         } catch (err) {
           console.error(err)
         }

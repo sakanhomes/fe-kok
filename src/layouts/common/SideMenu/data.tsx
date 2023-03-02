@@ -17,6 +17,8 @@ export const menuData: TSidebarData = [
   {
     name: 'creatorCenter',
     icon: <CreatorCenterIcon />,
+    link: ROUTES.CREATOR_CENTER,
+    isPrivate: true,
   },
   {
     name: 'fanToken',
