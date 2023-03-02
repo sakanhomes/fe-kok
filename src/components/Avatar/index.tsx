@@ -34,8 +34,8 @@ const Wrapper = styled.div<{ sizes: TAvatarProps['sizes'] }>((props) => {
     case 'md':
       return css`
         ${baseStyles}
-        width: 62px;
-        height: 62px;
+        width: 50px;
+        height: 50px;
       `
     case 'lg':
       return css`

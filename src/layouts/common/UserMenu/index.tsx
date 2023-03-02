@@ -7,6 +7,10 @@ import styled, { css } from 'styled-components'
 import { rgba } from 'emotion-rgba'
 import useTranslation from 'next-translate/useTranslation'
 import { Avatar } from '@/components/Avatar'
+import { useRouter } from 'next/router'
+import { ROUTES } from '@/constants/routes'
+import { useRedux } from '@/hooks/use-redux'
+import { actionsAsync } from '@/containers/auth'
 
 const Button = styled(BaseButton)<{ itemId: number; open: boolean }>((props) => {
   const { itemId, open } = props
@@ -51,17 +55,16 @@ const MenuButton = styled(BaseButton)`
 
 const menuList: {
   label: string
-  type: 'link' | 'button'
+  route?: keyof typeof ROUTES
   icon: ReactNode
 }[] = [
   {
     label: 'profilePage',
-    type: 'link',
+    route: 'PROFILE',
     icon: <ProfileIcon />,
   },
   {
     label: 'signOut',
-    type: 'link',
     icon: <SignOutIcon />,
   },
 ]
@@ -70,11 +73,22 @@ export const UserMenu: FC = () => {
   const [openMenu, setOpenMenu] = useState(false)
   const { t } = useTranslation('layout')
   const openMenuToggle = () => setOpenMenu(!openMenu)
+  const router = useRouter()
+  const { dispatch } = useRedux()
 
   return (
     <Box position="relative" display="flex" alignItems="center" gridGap="12px">
       {menuList.map((item, i) => (
-        <Button itemId={i + 1} open={openMenu} key={item.label}>
+        <Button
+          itemId={i + 1}
+          onClick={() =>
+            item.route
+              ? router.push(ROUTES[item.route])
+              : dispatch(actionsAsync.logoutAsync())
+          }
+          open={openMenu}
+          key={item.label}
+        >
           {item.icon}
           {t(item.label)}
         </Button>

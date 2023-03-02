@@ -57,7 +57,7 @@ const logout = (): TAsyncAction => (dispatch) => {
 const logoutAsync = (): TAsyncAction => async (dispatch) => {
   try {
     await authApi.logout()
-    authorized.remove()
+    dispatch(logout())
   } catch (e) {
     handleActionErrors({ e, dispatch })
   }
@@ -96,4 +96,5 @@ export const actionsAsync = {
   setUserData,
   getProfileAsync,
 }
+
 export const selectors = { authSelector }

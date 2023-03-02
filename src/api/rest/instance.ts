@@ -28,8 +28,8 @@ export const api: AxiosInstance = axios.create(axiosBaseConfig)
 
 // refresh token
 const refreshAuthLogic = async () =>
-  axios
-    .get('auth/refresh', axiosBaseConfig)
+  api
+    .post('auth/refresh')
     .then(() => Promise.resolve())
     .catch((error) => {
       store.dispatch(actionsAsync.logout())

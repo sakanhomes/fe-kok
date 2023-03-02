@@ -1,1 +1,1 @@
-export { actions, selectors } from './store'
+export { actions, actionsAsync, selectors } from './store'

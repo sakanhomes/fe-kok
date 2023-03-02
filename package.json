@@ -19,6 +19,7 @@
     "@types/styled-system": "^5.1.16",
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
+    "@web3-react/walletlink-connector": "^6.2.14",
     "axios": "^0.26.1",
     "axios-auth-refresh": "^3.3.1",
     "body-scroll-lock": "^3.1.5",

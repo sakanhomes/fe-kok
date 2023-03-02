@@ -35,6 +35,7 @@ export const AuthModal: FC = () => {
           } = await authApi.nonce(account)
           const signer = provider.getSigner(account)
           const signature = await signer.signMessage(nonce)
+
           dispatch(actionsAsync.loginAsync({ address: account, signature }))
         } catch (err) {
           console.error(err)

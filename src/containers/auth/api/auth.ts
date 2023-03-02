@@ -19,17 +19,12 @@ const login = (
   status: number
 }> => api.post('auth/login', data)
 
-const refresh = (): TAxiosResponse<{
-  status: number
-}> => api.post('auth/refresh')
-
 const logout = (): TAxiosResponse<{
   status: number
-}> => api.post('auth/refresh')
+}> => api.post('auth/logout')
 
 export const authApi = {
   nonce,
   login,
-  refresh,
   logout,
 }
