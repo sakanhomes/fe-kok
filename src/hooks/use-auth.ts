@@ -1,4 +1,4 @@
-import { actionsAsync, selectors, TInit } from '@/containers/auth/store'
+import { actionsAsync, selectors, TInit } from 'store/auth'
 import { useRedux } from '@/hooks/use-redux'
 
 type TUseProfileData = TInit & {

@@ -2,7 +2,7 @@ import { api } from '@/api/rest/instance'
 import { TAxiosResponse } from '@/api/rest/types'
 
 export type TLoginReq = {
-  address: string
+  address: `0x${string}`
   signature: string
 }
 

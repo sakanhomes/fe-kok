@@ -10,17 +10,18 @@ import { injectStore } from '@/api/rest/instance'
 import { ThemeAppProvider } from '@/styles/ThemeAppProvider'
 import { GlobalStyle } from '@/styles/globalStyle'
 import { CloseIcon } from '@/components/icons/CloseIcon'
-import { Web3ReactProvider } from '@web3-react/core'
-import { getLibrary } from '@/utils/web3React'
-import { AuthModal } from '@/containers/auth/AuthModal'
 import { InitUser } from '@/containers/permissions/InitUser'
+
+import '@rainbow-me/rainbowkit/styles.css'
+
+import { AuthentificationProvider } from '@/components/AuthentificationProvider'
 
 injectStore(store)
 
 const MyApp = ({ Component, pageProps }: AppProps) => (
   <>
     <Provider store={store}>
-      <Web3ReactProvider getLibrary={getLibrary}>
+      <AuthentificationProvider>
         <ThemeAppProvider>
           <InitUser />
           <GlobalStyle />
@@ -36,11 +37,10 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
             closeButton={<CloseIcon color="primary100" />}
           />
           <GlobalError />
-          <AuthModal />
           <Normalize />
           <Component {...pageProps} />
         </ThemeAppProvider>
-      </Web3ReactProvider>
+      </AuthentificationProvider>
     </Provider>
   </>
 )

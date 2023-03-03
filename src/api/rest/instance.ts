@@ -1,11 +1,11 @@
 import axios, { AxiosInstance } from 'axios'
-import { ERROR_MESSAGE, ERROR_STATUS } from '@/constants/error-status'
-import { API_REST_URL, AXIOS_TIMEOUT } from '@/constants/config'
-import createAuthRefreshInterceptor from 'axios-auth-refresh'
-import { actions, actions as errorsActions } from '@/containers/errors'
-import { TStore } from '@/store'
 import { isClient } from '@/utils/isClient'
-import { actionsAsync } from '@/containers/auth/store'
+import { ERROR_STATUS } from '@/constants/error-status'
+import { TStore } from '@/store'
+import createAuthRefreshInterceptor from 'axios-auth-refresh'
+import { API_REST_URL, AXIOS_TIMEOUT } from '@/constants/config'
+import { actionsAsync } from 'store/auth'
+import { actions } from '@/containers/errors'
 import { locale } from '../browser-api/locale'
 
 let store = {} as TStore
@@ -26,14 +26,14 @@ const axiosBaseConfig = {
 
 export const api: AxiosInstance = axios.create(axiosBaseConfig)
 
-// refresh token
 const refreshAuthLogic = async () =>
-  api
-    .post('auth/refresh')
+  axios
+    .post('/refresh', {}, axiosBaseConfig)
     .then(() => Promise.resolve())
-    .catch((error) => {
+    .catch((e) => {
+      if (!axios.isAxiosError(e) || !e.response) return
       store.dispatch(actionsAsync.logout())
-      return Promise.reject(error)
+      return Promise.reject(e)
     })
 
 // request handler
@@ -44,27 +44,31 @@ api.interceptors.request.use((request) => ({
 
 // response handler
 api.interceptors.response.use(
-  (response) =>
-    // do something
-    response,
+  (response) => response,
   (error) => {
-    if (!error.response && error.message === ERROR_MESSAGE.NETWORK) {
-      store.dispatch(errorsActions.setNetworkError(true))
-      return Promise.reject({})
+    if (!error.response) {
+      return Promise.reject({
+        response: {
+          status: null,
+          data: {},
+          canceled: axios.isCancel(error),
+        },
+      })
+    }
+
+    if (axios.isCancel(error)) {
+      return Promise.reject(error)
     }
 
     if (!error.response) {
       return Promise.reject({})
     }
 
-    const { status } = error.response
+    const { status, data } = error.response
 
-    if (status === ERROR_STATUS.FORBIDDEN) {
-      return store.dispatch(actionsAsync.logout())
-    }
-
-    if (isClient() && status >= ERROR_STATUS.SERVER) {
-      store.dispatch(actions.setPageError(ERROR_STATUS.SERVER))
+    if (axios.isAxiosError(error) && isClient() && status >= ERROR_STATUS.SERVER) {
+      store.dispatch(actions.showGlobalError(data.message))
+      return Promise.reject({})
     }
 
     return Promise.reject(error)

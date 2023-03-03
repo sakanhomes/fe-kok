@@ -4,8 +4,8 @@ import useTranslation from 'next-translate/useTranslation'
 import React, { FC, Fragment } from 'react'
 import { Avatar } from '@/components/Avatar'
 import { useRouter } from 'next/router'
-import { useRedux } from '@/hooks/use-redux'
-import { actions } from '@/containers/auth'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
+import { useAuth } from '@/hooks/use-auth'
 import * as S from './styled'
 
 export type TSidebarData = {
@@ -22,8 +22,9 @@ export const SidebarList: FC<{
   isUsersList?: boolean
 }> = ({ isOpen, data, title, isUsersList }) => {
   const { t } = useTranslation('layout')
-  const { dispatch } = useRedux()
   const router = useRouter()
+  const { openConnectModal } = useConnectModal()
+  const { user } = useAuth()
 
   return (
     <Box display="grid" gridGap={[10]} my={42}>
@@ -36,7 +37,9 @@ export const SidebarList: FC<{
             {link && (
               <S.ItemBox
                 onClick={() =>
-                  isPrivate ? dispatch(actions.setOpenModal(true)) : router.push(link)
+                  isPrivate && !user && openConnectModal
+                    ? openConnectModal()
+                    : router.push(link)
                 }
                 display="flex"
                 gridGap={[14]}

@@ -9,8 +9,9 @@ import useTranslation from 'next-translate/useTranslation'
 import { Avatar } from '@/components/Avatar'
 import { useRouter } from 'next/router'
 import { ROUTES } from '@/constants/routes'
+import { useDisconnect } from 'wagmi'
 import { useRedux } from '@/hooks/use-redux'
-import { actionsAsync } from '@/containers/auth'
+import { actionsAsync } from 'store/auth'
 
 const Button = styled(BaseButton)<{ itemId: number; open: boolean }>((props) => {
   const { itemId, open } = props
@@ -74,6 +75,7 @@ export const UserMenu: FC = () => {
   const { t } = useTranslation('layout')
   const openMenuToggle = () => setOpenMenu(!openMenu)
   const router = useRouter()
+  const { disconnect } = useDisconnect()
   const { dispatch } = useRedux()
 
   return (
@@ -81,11 +83,14 @@ export const UserMenu: FC = () => {
       {menuList.map((item, i) => (
         <Button
           itemId={i + 1}
-          onClick={() =>
-            item.route
-              ? router.push(ROUTES[item.route])
-              : dispatch(actionsAsync.logoutAsync())
-          }
+          onClick={() => {
+            if (item.route) {
+              router.push(ROUTES[item.route])
+            } else {
+              disconnect()
+              dispatch(actionsAsync.logoutAsync())
+            }
+          }}
           open={openMenu}
           key={item.label}
         >
