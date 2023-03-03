@@ -7,6 +7,7 @@ import useTranslation from 'next-translate/useTranslation'
 import React, { FC, ReactNode } from 'react'
 import styled from 'styled-components'
 import { BaseButton } from '@/components/buttons/BaseButton'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { NetworksDropdown } from '../NetworksDropdown'
 import { UserMenu } from '../UserMenu'
 
@@ -55,11 +56,31 @@ export const Header: FC<THeader> = ({ searchInput }) => {
         )}
       </Box>
       {!user && (
-        <ConnectWallet
-          icon={{ place: 'prepend', el: <WalletIcon width="25" height="18" /> }}
-        >
-          {t('connectWallet')}
-        </ConnectWallet>
+        <ConnectButton.Custom>
+          {({ account, chain, openConnectModal, authenticationStatus, mounted }) => {
+            const ready = mounted && authenticationStatus !== 'loading'
+            const connected =
+              ready &&
+              account &&
+              chain &&
+              (!authenticationStatus || authenticationStatus === 'authenticated')
+
+            return (
+              <div>
+                {(() => {
+                  if (!connected) {
+                    return (
+                      <ConnectWallet onClick={openConnectModal}>
+                        <WalletIcon />
+                        {t('connectWallet')}
+                      </ConnectWallet>
+                    )
+                  }
+                })()}
+              </div>
+            )
+          }}
+        </ConnectButton.Custom>
       )}
       {user && <UserMenu />}
     </Box>

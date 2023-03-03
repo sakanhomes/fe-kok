@@ -3,8 +3,8 @@ import React, { FC } from 'react'
 import { SVG } from '../SVG'
 import { TIcon } from '../type'
 
-export const NetworksIcon: FC<TIcon & { network: keyof typeof WALLETS }> = ({
-  network,
+export const WalletIcons: FC<TIcon & { wallet: keyof typeof WALLETS }> = ({
+  wallet,
   ...props
 }) => (
   <SVG
@@ -16,7 +16,7 @@ export const NetworksIcon: FC<TIcon & { network: keyof typeof WALLETS }> = ({
     xmlnsXlink="http://www.w3.org/1999/xlink"
     {...props}
   >
-    {WALLETS[network] === WALLETS.METAMASK && (
+    {WALLETS[wallet] === WALLETS.METAMASK && (
       <>
         <rect width="40" height="40" fill="url(#METAMASK_1)" />
         <defs>
@@ -37,7 +37,7 @@ export const NetworksIcon: FC<TIcon & { network: keyof typeof WALLETS }> = ({
         </defs>
       </>
     )}
-    {WALLETS[network] === WALLETS.COINBASE && (
+    {WALLETS[wallet] === WALLETS.COINBASE && (
       <>
         <rect width="40" height="40" fill="url(#COINBASE_1)" />
         <defs>
@@ -58,7 +58,7 @@ export const NetworksIcon: FC<TIcon & { network: keyof typeof WALLETS }> = ({
         </defs>
       </>
     )}
-    {WALLETS[network] === WALLETS.TRUST && (
+    {WALLETS[wallet] === WALLETS.TRUST && (
       <>
         <rect width="40" height="40" fill="url(#TRUST_1)" />
         <defs>
@@ -82,7 +82,7 @@ export const NetworksIcon: FC<TIcon & { network: keyof typeof WALLETS }> = ({
         </defs>
       </>
     )}
-    {WALLETS[network] === WALLETS.IMTOKEN && (
+    {WALLETS[wallet] === WALLETS.IMTOKEN && (
       <>
         <rect width="40" height="40" fill="url(#IMTOKEN_1)" />
         <defs>
@@ -103,7 +103,7 @@ export const NetworksIcon: FC<TIcon & { network: keyof typeof WALLETS }> = ({
         </defs>
       </>
     )}
-    {WALLETS[network] === WALLETS.RAINBALL && (
+    {WALLETS[wallet] === WALLETS.RAINBALL && (
       <>
         <rect width="40" height="40" fill="url(#RAINBALL_1)" />
         <defs>

@@ -10,29 +10,37 @@ import { injectStore } from '@/api/rest/instance'
 import { ThemeAppProvider } from '@/styles/ThemeAppProvider'
 import { GlobalStyle } from '@/styles/globalStyle'
 import { CloseIcon } from '@/components/icons/CloseIcon'
+import { InitUser } from '@/containers/permissions/InitUser'
+
+import '@rainbow-me/rainbowkit/styles.css'
+
+import { AuthentificationProvider } from '@/components/AuthentificationProvider'
 
 injectStore(store)
 
 const MyApp = ({ Component, pageProps }: AppProps) => (
   <>
     <Provider store={store}>
-      <ThemeAppProvider>
-        <GlobalStyle />
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar
-          newestOnTop
-          closeOnClick
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          closeButton={<CloseIcon color="primary100" />}
-        />
-        <GlobalError />
-        <Normalize />
-        <Component {...pageProps} />
-      </ThemeAppProvider>
+      <AuthentificationProvider>
+        <ThemeAppProvider>
+          <InitUser />
+          <GlobalStyle />
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar
+            newestOnTop
+            closeOnClick
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            closeButton={<CloseIcon color="primary100" />}
+          />
+          <GlobalError />
+          <Normalize />
+          <Component {...pageProps} />
+        </ThemeAppProvider>
+      </AuthentificationProvider>
     </Provider>
   </>
 )

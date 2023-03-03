@@ -45,6 +45,11 @@ export const StyledText = styled.div<TText>((props) => {
       font-size: 22px;
       line-height: 32px;
     `,
+    h7: css`
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 20px;
+    `,
     p1: css`
       font-weight: 500;
       font-size: 20px;
