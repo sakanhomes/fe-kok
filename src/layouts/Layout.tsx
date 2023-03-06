@@ -33,7 +33,7 @@ export const Layout: React.FC<{ searchInput: ReactNode }> = ({
   return (
     <Wrapper
       display="grid"
-      gridTemplateColumns={[openSideMenu ? '215px auto' : '115px auto']}
+      gridTemplateColumns={[openSideMenu ? '225px auto' : '115px auto']}
       gridGap={[35]}
     >
       <SideMenu open={openSideMenu} toggleMenu={openMenutoggle} />
