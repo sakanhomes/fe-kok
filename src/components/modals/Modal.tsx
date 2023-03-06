@@ -12,6 +12,7 @@ export type TModalBase = {
   loading?: string
   closeOutside?: boolean
   title?: string
+  withCloseButton?: boolean
 }
 export const Modal: React.FC<TModalBase> = ({
   open,
@@ -21,6 +22,7 @@ export const Modal: React.FC<TModalBase> = ({
   closeOutside,
   maxWidth,
   title,
+  withCloseButton = true,
 }) => {
   const [isClient, setIsClient] = useState(false)
 
@@ -87,7 +89,7 @@ export const Modal: React.FC<TModalBase> = ({
             {title}
           </Text>
         )}
-        {onClose && (
+        {onClose && withCloseButton && (
           <S.Close onClick={onClose}>
             <CloseIcon />
           </S.Close>

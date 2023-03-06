@@ -15,6 +15,7 @@ import { InitUser } from '@/containers/permissions/InitUser'
 import '@rainbow-me/rainbowkit/styles.css'
 
 import { AuthentificationProvider } from '@/components/AuthentificationProvider'
+import { CommingSoon } from '@/containers/comming-soon/CommingSoon'
 
 injectStore(store)
 
@@ -37,6 +38,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
             closeButton={<CloseIcon color="primary100" />}
           />
           <GlobalError />
+          <CommingSoon />
           <Normalize />
           <Component {...pageProps} />
         </AuthentificationProvider>

@@ -23,18 +23,22 @@ export const menuData: TSidebarData = [
   {
     name: 'fanToken',
     icon: <FanTokenIcon />,
+    commingSoon: true,
   },
   {
     name: 'dao',
     icon: <DAOIcon />,
+    commingSoon: true,
   },
   {
     name: 'treasury',
     icon: <TreasuryIcon />,
+    commingSoon: true,
   },
   {
     name: 'fanManagement',
     icon: <StarIcon />,
+    commingSoon: true,
   },
 ]
 

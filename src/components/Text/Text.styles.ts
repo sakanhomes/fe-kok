@@ -10,6 +10,7 @@ export const StyledText = styled.div<TText>((props) => {
     margin: ${props.margin};
     font-style: ${props.fontStyle};
     color: ${props.color ? palette[props.color] : palette.primary100};
+    font-weight: ${props.fontWeight};
   `
 
   const variantConfig: { [key in TVariant]: FlattenSimpleInterpolation } = {
@@ -85,7 +86,7 @@ export const StyledText = styled.div<TText>((props) => {
   }
 
   return css`
-    ${baseStyles}
     ${props.variant && variantConfig[props.variant]}
+    ${baseStyles}
   `
 })
