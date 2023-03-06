@@ -1,10 +1,13 @@
 import { BaseButton } from '@/components/buttons/BaseButton'
 import { NetworksIcon } from '@/components/icons/NetworksIcon'
 import { NETWORKS } from '@/constants/networks'
+import { useAuth } from '@/hooks/use-auth'
 import Box from '@/styles/Box'
 import { INetworkPalette } from '@/styles/styled'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
 import React, { FC, useState } from 'react'
 import styled, { css } from 'styled-components'
+import { useAccount } from 'wagmi'
 
 const AmountWrapper = styled.div`
   display: flex;
@@ -73,6 +76,9 @@ const networksList: {
 export const NetworksDropdown: FC = () => {
   const [selectedNetwork, setSelectedNetwork] = useState(networksList[0])
   const [openNetworks, setOpenNetworks] = useState(false)
+  const { user } = useAuth()
+  const { openConnectModal } = useConnectModal()
+  const account = useAccount()
 
   const openNetworksToggle = () => setOpenNetworks(!openNetworks)
 
@@ -91,10 +97,13 @@ export const NetworksDropdown: FC = () => {
             <NetworksIcon network={item.network} />
           </DropdownButton>
         ))}
-      <Button onClick={openNetworksToggle} network={NETWORKS[selectedNetwork.network]}>
+      <Button
+        onClick={account && user ? openNetworksToggle : openConnectModal}
+        network={NETWORKS[selectedNetwork.network]}
+      >
         <NetworksIcon network={selectedNetwork.network} />
       </Button>
-      <AmountWrapper>${selectedNetwork.amount}</AmountWrapper>
+      {user && <AmountWrapper>$ {user.balance}</AmountWrapper>}
     </Box>
   )
 }
