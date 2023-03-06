@@ -4,7 +4,7 @@ import { authorized } from '@/api/browser-api/authorized'
 import { TSelector, TAsyncAction } from '@/store'
 import { TProlile } from '@/types/profile'
 import { profileApi } from '@/api/rest/profile'
-import { authApi, TLoginReq } from '../api/rest/api/auth'
+import { authApi } from '../api/rest/api/auth'
 
 export type TInit = {
   user: TProlile | null

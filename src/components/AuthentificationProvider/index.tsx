@@ -23,6 +23,8 @@ import {
   metaMaskWallet,
   coinbaseWallet,
 } from '@rainbow-me/rainbowkit/wallets'
+import { rainbowkitStyles } from '@/styles/raibowkitStyles'
+import { useTheme } from 'styled-components'
 
 const { chains, provider } = configureChains(
   [mainnet, polygon, bsc],
@@ -52,6 +54,7 @@ export const AuthentificationProvider: FC = ({ children }) => {
   const { dispatch } = useRedux()
   const [status, setStatus] =
     useState<AuthenticationConfig<string>['status']>('unauthenticated')
+  const theme = useTheme()
 
   const authenticationAdapter = useMemo(
     () =>
@@ -100,7 +103,9 @@ export const AuthentificationProvider: FC = ({ children }) => {
         enabled={!!address}
         status={status}
       >
-        <RainbowKitProvider chains={chains}>{children}</RainbowKitProvider>
+        <RainbowKitProvider theme={rainbowkitStyles(theme)} chains={chains}>
+          {children}
+        </RainbowKitProvider>
       </RainbowKitAuthenticationProvider>
     </WagmiConfig>
   )

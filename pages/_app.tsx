@@ -21,8 +21,8 @@ injectStore(store)
 const MyApp = ({ Component, pageProps }: AppProps) => (
   <>
     <Provider store={store}>
-      <AuthentificationProvider>
-        <ThemeAppProvider>
+      <ThemeAppProvider>
+        <AuthentificationProvider>
           <InitUser />
           <GlobalStyle />
           <ToastContainer
@@ -39,8 +39,8 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
           <GlobalError />
           <Normalize />
           <Component {...pageProps} />
-        </ThemeAppProvider>
-      </AuthentificationProvider>
+        </AuthentificationProvider>
+      </ThemeAppProvider>
     </Provider>
   </>
 )
