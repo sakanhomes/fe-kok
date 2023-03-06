@@ -78,7 +78,7 @@ export const NetworksDropdown: FC = () => {
   const [openNetworks, setOpenNetworks] = useState(false)
   const { user } = useAuth()
   const { openConnectModal } = useConnectModal()
-  const account = useAccount()
+  const { address } = useAccount()
 
   const openNetworksToggle = () => setOpenNetworks(!openNetworks)
 
@@ -98,7 +98,7 @@ export const NetworksDropdown: FC = () => {
           </DropdownButton>
         ))}
       <Button
-        onClick={account && user ? openNetworksToggle : openConnectModal}
+        onClick={address && user ? openNetworksToggle : openConnectModal}
         network={NETWORKS[selectedNetwork.network]}
       >
         <NetworksIcon network={selectedNetwork.network} />

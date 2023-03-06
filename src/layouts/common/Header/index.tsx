@@ -8,9 +8,9 @@ import React, { FC, ReactNode } from 'react'
 import styled from 'styled-components'
 import { BaseButton } from '@/components/buttons/BaseButton'
 import { ConnectButton, useConnectModal } from '@rainbow-me/rainbowkit'
+import { useAccount } from 'wagmi'
 import { NetworksDropdown } from '../NetworksDropdown'
 import { UserMenu } from '../UserMenu'
-import { useAccount } from 'wagmi'
 
 export type THeader = {
   searchInput: ReactNode
@@ -31,7 +31,7 @@ export const Header: FC<THeader> = ({ searchInput }) => {
   const { user } = useAuth()
   const { t } = useTranslation('layout')
   const { openConnectModal } = useConnectModal()
-  const account = useAccount()
+  const { address } = useAccount()
 
   return (
     <Box
@@ -48,7 +48,7 @@ export const Header: FC<THeader> = ({ searchInput }) => {
       <Box display="flex" gridGap="64px">
         <BaseButton
           onClick={() => {
-            if (!user && !account && openConnectModal) {
+            if (!user && !address && openConnectModal) {
               openConnectModal()
             }
           }}
@@ -57,7 +57,7 @@ export const Header: FC<THeader> = ({ searchInput }) => {
         </BaseButton>
         <BaseButton
           onClick={() => {
-            if (!user && !account && openConnectModal) {
+            if (!user && !address && openConnectModal) {
               openConnectModal()
             }
           }}
