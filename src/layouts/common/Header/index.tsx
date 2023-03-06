@@ -7,9 +7,10 @@ import useTranslation from 'next-translate/useTranslation'
 import React, { FC, ReactNode } from 'react'
 import styled from 'styled-components'
 import { BaseButton } from '@/components/buttons/BaseButton'
-import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { ConnectButton, useConnectModal } from '@rainbow-me/rainbowkit'
 import { NetworksDropdown } from '../NetworksDropdown'
 import { UserMenu } from '../UserMenu'
+import { useAccount } from 'wagmi'
 
 export type THeader = {
   searchInput: ReactNode
@@ -29,6 +30,8 @@ const ConnectWallet = styled(BaseButton)`
 export const Header: FC<THeader> = ({ searchInput }) => {
   const { user } = useAuth()
   const { t } = useTranslation('layout')
+  const { openConnectModal } = useConnectModal()
+  const account = useAccount()
 
   return (
     <Box
@@ -43,10 +46,22 @@ export const Header: FC<THeader> = ({ searchInput }) => {
         <NetworksDropdown />
       </Box>
       <Box display="flex" gridGap="64px">
-        <BaseButton>
+        <BaseButton
+          onClick={() => {
+            if (!user && !account && openConnectModal) {
+              openConnectModal()
+            }
+          }}
+        >
           <NotificationIcon />
         </BaseButton>
-        <BaseButton>
+        <BaseButton
+          onClick={() => {
+            if (!user && !account && openConnectModal) {
+              openConnectModal()
+            }
+          }}
+        >
           <UploadIcon />
         </BaseButton>
         {user && (
