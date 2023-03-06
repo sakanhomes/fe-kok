@@ -4,7 +4,7 @@ import { authorized } from '@/api/browser-api/authorized'
 import { TSelector, TAsyncAction } from '@/store'
 import { TProlile } from '@/types/profile'
 import { profileApi } from '@/api/rest/profile'
-import { authApi } from '../api/rest/api/auth'
+import { authApi } from '../api/rest/auth'
 
 export type TInit = {
   user: TProlile | null
@@ -55,6 +55,7 @@ const logoutAsync = (): TAsyncAction => async (dispatch) => {
 
 const getProfileAsync = (): TAsyncAction => async (dispatch) => {
   try {
+    if (!authorized.get()) return
     const { data } = await profileApi.get()
     dispatch(setUserData(data.data.user))
   } catch (e) {

@@ -45,6 +45,7 @@ export const SidebarList: FC<{
                 gridGap={[14]}
                 alignItems="center"
                 justifyContent={isOpen ? 'flex-start' : 'center'}
+                isUsersList={isUsersList}
               >
                 {!isUsersList ? icon : <Avatar />}
                 {isOpen && (
@@ -60,6 +61,7 @@ export const SidebarList: FC<{
                 gridGap={[14]}
                 alignItems="center"
                 justifyContent={isOpen ? 'flex-start' : 'center'}
+                isUsersList={isUsersList}
               >
                 {!isUsersList ? icon : <Avatar />}
                 {isOpen && (

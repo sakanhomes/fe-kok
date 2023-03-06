@@ -1,7 +1,7 @@
 import React, { FC, useMemo, useState } from 'react'
 
 import { SiweMessage } from 'siwe'
-import { authApi } from '@/api/rest/api/auth'
+import { authApi } from '@/api/rest/auth'
 import { useRedux } from '@/hooks/use-redux'
 import { actionsAsync } from 'store/auth'
 
@@ -25,10 +25,12 @@ import {
 } from '@rainbow-me/rainbowkit/wallets'
 import { rainbowkitStyles } from '@/styles/raibowkitStyles'
 import { useTheme } from 'styled-components'
+import { authorized } from '@/api/browser-api/authorized'
+import { ALCHEMY_ID } from '@/constants/config'
 
 const { chains, provider } = configureChains(
   [mainnet, polygon, bsc],
-  [alchemyProvider({ apiKey: process.env.ALCHEMY_ID ?? '' }), publicProvider()]
+  [alchemyProvider({ apiKey: ALCHEMY_ID }), publicProvider()]
 )
 
 const connectors = connectorsForWallets([
@@ -86,8 +88,12 @@ export const AuthentificationProvider: FC = ({ children }) => {
 
         verify: async ({ signature }) => {
           const verifyRes = await authApi.login({ address: address ?? '0x', signature })
-          dispatch(actionsAsync.getProfileAsync())
-          setStatus('authenticated')
+          if (verifyRes.data.status === 200) {
+            authorized.set()
+            dispatch(actionsAsync.getProfileAsync())
+            setStatus('authenticated')
+          }
+
           return Boolean(verifyRes.data.status === 200)
         },
         // eslint-disable-next-line @typescript-eslint/no-empty-function
