@@ -6,6 +6,8 @@ import { Avatar } from '@/components/Avatar'
 import { useRouter } from 'next/router'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { useAuth } from '@/hooks/use-auth'
+import { useRedux } from '@/hooks/use-redux'
+import { setCommingSoon } from '@/containers/comming-soon/store'
 import * as S from './styled'
 
 export type TSidebarData = {
@@ -13,6 +15,7 @@ export type TSidebarData = {
   icon: JSX.Element
   link?: string
   isPrivate?: boolean
+  commingSoon?: boolean
 }[]
 
 export const SidebarList: FC<{
@@ -25,6 +28,7 @@ export const SidebarList: FC<{
   const router = useRouter()
   const { openConnectModal } = useConnectModal()
   const { user } = useAuth()
+  const { dispatch } = useRedux()
 
   return (
     <Box display="grid" gridGap={[10]} my={42}>
@@ -32,15 +36,15 @@ export const SidebarList: FC<{
         {title}
       </S.StyledText>
       <Box display="grid" gridGap={[30]}>
-        {data.map(({ name, icon, link, isPrivate }) => (
+        {data.map(({ name, icon, link, isPrivate, commingSoon }) => (
           <Fragment key={name}>
             {link && (
               <S.ItemBox
-                onClick={() =>
-                  isPrivate && !user && openConnectModal
-                    ? openConnectModal()
-                    : router.push(link)
-                }
+                onClick={() => {
+                  if (isPrivate && !user && openConnectModal) openConnectModal()
+                  else router.push(link)
+                  if (commingSoon) dispatch(setCommingSoon(true))
+                }}
                 display="flex"
                 gridGap={[14]}
                 alignItems="center"
@@ -62,6 +66,7 @@ export const SidebarList: FC<{
                 alignItems="center"
                 justifyContent={isOpen ? 'flex-start' : 'center'}
                 isUsersList={isUsersList}
+                onClick={() => commingSoon && dispatch(setCommingSoon(true))}
               >
                 {!isUsersList ? icon : <Avatar />}
                 {isOpen && (
