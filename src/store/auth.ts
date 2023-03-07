@@ -4,14 +4,17 @@ import { authorized } from '@/api/browser-api/authorized'
 import { TSelector, TAsyncAction } from '@/store'
 import { TProlile } from '@/types/profile'
 import { profileApi } from '@/api/rest/profile'
+import { AuthenticationConfig } from '@rainbow-me/rainbowkit'
 import { authApi } from '../api/rest/auth'
 
 export type TInit = {
   user: TProlile | null
+  authStatus: AuthenticationConfig<string>['status']
 }
 
 const init: TInit = {
   user: null,
+  authStatus: 'unauthenticated',
 }
 
 const auth = createSlice({
@@ -20,6 +23,9 @@ const auth = createSlice({
   reducers: {
     setUser(state, actions: PayloadAction<TProlile>) {
       state.user = actions.payload
+    },
+    setAuthStatus(state, actions: PayloadAction<TInit['authStatus']>) {
+      state.authStatus = actions.payload
     },
     reset: () => init,
   },
@@ -48,6 +54,7 @@ const logoutAsync = (): TAsyncAction => async (dispatch) => {
   try {
     await authApi.logout()
     dispatch(logout())
+    dispatch(actions.setAuthStatus('unauthenticated'))
   } catch (e) {
     handleActionErrors({ e, dispatch })
   }

@@ -10,8 +10,7 @@ import { Avatar } from '@/components/Avatar'
 import { useRouter } from 'next/router'
 import { ROUTES } from '@/constants/routes'
 import { useDisconnect } from 'wagmi'
-import { useRedux } from '@/hooks/use-redux'
-import { actionsAsync } from 'store/auth'
+import { useAuth } from '@/hooks/use-auth'
 
 const Button = styled(BaseButton)<{ itemId: number; open: boolean }>((props) => {
   const { itemId, open } = props
@@ -76,7 +75,7 @@ export const UserMenu: FC = () => {
   const openMenuToggle = () => setOpenMenu(!openMenu)
   const router = useRouter()
   const { disconnect } = useDisconnect()
-  const { dispatch } = useRedux()
+  const { logoutAsync } = useAuth()
 
   return (
     <Box position="relative" display="flex" alignItems="center" gridGap="12px">
@@ -87,8 +86,8 @@ export const UserMenu: FC = () => {
             if (item.route) {
               router.push(ROUTES[item.route])
             } else {
+              logoutAsync()
               disconnect()
-              dispatch(actionsAsync.logoutAsync())
             }
           }}
           open={openMenu}

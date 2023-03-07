@@ -1,18 +1,17 @@
-import React, { FC, useMemo, useState } from 'react'
+import React, { FC } from 'react'
 
 import { SiweMessage } from 'siwe'
 import { authApi } from '@/api/rest/auth'
 import { useRedux } from '@/hooks/use-redux'
-import { actionsAsync } from 'store/auth'
+import { actionsAsync, actions } from 'store/auth'
 
 import {
   connectorsForWallets,
   RainbowKitProvider,
   RainbowKitAuthenticationProvider,
   createAuthenticationAdapter,
-  AuthenticationConfig,
 } from '@rainbow-me/rainbowkit'
-import { configureChains, createClient, WagmiConfig, useAccount } from 'wagmi'
+import { configureChains, createClient, WagmiConfig } from 'wagmi'
 import { mainnet, polygon, bsc } from 'wagmi/chains'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
@@ -27,6 +26,7 @@ import { rainbowkitStyles } from '@/styles/raibowkitStyles'
 import { useTheme } from 'styled-components'
 import { authorized } from '@/api/browser-api/authorized'
 import { ALCHEMY_ID } from '@/constants/config'
+import { useAuth } from '@/hooks/use-auth'
 
 const { chains, provider } = configureChains(
   [mainnet, polygon, bsc],
@@ -52,62 +52,55 @@ const wagmiClient = createClient({
 })
 
 export const AuthentificationProvider: FC = ({ children }) => {
-  const { address } = useAccount()
   const { dispatch } = useRedux()
-  const [status, setStatus] =
-    useState<AuthenticationConfig<string>['status']>('unauthenticated')
   const theme = useTheme()
+  const { authStatus, address } = useAuth()
 
-  const authenticationAdapter = useMemo(
-    () =>
-      createAuthenticationAdapter({
-        getNonce: async () => {
-          setStatus('unauthenticated')
-          const {
-            data: {
-              data: { nonce },
-            },
-          } = await authApi.nonce(address ?? '0x')
-          return nonce
+  const authenticationAdapter = createAuthenticationAdapter({
+    getNonce: async () => {
+      const {
+        data: {
+          data: { nonce },
         },
-        createMessage: ({ nonce, address, chainId }) =>
-          new SiweMessage({
-            domain: window.location.host,
-            address,
-            statement: 'Sign in with Ethereum to the app.',
-            uri: window.location.origin,
-            version: '1',
-            chainId,
-            nonce,
-          }),
-
-        getMessageBody: ({ message }) => {
-          const typedMessage = message as { nonce: string }
-          return typedMessage.nonce
-        },
-
-        verify: async ({ signature }) => {
-          const verifyRes = await authApi.login({ address: address ?? '0x', signature })
-          if (verifyRes.data.status === 200) {
-            authorized.set()
-            dispatch(actionsAsync.getProfileAsync())
-            setStatus('authenticated')
-          }
-
-          return Boolean(verifyRes.data.status === 200)
-        },
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        signOut: async () => {},
+      } = await authApi.nonce(address ?? '0x')
+      return nonce
+    },
+    createMessage: ({ nonce, address, chainId }) =>
+      new SiweMessage({
+        domain: window.location.host,
+        address,
+        statement: 'Sign in with Ethereum to the app.',
+        uri: window.location.origin,
+        version: '1',
+        chainId,
+        nonce,
       }),
-    [address]
-  )
+
+    getMessageBody: ({ message }) => {
+      const typedMessage = message as { nonce: string }
+      return typedMessage.nonce
+    },
+
+    verify: async ({ signature }) => {
+      const verifyRes = await authApi.login({ address: address ?? '0x', signature })
+      if (verifyRes.data.status === 200) {
+        authorized.set()
+        dispatch(actionsAsync.getProfileAsync())
+        dispatch(actions.setAuthStatus('authenticated'))
+      }
+
+      return Boolean(verifyRes.data.status === 200)
+    },
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    signOut: async () => {},
+  })
 
   return (
     <WagmiConfig client={wagmiClient}>
       <RainbowKitAuthenticationProvider
         adapter={authenticationAdapter}
         enabled={!!address}
-        status={status}
+        status={authStatus}
       >
         <RainbowKitProvider theme={rainbowkitStyles(theme)} chains={chains}>
           {children}

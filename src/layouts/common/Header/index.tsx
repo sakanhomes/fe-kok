@@ -8,7 +8,6 @@ import React, { FC, ReactNode } from 'react'
 import styled from 'styled-components'
 import { BaseButton } from '@/components/buttons/BaseButton'
 import { ConnectButton, useConnectModal } from '@rainbow-me/rainbowkit'
-import { useAccount } from 'wagmi'
 import { NetworksDropdown } from '../NetworksDropdown'
 import { UserMenu } from '../UserMenu'
 
@@ -28,10 +27,9 @@ const ConnectWallet = styled(BaseButton)`
 `
 
 export const Header: FC<THeader> = ({ searchInput }) => {
-  const { user } = useAuth()
+  const { user, address } = useAuth()
   const { t } = useTranslation('layout')
   const { openConnectModal } = useConnectModal()
-  const { address } = useAccount()
 
   return (
     <Box

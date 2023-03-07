@@ -7,7 +7,6 @@ import { INetworkPalette } from '@/styles/styled'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import React, { FC, useState } from 'react'
 import styled, { css } from 'styled-components'
-import { useAccount } from 'wagmi'
 
 const AmountWrapper = styled.div`
   display: flex;
@@ -76,9 +75,8 @@ const networksList: {
 export const NetworksDropdown: FC = () => {
   const [selectedNetwork, setSelectedNetwork] = useState(networksList[0])
   const [openNetworks, setOpenNetworks] = useState(false)
-  const { user } = useAuth()
+  const { user, address } = useAuth()
   const { openConnectModal } = useConnectModal()
-  const { address } = useAccount()
 
   const openNetworksToggle = () => setOpenNetworks(!openNetworks)
 
