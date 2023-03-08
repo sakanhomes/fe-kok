@@ -14,6 +14,7 @@ const dark: DefaultTheme = {
     primary300: '#3F3F3F',
     primary400: '#6A6A6A',
     primary500: '#787575',
+    primary600: '#A3A4B0',
     secondary100: '#ffffff',
     secondary200: '#D9D9D9',
     secondary300: '#f0f0f0',

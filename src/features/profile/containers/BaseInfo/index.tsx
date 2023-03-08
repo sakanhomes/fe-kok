@@ -71,6 +71,7 @@ export const BaseInfo: FC = () => {
       dispatch(setProfileAsync({ formData, formik }))
     },
   })
+
   return (
     <Form onSubmit={formik.handleSubmit}>
       <ActionsWrapper
@@ -91,7 +92,11 @@ export const BaseInfo: FC = () => {
           >
             {t('cancel')}
           </Button>
-          <Button variant="main" type="submit">
+          <Button
+            variant="main"
+            disabled={formik.isSubmitting || !formik.dirty}
+            type="submit"
+          >
             {t('save')}
           </Button>
         </Box>

@@ -13,5 +13,12 @@
   "username": "Username",
   "aboutMe": "About Me",
   "cancel": "Cancel",
-  "save": "Save"
+  "save": "Save",
+  "notifications": {
+    "title1": "<0>Subscriptions</0><1>Notify me about activity from the channels I'm subscribed to</1>",
+    "title2": "<0>Activity on my channel</0><1>Notify me about comments and other activity on my channel or videos</1>",
+    "title3": "<0>Mentions</0><1>Notify me when others mention my channel</1>",
+    "title4": "<0>Replies to my comments</0><1>Notify me about replies to my comments</1>",
+    "title5": "<0>Shared content</0><1>Notify me when others share my content</1>"
+  }
 }

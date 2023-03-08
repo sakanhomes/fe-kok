@@ -47,4 +47,5 @@ export type TCheckBoxProps = {
   checked?: boolean
   label?: string | ReactElement
   htmlFor?: string
+  variant?: 'main' | 'secondary'
 }

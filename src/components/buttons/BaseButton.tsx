@@ -15,6 +15,9 @@ const Button = styled.button<TButton>`
   :not(:disabled):focus {
     filter: brightness(0.9);
   }
+  :disabled {
+    filter: grayscale(0.75);
+  }
 `
 
 export const BaseButton: FC<TButton> = ({

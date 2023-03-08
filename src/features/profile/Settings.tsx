@@ -3,6 +3,7 @@ import Box from '@/styles/Box'
 import useTranslation from 'next-translate/useTranslation'
 import React, { FC, useState } from 'react'
 import styled from 'styled-components'
+import { Notifications } from './containers/Notifications'
 import { Profile } from './containers/Profile'
 
 const ActionsWrapper = styled(Box)`
@@ -42,7 +43,7 @@ export const Settings: FC = () => {
         </Action>
       </ActionsWrapper>
       {activeTab === 'settings' && <Profile />}
-      {activeTab === 'notification' && <Box>Notifications</Box>}
+      {activeTab === 'notification' && <Notifications />}
     </Box>
   )
 }

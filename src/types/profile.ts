@@ -9,3 +9,7 @@ export type TProlile = {
   followersAmount: number
   followingsAmount: number
 }
+
+export type TProfileSettings = {
+  [key in string]: true
+}

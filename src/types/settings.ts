@@ -1,3 +1,3 @@
 export type TSettings = {
-  [key in string]: string
+  [key in string]: boolean
 }
