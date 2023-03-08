@@ -8,12 +8,13 @@ export const Label: React.FC<TLabelProps> = ({
   children,
   htmlFor,
   className,
+  style,
 }) => {
   const { t } = useTranslation()
   return (
     <>
       {label && (
-        <S.StyledLabel htmlFor={htmlFor} className={className}>
+        <S.StyledLabel style={style} htmlFor={htmlFor} className={className}>
           <span>{label}</span>
         </S.StyledLabel>
       )}

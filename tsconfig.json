@@ -23,6 +23,7 @@
       "@/store": ["store/index.ts"],
       "@/components/*": ["components/*"],
       "@/containers/*": ["containers/*"],
+      "@/assets/*": ["assets/*"],
       "@/hooks/*": ["hooks/*"],
       "@/features/*": ["features/*"],
       "@/constants/*": ["constants/*"],

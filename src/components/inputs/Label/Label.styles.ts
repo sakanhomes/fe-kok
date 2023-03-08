@@ -6,12 +6,13 @@ export const StyledLabel = styled(Text).attrs<{ htmlFor?: string }>((props) => (
   variant: 'l2',
   ...props,
 }))<{ htmlFor?: string }>`
-  padding: 0 5px 6px;
+  padding-bottom: 12px;
+  display: inline-block;
 `
 
 export const ErrorComponent = styled(Text).attrs((props) => ({
   tag: 'span',
-  variant: 'p3',
+  variant: 'l2',
   ...props,
 }))`
   display: block;

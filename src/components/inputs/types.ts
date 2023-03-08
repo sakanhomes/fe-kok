@@ -5,6 +5,7 @@ export type TLabelProps = {
   htmlFor?: string
   className?: string
   error?: string
+  style?: CSSProperties
 }
 
 export type TInputEvent = ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>

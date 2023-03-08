@@ -6,8 +6,10 @@ interface IPalette {
   primary200: string
   primary300: string
   primary400: string
+  primary500: string
   secondary100: string
   secondary200: string
+  secondary300: string
   accent100: string
   accent200: string
   accent300: string

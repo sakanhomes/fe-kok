@@ -43,22 +43,24 @@ export const Input: React.FC<TInputProps> = ({
 
   if (textarea) {
     return (
-      <S.TextAreaContainer error={error} className={className} disabled={disabled}>
+      <S.InputContainer className={className} width={width}>
         <Label {...label} error={error} htmlFor={id}>
-          <S.TextArea
-            value={value}
-            disabled={disabled}
-            placeholder={placeholder}
-            style={style}
-            name={name}
-            onChange={onChange}
-            onBlur={onBlur}
-            id={id}
-            readOnly={readOnly}
-            maxLength={maxLength}
-          />
+          <S.TextAreaContainer error={error} className={className} disabled={disabled}>
+            <S.TextArea
+              value={value}
+              disabled={disabled}
+              placeholder={placeholder}
+              style={style}
+              name={name}
+              onChange={onChange}
+              onBlur={onBlur}
+              id={id}
+              readOnly={readOnly}
+              maxLength={maxLength}
+            />
+          </S.TextAreaContainer>
         </Label>
-      </S.TextAreaContainer>
+      </S.InputContainer>
     )
   }
 

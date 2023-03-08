@@ -6,10 +6,11 @@ import { useConnectModal } from '@rainbow-me/rainbowkit'
 
 export const PermissionsAuth: FC = ({ children }) => {
   const { replace } = useRouter()
-  const { user } = useAuth()
+  const { user, globalFetching } = useAuth()
   const { openConnectModal } = useConnectModal()
 
   useEffect(() => {
+    if (globalFetching) return
     if (!user) {
       if (openConnectModal) openConnectModal()
       replace(ROUTES.HOME)

@@ -3,6 +3,6 @@
   "defaultLocale": "en",
   "logBuild": false,
   "pages": {
-    "*": ["common", "inputs", "validation", "error", "layout", "home"]
+    "*": ["common", "inputs", "validation", "error", "layout", "home", "settings"]
   }
 }

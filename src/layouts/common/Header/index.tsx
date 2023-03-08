@@ -13,6 +13,7 @@ import { UserMenu } from '../UserMenu'
 
 export type THeader = {
   searchInput: ReactNode
+  withSpaces: boolean
 }
 
 const ConnectWallet = styled(BaseButton)`
@@ -26,7 +27,7 @@ const ConnectWallet = styled(BaseButton)`
   padding: 0 9px;
 `
 
-export const Header: FC<THeader> = ({ searchInput }) => {
+export const Header: FC<THeader> = ({ searchInput, withSpaces }) => {
   const { user, address } = useAuth()
   const { t } = useTranslation('layout')
   const { openConnectModal } = useConnectModal()
@@ -38,6 +39,7 @@ export const Header: FC<THeader> = ({ searchInput }) => {
       justifyContent="space-between"
       gridGap="60px"
       minHeight={80}
+      padding={withSpaces ? '0 44px 0 35px' : undefined}
     >
       <Box width="45%">{searchInput}</Box>
       <Box>

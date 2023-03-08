@@ -28,7 +28,7 @@ export const api: AxiosInstance = axios.create(axiosBaseConfig)
 
 const refreshAuthLogic = async () =>
   axios
-    .post('/refresh', {}, axiosBaseConfig)
+    .post('/auth/refresh', {}, axiosBaseConfig)
     .then(() => Promise.resolve())
     .catch((e) => {
       if (!axios.isAxiosError(e) || !e.response) return

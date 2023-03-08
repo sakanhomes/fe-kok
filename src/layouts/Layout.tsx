@@ -13,34 +13,40 @@ const Wrapper = styled(Box)`
 const Body = styled(Box)`
   overflow-y: auto;
   height: 100%;
+  padding-bottom: 40px;
 `
 
-const BodyWrapper = styled.div`
-  padding-right: 44px;
-  max-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
-`
-
-export const Layout: React.FC<{ searchInput: ReactNode }> = ({
+export const Layout: React.FC<{ searchInput: ReactNode; withSpaces?: boolean }> = ({
   children,
   searchInput,
+  withSpaces = true,
 }) => {
   const [openSideMenu, setOpenSideMenu] = useState(false)
   const openMenutoggle = () => setOpenSideMenu(!openSideMenu)
+
+  const { wrapGap, bodyGap, bodyPR } = {
+    wrapGap: withSpaces ? 35 : undefined,
+    bodyPR: withSpaces ? 44 : undefined,
+    bodyGap: withSpaces ? 35 : undefined,
+  }
 
   return (
     <Wrapper
       display="grid"
       gridTemplateColumns={[openSideMenu ? '225px auto' : '115px auto']}
-      gridGap={[35]}
+      gridGap={wrapGap}
     >
       <SideMenu open={openSideMenu} toggleMenu={openMenutoggle} />
-      <BodyWrapper>
-        <Header searchInput={searchInput} />
+      <Box
+        display="flex"
+        flexDirection="column"
+        gridGap={bodyGap}
+        maxHeight="100vh"
+        paddingRight={bodyPR}
+      >
+        <Header searchInput={searchInput} withSpaces={!withSpaces} />
         <Body>{children}</Body>
-      </BodyWrapper>
+      </Box>
     </Wrapper>
   )
 }

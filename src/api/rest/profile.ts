@@ -2,7 +2,12 @@ import { TProlile } from '@/types/profile'
 import { api } from './instance'
 import { TAxiosResponse } from './types'
 
-export type TUpdateProfile = Omit<TProlile, 'balance' | 'address'>
+export type TUpdateProfile = {
+  name?: string
+  profileImage?: string
+  backgroundImage?: string
+  description?: string
+}
 
 const get = (): TAxiosResponse<{
   status: number

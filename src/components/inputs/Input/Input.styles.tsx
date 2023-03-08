@@ -30,9 +30,10 @@ export const TextAreaContainer = styled.div<TTextAreaContainer>`
   background-color: ${({ disabled, theme: { palette } }) =>
     disabled ? palette.secondary200 : 'unset'};
   margin-bottom: 10px;
-  &:hover,
-  &:focus {
-    border-color: ${({ theme: { palette } }) => palette.primary400};
+  background-color: ${({ theme }) => theme.palette.secondary100};
+  :not(:disabled):hover,
+  :not(:disabled):focus {
+    filter: brightness(0.95);
   }
 `
 export const TextArea = styled.textarea`
@@ -41,7 +42,7 @@ export const TextArea = styled.textarea`
   border: unset;
   height: 120px;
   font-weight: 400;
-  font-size: 17px;
+  font-size: 14px;
   line-height: 26px;
   text-align: left;
   &:focus-visible {
@@ -70,6 +71,11 @@ export const InputCont = styled.div<TInputContProps>((props) => {
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
+    background-color: ${({ theme }) => theme.palette.secondary100};
+    :not(:disabled):hover,
+    :not(:disabled):focus {
+      filter: brightness(0.95);
+    }
 
     & > input {
       border: none;

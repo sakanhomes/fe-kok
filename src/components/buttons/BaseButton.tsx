@@ -10,6 +10,11 @@ const Button = styled.button<TButton>`
   gap: 10px;
   cursor: pointer;
   align-items: center;
+  transition: 0.3s;
+  :not(:disabled):hover,
+  :not(:disabled):focus {
+    filter: brightness(0.9);
+  }
 `
 
 export const BaseButton: FC<TButton> = ({

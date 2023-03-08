@@ -31,10 +31,11 @@ export type TText = {
   href?: string
   target?: string
   className?: string
+  style?: CSSProperties
 }
 
 export const Text = React.forwardRef<HTMLElement, TText>((props, ref) => {
-  const { tag = 'div', children, ...otherProps } = props
+  const { tag = 'p', children, ...otherProps } = props
 
   return (
     <>

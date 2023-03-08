@@ -10,11 +10,13 @@ import { authApi } from '../api/rest/auth'
 export type TInit = {
   user: TProlile | null
   authStatus: AuthenticationConfig<string>['status']
+  globalFetching: boolean
 }
 
 const init: TInit = {
   user: null,
   authStatus: 'unauthenticated',
+  globalFetching: true,
 }
 
 const auth = createSlice({
@@ -26,6 +28,9 @@ const auth = createSlice({
     },
     setAuthStatus(state, actions: PayloadAction<TInit['authStatus']>) {
       state.authStatus = actions.payload
+    },
+    setGlobalFetching(state, actions: PayloadAction<boolean>) {
+      state.globalFetching = actions.payload
     },
     reset: () => init,
   },
@@ -60,19 +65,24 @@ const logoutAsync = (): TAsyncAction => async (dispatch) => {
   }
 }
 
-const getProfileAsync = (): TAsyncAction => async (dispatch) => {
-  try {
-    if (!authorized.get()) return
-    const { data } = await profileApi.get()
-    dispatch(setUserData(data.data.user))
-  } catch (e) {
-    handleActionErrors({
-      e,
-      dispatch,
-      additionalConditions: () => true,
-    })
+const getProfileAsync =
+  (callback?: () => void): TAsyncAction =>
+  async (dispatch) => {
+    try {
+      if (!authorized.get()) return dispatch(actions.setGlobalFetching(false))
+      const { data } = await profileApi.get()
+      dispatch(setUserData(data.data.user))
+      if (callback) callback()
+    } catch (e) {
+      handleActionErrors({
+        e,
+        dispatch,
+        additionalConditions: () => true,
+      })
+    } finally {
+      dispatch(actions.setGlobalFetching(false))
+    }
   }
-}
 
 export const actionsAsync = {
   logoutAsync,
