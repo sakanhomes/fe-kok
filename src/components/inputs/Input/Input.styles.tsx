@@ -31,9 +31,12 @@ export const TextAreaContainer = styled.div<TTextAreaContainer>`
     disabled ? palette.secondary200 : 'unset'};
   margin-bottom: 10px;
   background-color: ${({ theme }) => theme.palette.secondary100};
-  :not(:disabled):hover,
-  :not(:disabled):focus {
+  :hover,
+  :focus {
     filter: brightness(0.95);
+    border: 1px solid
+      ${({ error, theme: { palette } }) =>
+        error ? palette.danger200 : palette.primary100};
   }
 `
 export const TextArea = styled.textarea`
@@ -72,9 +75,10 @@ export const InputCont = styled.div<TInputContProps>((props) => {
     flex-wrap: nowrap;
     align-items: center;
     background-color: ${({ theme }) => theme.palette.secondary100};
-    :not(:disabled):hover,
-    :not(:disabled):focus {
+    :hover,
+    :focus {
       filter: brightness(0.95);
+      border: 1px solid ${props.error ? palette.danger200 : palette.primary100};
     }
 
     & > input {
@@ -90,11 +94,6 @@ export const InputCont = styled.div<TInputContProps>((props) => {
         letter-spacing: 0;
         color: ${palette.secondary200};
       }
-    }
-
-    &:hover,
-    &:focus {
-      border: 1px solid ${props.error ? palette.danger200 : palette.primary300};
     }
   `
 })

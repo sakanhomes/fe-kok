@@ -14,6 +14,7 @@
   "aboutMe": "About Me",
   "cancel": "Cancel",
   "save": "Save",
+  "loginCanNotBeChanged": "Login cannot be changed.",
   "notifications": {
     "title1": "<0>Subscriptions</0><1>Notify me about activity from the channels I'm subscribed to</1>",
     "title2": "<0>Activity on my channel</0><1>Notify me about comments and other activity on my channel or videos</1>",

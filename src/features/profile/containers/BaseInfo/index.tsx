@@ -95,7 +95,19 @@ export const BaseInfo: FC = () => {
           </Button>
         </Box>
       </ActionsWrapper>
-      <FormikInput name="name" label={{ label: 'Username' }} formik={formik} />
+      <Box display="grid" gridGap="10px">
+        <FormikInput
+          name="name"
+          label={{ label: 'Username' }}
+          formik={formik}
+          disabled={!!profileData?.name}
+        />
+        {!profileData?.name && (
+          <Text variant="p4" color="accent300">
+            {t('loginCanNotBeChanged')}
+          </Text>
+        )}
+      </Box>
       <FormikInput
         name="description"
         label={{ label: 'About Me', style: { fontSize: 17, fontWeight: 500 } }}
