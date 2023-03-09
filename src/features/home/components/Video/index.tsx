@@ -1,5 +1,6 @@
 import { Avatar } from '@/components/Avatar'
 import { Text } from '@/components/Text'
+import { Tooltip } from '@/components/Tooltip'
 import { ROUTES } from '@/constants/routes'
 import { useTimeAgo } from '@/hooks/use-time-ago'
 import Box from '@/styles/Box'
@@ -41,7 +42,21 @@ export const Video: FC<{ video: TVideo }> = ({ video }) => {
       </Box>
       <S.UserButton onClick={onUserClick}>
         <Avatar avatar={user.profileImage} sizes="xs" />
-        <Text>{user.name ?? user.address.substring(0, 8)}</Text>
+        <Text data-for={user.address + createdAt} data-tip>
+          {user.name ?? user.address.substring(0, 8)}
+        </Text>
+        {!user.name && (
+          <Tooltip
+            delayShow={200}
+            id={user.address + createdAt}
+            clickable
+            place="bottom"
+            type="light"
+            effect="float"
+          >
+            {user.address}
+          </Tooltip>
+        )}
       </S.UserButton>
     </Box>
   )

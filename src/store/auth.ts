@@ -32,7 +32,9 @@ const auth = createSlice({
     setGlobalFetching(state, actions: PayloadAction<boolean>) {
       state.globalFetching = actions.payload
     },
-    reset: () => init,
+    resetUser(state) {
+      state.user = null
+    },
   },
 })
 
@@ -52,7 +54,8 @@ export const setUserData =
 
 const logout = (): TAsyncAction => (dispatch) => {
   authorized.remove()
-  dispatch(actions.reset())
+  dispatch(actions.resetUser())
+  dispatch(actions.setAuthStatus('unauthenticated'))
 }
 
 const logoutAsync = (): TAsyncAction => async (dispatch) => {

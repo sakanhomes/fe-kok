@@ -62,7 +62,12 @@ export const BaseInfo: FC = () => {
       description: profileData?.description ?? '',
     },
     onSubmit: (formData) => {
-      dispatch(setProfileAsync({ formData, formik }))
+      dispatch(
+        setProfileAsync({
+          formData,
+          formik,
+        })
+      )
     },
   })
 
@@ -74,7 +79,7 @@ export const BaseInfo: FC = () => {
         display="flex"
         justifyContent="space-between"
       >
-        <Text>{t('basicInfo')}</Text>
+        <Text variant="l1">{t('basicInfo')}</Text>
         <Box display="flex" gridGap={39}>
           <Button
             variant="secondary"

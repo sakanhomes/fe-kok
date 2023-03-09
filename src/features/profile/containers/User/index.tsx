@@ -1,5 +1,6 @@
 import { Avatar } from '@/components/Avatar'
 import { Text } from '@/components/Text'
+import { Tooltip } from '@/components/Tooltip'
 import { useAuth } from '@/hooks/use-auth'
 import Box from '@/styles/Box'
 import { rgba } from 'emotion-rgba'
@@ -37,9 +38,27 @@ export const User: FC = () => {
       {user && (
         <>
           <StyledAvatar sizes="xl" avatar={user?.profileImage} />
-          <Text variant="h5" tag="h2" color="primary100">
+          <Text
+            data-for={`${user.address}user`}
+            data-tip
+            variant="h5"
+            tag="h2"
+            color="primary100"
+          >
             {user.name ?? `${user.address.substring(0, 8)}...`}
           </Text>
+          {!user.name && (
+            <Tooltip
+              delayShow={200}
+              id={`${user.address}user`}
+              clickable
+              place="bottom"
+              type="light"
+              effect="float"
+            >
+              {user.address}
+            </Tooltip>
+          )}
           <Box display="flex" as="ul" alignItems="center">
             <StatsItem>
               <Text color="primary100" variant="p1">

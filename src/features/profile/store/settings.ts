@@ -40,16 +40,17 @@ export default settings.reducer
 
 export const setProfileAsync =
   ({
-    formData,
+    formData: { name, description },
     formik,
   }: TFormPropsAsync<{ name: string; description: string }>): TAsyncAction =>
-  async (dispatch) => {
+  async (dispatch, _store) => {
+    const { auth } = _store()
     try {
       const {
         data: {
           data: { user },
         },
-      } = await profileApi.set(formData)
+      } = await profileApi.set({ description, name: auth.user?.name ? undefined : name })
       dispatch(setProfileData(user))
       dispatch(setUserData(user))
     } catch (e) {

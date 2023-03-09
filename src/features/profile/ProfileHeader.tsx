@@ -58,9 +58,28 @@ export const ProfileHeader: FC = () => {
           <Box display="flex" gridGap={36}>
             <Avatar avatar={user.profileImage} sizes="2xl" />
             <Box maxWidth={505} display="flex" flexDirection="column">
-              <Text variant="h1" tag="h2" margin="0 0 30px" color="secondary100">
+              <Text
+                data-for={`${user.address}header`}
+                data-tip
+                variant="h1"
+                tag="h2"
+                margin="0 0 30px"
+                color="secondary100"
+              >
                 {user.name ?? `${user.address.substring(0, 8)}...`}
               </Text>
+              {!user.name && (
+                <Tooltip
+                  delayShow={200}
+                  id={`${user.address}header`}
+                  clickable
+                  place="bottom"
+                  type="light"
+                  effect="float"
+                >
+                  {user.address}
+                </Tooltip>
+              )}
               <Description
                 maxLine={5}
                 text={user.description ?? 'About me...'}
