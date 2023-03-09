@@ -67,11 +67,10 @@ export const StyledText = styled.div<TText>((props) => {
       line-height: 24px;
     `,
     p4: css`
-      font-weight: 500;
-      font-size: 11px;
+      font-weight: 400;
+      font-size: 12px;
       line-height: 17px;
       letter-spacing: 0.025em;
-      text-transform: uppercase;
     `,
     l1: css`
       font-weight: 500;

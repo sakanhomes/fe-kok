@@ -4,12 +4,10 @@ import { Text } from '@/components/Text'
 import { useAuth } from '@/hooks/use-auth'
 import { useRedux } from '@/hooks/use-redux'
 import Box from '@/styles/Box'
-import { validation } from '@/utils/validation'
 import { useFormik } from 'formik'
 import useTranslation from 'next-translate/useTranslation'
 import React, { FC } from 'react'
 import styled, { css } from 'styled-components'
-import * as yup from 'yup'
 import {
   resetSettings,
   setProfileAsync,
@@ -63,10 +61,6 @@ export const BaseInfo: FC = () => {
       name: profileData?.name ?? '',
       description: profileData?.description ?? '',
     },
-    validationSchema: yup.object().shape({
-      name: validation.required,
-      description: validation.required,
-    }),
     onSubmit: (formData) => {
       dispatch(setProfileAsync({ formData, formik }))
     },

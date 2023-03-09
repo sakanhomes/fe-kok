@@ -2,5 +2,20 @@
   "success": "Success",
   "error": "Error",
   "close": "Close",
-  "commingSoon": "Coming Soon"
+  "commingSoon": "Coming Soon",
+  "time": {
+    "yearsAgo": "{{time}} years ago",
+    "yearsAgo1": "{{time}} year ago",
+    "monthsAgo": "{{time}} months ago",
+    "monthsAgo1": "{{time}} month ago",
+    "daysAgo": "{{time}} days ago",
+    "daysAgo1": "{{time}} day ago",
+    "hoursAgo": "{{time}} hours age",
+    "hoursAgo1": "{{time}} hour ago",
+    "minutesAgo": "{{time}} minutes ago",
+    "minutesAgo1": "{{time}} menute ago",
+    "secondsAgo": "a few seconds ago",
+    "secondsAgo1": "a few seconds ago"
+  },
+  "views": "views"
 }

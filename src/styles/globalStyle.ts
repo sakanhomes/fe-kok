@@ -36,6 +36,15 @@ a {
   color: inherit;
 }
 
+img {
+  display: block;
+  width: 100%;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 input,
 button,
 select,

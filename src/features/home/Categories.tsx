@@ -84,7 +84,7 @@ export const Categories: FC = () => {
 
   return (
     <Box
-      maxWidth="100%"
+      width="100%"
       overflowX="auto"
       display="flex"
       gridGap={10}

@@ -8,4 +8,6 @@ export const ROUTES = {
   PROFILE_FAVORITE: '/profile/favorite',
   PROFILE_COLLECTION: '/profile/collection',
   PROFILE_HISTORY: '/profile/history',
+  VIDEO: '/video',
+  CREATOR_PAGE: '/creator-page',
 }

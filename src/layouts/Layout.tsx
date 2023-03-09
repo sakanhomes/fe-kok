@@ -6,15 +6,6 @@ import { Header } from './common/Header'
 
 const Wrapper = styled(Box)`
   transition: 0.3s;
-  max-height: 100vh;
-  overflow: hidden;
-`
-
-const Body = styled(Box)`
-  overflow-y: auto;
-  height: 100%;
-  padding-bottom: 40px;
-  display: grid;
 `
 
 export const Layout: React.FC<{ searchInput: ReactNode; withSpaces?: boolean }> = ({
@@ -32,21 +23,27 @@ export const Layout: React.FC<{ searchInput: ReactNode; withSpaces?: boolean }> 
   }
 
   return (
-    <Wrapper
-      display="grid"
-      gridTemplateColumns={[openSideMenu ? '225px auto' : '115px auto']}
-      gridGap={wrapGap}
-    >
+    <Wrapper display="flex" maxHeight="100vh" overflow="hidden" gridGap={wrapGap}>
       <SideMenu open={openSideMenu} toggleMenu={openMenutoggle} />
       <Box
         display="flex"
         flexDirection="column"
         gridGap={bodyGap}
         maxHeight="100vh"
+        width="100%"
         paddingRight={bodyPR}
       >
         <Header searchInput={searchInput} withSpaces={!withSpaces} />
-        <Body>{children}</Body>
+        <Box
+          display="grid"
+          flexDirection="column"
+          gridAutoRows="min-content"
+          overflowY="auto"
+          height="100%"
+          paddingBottom={40}
+        >
+          {children}
+        </Box>
       </Box>
     </Wrapper>
   )

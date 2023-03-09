@@ -3,7 +3,7 @@ import { ProfileIcon } from '@/components/icons/ProfileIcon'
 import { SignOutIcon } from '@/components/icons/SignOutIcon'
 import Box from '@/styles/Box'
 import React, { FC, ReactNode, useState } from 'react'
-import styled, { css } from 'styled-components'
+import styled, { css, useTheme } from 'styled-components'
 import { rgba } from 'emotion-rgba'
 import useTranslation from 'next-translate/useTranslation'
 import { Avatar } from '@/components/Avatar'
@@ -13,7 +13,7 @@ import { useDisconnect } from 'wagmi'
 import { useAuth } from '@/hooks/use-auth'
 
 const Button = styled(BaseButton)<{ itemId: number; open: boolean }>((props) => {
-  const { itemId, open } = props
+  const { itemId, open, theme } = props
 
   const closedStyles = css`
     opacity: 0;
@@ -34,13 +34,36 @@ const Button = styled(BaseButton)<{ itemId: number; open: boolean }>((props) => 
     white-space: nowrap;
     height: 40px;
     padding: 0 10px;
-    background-color: ${({ theme }) => rgba(theme.palette.accent200, 0.1)};
     border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     justify-content: flex-start;
+    :before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      border-radius: 5px;
+      background-color: ${theme.palette.secondary100};
+    }
+    :after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      border-radius: 5px;
+      background-color: ${rgba(theme.palette.accent200, 0.1)};
+    }
   `
   return css`
     ${baseStyles}
@@ -76,9 +99,15 @@ export const UserMenu: FC = () => {
   const router = useRouter()
   const { disconnect } = useDisconnect()
   const { logoutAsync } = useAuth()
-
+  const theme = useTheme()
   return (
-    <Box position="relative" display="flex" alignItems="center" gridGap="12px">
+    <Box
+      position="relative"
+      display="flex"
+      bg={theme.palette.secondary100}
+      alignItems="center"
+      gridGap="12px"
+    >
       {menuList.map((item, i) => (
         <Button
           itemId={i + 1}
