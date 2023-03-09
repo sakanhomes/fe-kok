@@ -1,5 +1,6 @@
 // globalStyles.js
 import { mediaQuery } from '@/utils/mediaQuery'
+import { rgba } from 'emotion-rgba'
 import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
@@ -45,6 +46,24 @@ label {
 
 label {
   cursor: pointer;
+}
+
+::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 6px ${({ theme }) => rgba(theme.palette.primary100, 0.3)};
+	background-color: ${({ theme }) => theme.palette.secondary300};
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+	background-color: ${({ theme }) => theme.palette.accent300};
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: ${({ theme }) => rgba(theme.palette.accent300, 0.8)};
+  border-radius: 10px;
+	border: none;
 }
 
 

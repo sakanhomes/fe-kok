@@ -1,1 +1,14 @@
-{}
+{
+  "all": "All",
+  "music": "Music",
+  "art": "Art",
+  "eating": "Eating",
+  "travel": "Travel",
+  "gaming": "Gaming",
+  "tech": "Tech",
+  "education": "Education",
+  "dance": "Dance",
+  "lifestyle": "Lifestyle",
+  "animation": "Animation",
+  "documentary": "Documentary"
+}

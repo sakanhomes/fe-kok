@@ -14,6 +14,7 @@ const Body = styled(Box)`
   overflow-y: auto;
   height: 100%;
   padding-bottom: 40px;
+  display: grid;
 `
 
 export const Layout: React.FC<{ searchInput: ReactNode; withSpaces?: boolean }> = ({
