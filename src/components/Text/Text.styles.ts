@@ -11,6 +11,7 @@ export const StyledText = styled.div<TText>((props) => {
     font-style: ${props.fontStyle};
     color: ${props.color ? palette[props.color] : palette.primary100};
     font-weight: ${props.fontWeight};
+    line-height: ${props.lineHeight};
   `
 
   const variantConfig: { [key in TVariant]: FlattenSimpleInterpolation } = {

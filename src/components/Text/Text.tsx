@@ -25,6 +25,7 @@ export type TText = {
   textTransform?: CSSProperties['textTransform']
   fontStyle?: CSSProperties['fontStyle']
   fontWeight?: CSSProperties['fontWeight']
+  lineHeight?: CSSProperties['lineHeight']
   margin?: CSSProperties['margin']
   color?: keyof IPalette
   onClick?: () => void
