@@ -3,7 +3,7 @@ export type TVideo = {
   category: string
   title: string
   duration: string
-  description: string
+  description?: string
   previewImage: string
   video: string
   viewsAmount: number
@@ -15,5 +15,8 @@ export type TVideo = {
     address: string
     name: string
     profileImage: string
+    followersAmount: number
+    followingsAmount: number
+    videosAmount: number
   }
 }
