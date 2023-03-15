@@ -2,5 +2,6 @@
   "404": "Ooooops.....Page not found",
   "500": "INTERNAL SERVER ERROR",
   "error": "Something went wrong",
-  "network-error-message": "Network connection lost..."
+  "network-error-message": "Network connection lost...",
+  "videoError": "You don't have access to this video or the video does not exist"
 }

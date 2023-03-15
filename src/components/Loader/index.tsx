@@ -1,3 +1,4 @@
+import { IPalette } from '@/styles/styled'
 import React, { FC } from 'react'
 import styled from 'styled-components'
 import { Spinner } from '../Spinner'
@@ -10,8 +11,8 @@ const Wrapper = styled.div`
   align-items: center;
 `
 
-export const Loader: FC = () => (
+export const Loader: FC<{ color?: keyof IPalette }> = ({ color }) => (
   <Wrapper>
-    <Spinner size={40} />
+    <Spinner size={40} color={color} />
   </Wrapper>
 )

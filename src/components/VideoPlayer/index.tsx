@@ -3,8 +3,10 @@ import { useRedux } from '@/hooks/use-redux'
 import Box from '@/styles/Box'
 import { handleActionErrors } from '@/utils/handleActionErrors'
 import axios from 'axios'
+import useTranslation from 'next-translate/useTranslation'
 import React, { FC, useEffect, useRef, useState } from 'react'
 import ReactPlayer, { ReactPlayerProps } from 'react-player'
+import { OnProgressProps } from 'react-player/base'
 import styled from 'styled-components'
 import { Text } from '../Text'
 
@@ -18,11 +20,16 @@ const Player = styled(ReactPlayer)`
 `
 
 export const VideoPlayer: FC<
-  Omit<ReactPlayerProps, 'url'> & { preview?: boolean; url: string }
-> = ({ preview, ...props }) => {
-  const playerRef = useRef(null)
+  Omit<ReactPlayerProps, 'url'> & {
+    preview?: boolean
+    url: string
+    secconds?: number
+  }
+> = ({ preview, secconds, ...props }) => {
+  const playerRef = useRef<ReactPlayer>(null)
   const [videoError, setVideoError] = useState('')
   const { dispatch } = useRedux()
+  const { t } = useTranslation('error')
   const previewOptions: ReactPlayerProps = preview
     ? {
         muted: true,
@@ -42,9 +49,7 @@ export const VideoPlayer: FC<
           dispatch,
           additionalConditions: (status) => {
             if (status === ERROR_STATUS.FORBIDDEN) {
-              setVideoError(
-                "You don't have access to this video or the video does not exist"
-              )
+              setVideoError(t('videoError'))
             }
             return true
           },
@@ -55,7 +60,7 @@ export const VideoPlayer: FC<
   }, [])
 
   return (
-    <Box position="relative">
+    <Box position="relative" height="100%">
       <Player
         ref={playerRef}
         controls
@@ -79,9 +84,12 @@ export const VideoPlayer: FC<
         }}
         width="100%"
         height="100%"
-        onError={() =>
-          setVideoError("You don't have access to this video or the video does not exist")
-        }
+        onProgress={(e: OnProgressProps) => {
+          if (secconds && e.playedSeconds > secconds) {
+            playerRef.current?.seekTo(0)
+          }
+        }}
+        onError={() => setVideoError(t('videoError'))}
       />
       <ErrorWrapper position="absolute" top="50%" maxWidth="50%" left="50%">
         <Text color="danger100" lineHeight="30px" variant="p1">

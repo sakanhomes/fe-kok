@@ -11,11 +11,12 @@ const timeIntervals: (keyof Duration)[] = [
   'years',
 ]
 
-export const useTimeAgo = (createdAt: number): string | null => {
+export const useTimeAgo = (createdAt?: number): string | null => {
   const [timeAgo, setTimeAgo] = useState<string | null>(null)
   const { t } = useTranslation('common')
 
   useEffect(() => {
+    if (!createdAt) return
     const timeAgoObj = intervalToDuration({
       start: createdAt * 1000,
       end: new Date(),
@@ -27,6 +28,6 @@ export const useTimeAgo = (createdAt: number): string | null => {
         if (time > 1) setTimeAgo(t(`time.${item}Ago`, { time }))
       }
     })
-  }, [])
+  }, [createdAt])
   return timeAgo
 }

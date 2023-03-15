@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 import { NoAvatarIcon } from '../icons/NoAvatarIcon'
 
 type TAvatarProps = {
-  sizes?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
+  sizes?: 'xs' | 'sm' | 'md' | 'md2' | 'lg' | 'xl' | '2xl'
   avatar?: string
   className?: string
 }
@@ -44,6 +44,13 @@ const Wrapper = styled.div<{ sizes: TAvatarProps['sizes']; avatar: boolean }>((p
         ${baseStyles}
         width: 50px;
         height: 50px;
+        ${avatar && hasAvatar('4.5px')}
+      `
+    case 'md2':
+      return css`
+        ${baseStyles}
+        width: 62px;
+        height: 62px;
         ${avatar && hasAvatar('4.5px')}
       `
     case 'lg':
