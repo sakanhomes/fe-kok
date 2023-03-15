@@ -29,12 +29,13 @@ const videoPlay = createSlice({
     setVideoFetching(state, actions: PayloadAction<boolean>) {
       state.videoFetching = actions.payload
     },
-    resetSettings: () => init,
+    resetVideoPlay: () => init,
   },
 })
 
 // actions
-export const { setVideoId, setVideo, setVideoFetching, resetSettings } = videoPlay.actions
+export const { setVideoId, setVideo, setVideoFetching, resetVideoPlay } =
+  videoPlay.actions
 // selectors
 export const videoPlaySelector: TSelector<TInit> = (state) => state.videoPlay
 // reducer

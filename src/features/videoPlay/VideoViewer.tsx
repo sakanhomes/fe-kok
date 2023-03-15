@@ -13,8 +13,14 @@ import { formatViews } from '@/utils/formatViews'
 import useTranslation from 'next-translate/useTranslation'
 import { useRouter } from 'next/router'
 import React, { FC, useEffect } from 'react'
+import { useUnmount } from 'react-use'
 import styled from 'styled-components'
-import { getVideoAsync, setVideoId, videoPlaySelector } from './store/videoPlay'
+import {
+  getVideoAsync,
+  resetVideoPlay,
+  setVideoId,
+  videoPlaySelector,
+} from './store/videoPlay'
 
 const DotSeparator = styled.div`
   width: 5px;
@@ -51,6 +57,8 @@ export const VideoViewer: FC = () => {
   useEffect(() => {
     if (id) dispatch(getVideoAsync(id))
   }, [id])
+
+  useUnmount(() => dispatch(resetVideoPlay()))
 
   if (videoFetching) return <Loader />
 
