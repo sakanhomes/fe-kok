@@ -5,7 +5,7 @@ import { useAuth } from '@/hooks/use-auth'
 import Box from '@/styles/Box'
 import useTranslation from 'next-translate/useTranslation'
 import React, { FC, ReactNode } from 'react'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { BaseButton } from '@/components/buttons/BaseButton'
 import { ConnectButton, useConnectModal } from '@rainbow-me/rainbowkit'
 import { NetworksDropdown } from '../NetworksDropdown'
@@ -31,6 +31,7 @@ export const Header: FC<THeader> = ({ searchInput, withSpaces }) => {
   const { user, address } = useAuth()
   const { t } = useTranslation('layout')
   const { openConnectModal } = useConnectModal()
+  const { palette } = useTheme()
 
   return (
     <Box
@@ -39,6 +40,7 @@ export const Header: FC<THeader> = ({ searchInput, withSpaces }) => {
       justifyContent="space-between"
       gridGap="60px"
       minHeight={80}
+      backgroundColor={palette.secondary100}
       padding={withSpaces ? '0 44px 0 35px' : undefined}
     >
       <Box width="45%">{searchInput}</Box>

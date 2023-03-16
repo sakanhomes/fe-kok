@@ -1,5 +1,7 @@
 import { BaseButton } from '@/components/buttons/BaseButton'
 import { Text } from '@/components/Text'
+import Box from '@/styles/Box'
+import LinesEllipsis from 'react-lines-ellipsis'
 import styled from 'styled-components'
 
 export const ImageButton = styled(BaseButton)<{ image: string }>`
@@ -24,10 +26,19 @@ export const Duration = styled(Text)`
 
 export const TitleButton = styled(BaseButton)`
   padding: 4px 0;
+  text-align: left;
 `
 
-export const UserButton = styled(BaseButton)`
-  height: 35px;
+export const Title = styled(LinesEllipsis)`
+  height: 100%;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+  color: ${({ theme }) => theme.palette.primary100};
+`
+
+export const User = styled(Box)`
+  cursor: pointer;
 `
 
 export const DotSeparator = styled.div`

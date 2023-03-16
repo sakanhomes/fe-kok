@@ -112,7 +112,7 @@ export const ProfileHeader: FC = () => {
             </StatsItem>
             <StatsItem>
               <Text color="secondary100" variant="h4">
-                {user.followersAmount.toString()}
+                {user.subscribersAmount.toString()}
               </Text>
               <Text color="secondary100" variant="p2">
                 {t('followers')}
@@ -120,7 +120,7 @@ export const ProfileHeader: FC = () => {
             </StatsItem>
             <StatsItem>
               <Text color="secondary100" variant="h4">
-                {user.followingsAmount.toString()}
+                {user.subscriptionsAmount.toString()}
               </Text>
               <Text color="secondary100" variant="p2">
                 {t('following')}

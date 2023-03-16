@@ -9,6 +9,7 @@ export const Tooltip = styled(ReactTooltip)`
     opacity: 1;
     border-radius: 8px;
     max-width: 40%;
+    position: fixed;
 
     &:after,
     &::before {

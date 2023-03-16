@@ -15,8 +15,8 @@ export type TVideo = {
     address: string
     name: string
     profileImage: string
-    followersAmount: number
-    followingsAmount: number
+    subscribersAmount: number
+    subscriptionsAmount: number
     videosAmount: number
   }
 }

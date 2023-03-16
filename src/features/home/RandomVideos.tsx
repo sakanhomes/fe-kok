@@ -1,8 +1,10 @@
 import { Loader } from '@/components/Loader'
 import { useRedux } from '@/hooks/use-redux'
 import Box from '@/styles/Box'
+import useTranslation from 'next-translate/useTranslation'
 import { useRouter } from 'next/router'
 import React, { FC, useEffect } from 'react'
+import { Title } from './components/Title'
 import { Video } from './components/Video'
 import { ECategories } from './enums/categories'
 import { getRandomVideosAsync, homeSelector } from './store/home'
@@ -13,6 +15,7 @@ export const RandomVideos: FC = () => {
   const {
     forYou: { fetching, videos },
   } = select(homeSelector)
+  const { t } = useTranslation('home')
 
   useEffect(() => {
     const category = query.category as ECategories | undefined
@@ -22,16 +25,13 @@ export const RandomVideos: FC = () => {
   return fetching ? (
     <Loader />
   ) : (
-    <Box
-      marginTop="37px"
-      width="100%"
-      display="grid"
-      gridGap={18}
-      gridTemplateColumns="repeat(4, 1fr)"
-    >
-      {videos?.map((video) => (
-        <Video key={video.id} video={video} />
-      ))}
+    <Box marginTop="37px">
+      <Title>{t('forYou')}</Title>
+      <Box width="100%" display="grid" gridGap={18} gridTemplateColumns="repeat(4, 1fr)">
+        {videos?.map((video) => (
+          <Video key={video.id} video={video} />
+        ))}
+      </Box>
     </Box>
   )
 }

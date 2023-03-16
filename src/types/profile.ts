@@ -6,8 +6,8 @@ export type TProlile = {
   description?: string
   balance: string
   videosAmount: number
-  followersAmount: number
-  followingsAmount: number
+  subscribersAmount: number
+  subscriptionsAmount: number
 }
 
 export type TProfileSettings = {

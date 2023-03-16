@@ -111,7 +111,7 @@ export const VideoViewer: FC = () => {
                   {video.user.name ?? video.user.address}
                 </Text>
                 <Text variant="p4" color="primary600">
-                  {formatViews(video.user.followersAmount)} followers
+                  {formatViews(video.user.subscribersAmount)} followers
                 </Text>
               </Box>
             </Box>

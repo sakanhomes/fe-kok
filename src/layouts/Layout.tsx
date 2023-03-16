@@ -29,16 +29,18 @@ export const Layout: React.FC<{ searchInput: ReactNode; withSpaces?: boolean }> 
         display="flex"
         flexDirection="column"
         gridGap={bodyGap}
-        maxHeight="100vh"
         width="100%"
+        overflowY="auto"
+        position="relative"
         paddingRight={bodyPR}
       >
-        <Header searchInput={searchInput} withSpaces={!withSpaces} />
+        <Box position="sticky" top="0" left="0" zIndex="10">
+          <Header searchInput={searchInput} withSpaces={!withSpaces} />
+        </Box>
         <Box
           display="grid"
           flexDirection="column"
           gridAutoRows="min-content"
-          overflowY="auto"
           height="100%"
           paddingBottom={40}
         >

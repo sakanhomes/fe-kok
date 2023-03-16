@@ -70,7 +70,7 @@ export const User: FC = () => {
             </StatsItem>
             <StatsItem>
               <Text color="primary100" variant="p1">
-                {user.followersAmount.toString()}
+                {user.subscribersAmount.toString()}
               </Text>
               <Text color="primary500" variant="p2">
                 {t('followers')}
@@ -78,7 +78,7 @@ export const User: FC = () => {
             </StatsItem>
             <StatsItem>
               <Text color="primary100" variant="p1">
-                {user.followingsAmount.toString()}
+                {user.subscriptionsAmount.toString()}
               </Text>
               <Text color="primary500" variant="p2">
                 {t('following')}

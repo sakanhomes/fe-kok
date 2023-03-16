@@ -25,9 +25,7 @@ export const Video: FC<{ video: TVideo }> = ({ video }) => {
         <S.Duration color="secondary100">{duration}</S.Duration>
       </S.ImageButton>
       <S.TitleButton onClick={onVideoClick}>
-        <Text variant="p2" tag="h3">
-          {title}
-        </Text>
+        <S.Title maxLine={2} component="h3" text={title} basedOn="words" />
       </S.TitleButton>
       <Box marginBottom="4px" display="flex" gridGap={29} alignItems="center">
         <Text color="primary600" variant="p4" tag="span">
@@ -40,24 +38,29 @@ export const Video: FC<{ video: TVideo }> = ({ video }) => {
           </Text>
         )}
       </Box>
-      <S.UserButton onClick={onUserClick}>
+      <S.User
+        height={35}
+        display="flex"
+        gridGap="10px"
+        alignItems="center"
+        onClick={onUserClick}
+      >
         <Avatar avatar={user.profileImage} sizes="xs" />
-        <Text data-for={user.address + createdAt} data-tip>
-          {user.name ?? user.address.substring(0, 8)}
+        <Text data-for={`${user.address}_${createdAt}`} data-tip>
+          {user.name ?? `${user.address.substring(0, 8)}...`}
         </Text>
         {!user.name && (
           <Tooltip
             delayShow={200}
-            id={user.address + createdAt}
+            id={`${user.address}_${createdAt}`}
             clickable
             place="bottom"
             type="light"
-            effect="float"
           >
             {user.address}
           </Tooltip>
         )}
-      </S.UserButton>
+      </S.User>
     </Box>
   )
 }
