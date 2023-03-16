@@ -56,7 +56,9 @@ export const ProfileHeader: FC = () => {
       {user && (
         <>
           <Box display="flex" gridGap={36}>
-            <Avatar avatar={user.profileImage} sizes="2xl" />
+            <Box minWidth={160}>
+              <Avatar avatar={user.profileImage} sizes="2xl" />
+            </Box>
             <Box maxWidth={505} display="flex" flexDirection="column">
               <Text
                 data-for={`${user.address}header`}
@@ -81,7 +83,7 @@ export const ProfileHeader: FC = () => {
                 </Tooltip>
               )}
               <Description
-                maxLine={5}
+                maxLine={4}
                 text={user.description ?? 'About me...'}
                 basedOn="words"
                 data-for="description_tooltip"

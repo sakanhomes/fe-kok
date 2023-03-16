@@ -5,11 +5,11 @@ import { TProlile } from '@/types/profile'
 import { profileApi } from '@/api/rest/profile'
 import { TFormPropsAsync } from '@/types/formik'
 import { setUserData } from 'store/auth'
-import { TSettings } from '@/types/settings'
+import { TMeSettings } from '@/types/settings'
 
 export type TInit = {
   profileData: TProlile | null
-  notifications: TSettings | null
+  notifications: TMeSettings | null
 }
 
 const init: TInit = {
@@ -24,7 +24,7 @@ const settings = createSlice({
     setProfileData(state, actions: PayloadAction<TProlile | null>) {
       state.profileData = actions.payload
     },
-    setNotifications(state, actions: PayloadAction<TSettings>) {
+    setNotifications(state, actions: PayloadAction<TMeSettings>) {
       state.notifications = actions.payload
     },
     resetSettings: () => init,
@@ -81,7 +81,7 @@ export const getNotificationsAsync = (): TAsyncAction => async (dispatch) => {
 }
 
 export const setNotificationsAsync =
-  ({ formData, formik }: TFormPropsAsync<TSettings>): TAsyncAction =>
+  ({ formData, formik }: TFormPropsAsync<TMeSettings>): TAsyncAction =>
   async (dispatch) => {
     try {
       const {

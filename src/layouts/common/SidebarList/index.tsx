@@ -27,7 +27,7 @@ export const SidebarList: FC<{
   const { t } = useTranslation('layout')
   const router = useRouter()
   const { openConnectModal } = useConnectModal()
-  const { user } = useAuth()
+  const { user, address } = useAuth()
   const { dispatch } = useRedux()
 
   return (
@@ -41,7 +41,8 @@ export const SidebarList: FC<{
             {link && (
               <S.ItemBox
                 onClick={() => {
-                  if (isPrivate && !user && openConnectModal) openConnectModal()
+                  if (isPrivate && (!user || !address) && openConnectModal)
+                    openConnectModal()
                   else router.push(link)
                   if (commingSoon) dispatch(setCommingSoon(true))
                 }}

@@ -1,5 +1,5 @@
 import { TProlile } from '@/types/profile'
-import { TSettings } from '@/types/settings'
+import { TMeSettings } from '@/types/settings'
 import { api } from './instance'
 import { TAxiosResponse } from './types'
 
@@ -23,15 +23,15 @@ const set = (
 }> => api.patch('me', data)
 
 const setSettings = (
-  data: TSettings
+  data: TMeSettings
 ): TAxiosResponse<{
   status: number
-  data: { settings: TSettings }
+  data: { settings: TMeSettings }
 }> => api.patch('me/settings', data)
 
 const getSettings = (): TAxiosResponse<{
   status: number
-  data: { settings: TSettings }
+  data: { settings: TMeSettings }
 }> => api.get('me/settings')
 
 export const profileApi = {

@@ -2,7 +2,7 @@ import { FormikCheckbox } from '@/components/inputs/FormikCheckbox'
 import { Text } from '@/components/Text'
 import { useRedux } from '@/hooks/use-redux'
 import Box from '@/styles/Box'
-import { TSettings } from '@/types/settings'
+import { TMeSettings } from '@/types/settings'
 import { useFormik } from 'formik'
 import React, { FC, useEffect } from 'react'
 import styled from 'styled-components'
@@ -20,7 +20,7 @@ export const NotificationsForm: FC = () => {
   const { dispatch, select } = useRedux()
   const { notifications } = select(settingsSelector)
   const { t } = useTranslation('settings')
-  const formik = useFormik<TSettings>({
+  const formik = useFormik<TMeSettings>({
     initialValues: {
       'channel-activity': notifications
         ? notifications['notifications.events.channel-activity']
@@ -35,7 +35,7 @@ export const NotificationsForm: FC = () => {
         : false,
     },
     onSubmit: (formData) => {
-      const newObj: TSettings = {}
+      const newObj: TMeSettings = {}
       Object.keys(formData).forEach((key) => {
         newObj[`notifications.events.${key}`] = formData[key]
       })

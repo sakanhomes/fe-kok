@@ -84,7 +84,7 @@ export const DiscoverVideo: FC = () => {
         {status === 'loading' && <Loader color="secondary100" />}
         {status === 'ready' && video && (
           <>
-            <VideoPlayer url={video?.video} preview secconds={15} />
+            <VideoPlayer url={video?.video} height="379px" preview secconds={15} />
             <ContentWrapper>
               <Box width="50%">
                 <Title maxLine={5} text={video.title} basedOn="words" />

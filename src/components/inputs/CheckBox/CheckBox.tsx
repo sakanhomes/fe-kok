@@ -11,7 +11,6 @@ export const CheckBox: React.FC<TCheckBoxProps> = ({
   error,
   id,
   className,
-  checked,
   label,
   variant = 'main',
   ...props
@@ -24,7 +23,7 @@ export const CheckBox: React.FC<TCheckBoxProps> = ({
         onChange={onChange}
         name={name}
         value={value}
-        checked={checked}
+        checked={!!value}
         id={id}
         {...props}
       />

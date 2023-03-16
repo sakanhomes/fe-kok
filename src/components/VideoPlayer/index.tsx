@@ -75,7 +75,6 @@ export const VideoPlayer: FC<
           },
         }}
         light={preview ? undefined : props.light}
-        {...props}
         style={{
           borderRadius: '6px',
           overflow: 'hidden',
@@ -84,6 +83,7 @@ export const VideoPlayer: FC<
         }}
         width="100%"
         height="100%"
+        {...props}
         onProgress={(e: OnProgressProps) => {
           if (secconds && e.playedSeconds > secconds) {
             playerRef.current?.seekTo(0)
