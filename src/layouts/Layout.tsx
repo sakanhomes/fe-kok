@@ -30,6 +30,8 @@ export const Layout: React.FC<{ searchInput: ReactNode; withSpaces?: boolean }> 
         flexDirection="column"
         gridGap={bodyGap}
         width="100%"
+        maxWidth={1440}
+        margin="0 auto"
         overflowY="auto"
         position="relative"
         paddingRight={bodyPR}

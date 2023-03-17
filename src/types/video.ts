@@ -1,6 +1,8 @@
+import { ECategories } from '@/features/home/enums/categories'
+
 export type TVideo = {
   id: string
-  category: string
+  category: ECategories
   title: string
   duration: string
   description?: string

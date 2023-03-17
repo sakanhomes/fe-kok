@@ -8,12 +8,20 @@ export type TInit = {
   id: string | null
   video: TVideo | null
   videoFetching: boolean
+  related: {
+    videos: TVideo[] | null
+    fetching: boolean
+  }
 }
 
 const init: TInit = {
   id: null,
   video: null,
   videoFetching: true,
+  related: {
+    videos: null,
+    fetching: true,
+  },
 }
 
 const videoPlay = createSlice({
@@ -29,13 +37,25 @@ const videoPlay = createSlice({
     setVideoFetching(state, actions: PayloadAction<boolean>) {
       state.videoFetching = actions.payload
     },
+    setRelatedVideos(state, actions: PayloadAction<TVideo[]>) {
+      state.related.videos = actions.payload
+    },
+    setRelatedVideoFetching(state, actions: PayloadAction<boolean>) {
+      state.related.fetching = actions.payload
+    },
     resetVideoPlay: () => init,
   },
 })
 
 // actions
-export const { setVideoId, setVideo, setVideoFetching, resetVideoPlay } =
-  videoPlay.actions
+export const {
+  setVideoId,
+  setVideo,
+  setVideoFetching,
+  setRelatedVideos,
+  setRelatedVideoFetching,
+  resetVideoPlay,
+} = videoPlay.actions
 // selectors
 export const videoPlaySelector: TSelector<TInit> = (state) => state.videoPlay
 // reducer
@@ -62,3 +82,25 @@ export const getVideoAsync =
       dispatch(setVideoFetching(false))
     }
   }
+
+export const getRelatedVideosAsync = (): TAsyncAction => async (dispatch, _store) => {
+  const {
+    videoPlay: { video, related },
+  } = _store()
+  try {
+    if (!related.fetching) dispatch(setRelatedVideoFetching(true))
+    const {
+      data: {
+        data: { videos },
+      },
+    } = await videosApi.getRandom({ amount: 5, category: video?.category })
+    dispatch(setRelatedVideos(videos))
+  } catch (e) {
+    handleActionErrors({
+      e,
+      dispatch,
+    })
+  } finally {
+    dispatch(setRelatedVideoFetching(false))
+  }
+}

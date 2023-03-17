@@ -5,6 +5,7 @@ import { ROUTES } from '@/constants/routes'
 import { useTimeAgo } from '@/hooks/use-time-ago'
 import Box from '@/styles/Box'
 import { TVideo } from '@/types/video'
+import { formatViews } from '@/utils/formatViews'
 import useTranslation from 'next-translate/useTranslation'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
@@ -29,7 +30,7 @@ export const Video: FC<{ video: TVideo }> = ({ video }) => {
       </S.TitleButton>
       <Box marginBottom="4px" display="flex" gridGap={29} alignItems="center">
         <Text color="primary600" variant="p4" tag="span">
-          {viewsAmount} {t('views')}
+          {formatViews(viewsAmount)} {t('views')}
         </Text>
         <S.DotSeparator />
         {time && (
