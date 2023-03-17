@@ -17,5 +17,7 @@
     "secondsAgo": "a few seconds ago",
     "secondsAgo1": "a few seconds ago"
   },
-  "views": "views"
+  "views": "views",
+  "followers": "followers",
+  "follow": "Follow"
 }

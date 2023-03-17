@@ -15,4 +15,7 @@ export type TVideo = {
   createdAt: number
   isPublic: boolean
   user: TShortUserInfo
+  flags: {
+    isLiked: boolean
+  }
 }

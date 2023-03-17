@@ -83,6 +83,27 @@ export const getVideoAsync =
     }
   }
 
+export const setLikeAsync =
+  (id: string): TAsyncAction =>
+  async (dispatch, _store) => {
+    const { videoPlay } = _store()
+    try {
+      if (!videoPlay.video) return
+      const {
+        data: {
+          data: { video },
+        },
+      } = await videosApi[videoPlay.video.flags.isLiked ? 'deleteLike' : 'setLike'](id)
+
+      dispatch(setVideo(video))
+    } catch (e) {
+      handleActionErrors({
+        e,
+        dispatch,
+      })
+    }
+  }
+
 export const getRelatedVideosAsync = (): TAsyncAction => async (dispatch, _store) => {
   const {
     videoPlay: { video, related },
