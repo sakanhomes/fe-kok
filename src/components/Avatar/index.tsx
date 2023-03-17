@@ -13,7 +13,10 @@ const Wrapper = styled.div<{ sizes: TAvatarProps['sizes']; avatar: boolean }>((p
 
   const hasAvatar = (padding: string) => css`
     padding: ${padding};
-    border: 1px solid ${({ theme }) => theme.palette.secondary200};
+    border: 1px solid ${({ theme }) => theme.palette.secondary300};
+    img {
+      border-radius: 50%;
+    }
   `
 
   const baseStyles = css`

@@ -12,5 +12,8 @@
   "animation": "Animation",
   "documentary": "Documentary",
   "discover": "Discover",
-  "forYou": "For you"
+  "forYou": "For you",
+  "ranking": "Ranking",
+  "year": "Year",
+  "month": "Month"
 }

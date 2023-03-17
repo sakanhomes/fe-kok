@@ -6,6 +6,7 @@ import { Categories } from '@/features/home/Categories'
 import { RandomVideos } from '@/features/home/RandomVideos'
 import Box from '@/styles/Box'
 import { DiscoverVideo } from '@/features/home/DiscoverVideo'
+import { Leaderboard } from '@/features/home/Leaderboard'
 
 const Home: NextPage = () => (
   <Layout searchInput={<SearchInput />}>
@@ -17,7 +18,7 @@ const Home: NextPage = () => (
       marginBottom={47}
     >
       <DiscoverVideo />
-      Ranking
+      <Leaderboard />
     </Box>
     <Categories />
     <RandomVideos />

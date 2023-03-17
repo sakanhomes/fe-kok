@@ -33,6 +33,10 @@ const dark: DefaultTheme = {
     bnb: '#F3BA2F',
     polygon: '#6F41D8',
   },
+  uniq: {
+    leaderboardBg:
+      'linear-gradient(143.03deg, rgba(140, 238, 220, 0.8) 0%, rgba(155, 195, 245, 0.8) 100%)',
+  },
 }
 
 export const theming: TThemingConfig = {

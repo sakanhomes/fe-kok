@@ -1,4 +1,5 @@
 import { ECategories } from '@/features/home/enums/categories'
+import { TShortUserInfo } from './common'
 
 export type TVideo = {
   id: string
@@ -13,12 +14,5 @@ export type TVideo = {
   commentsAmount: number
   createdAt: number
   isPublic: boolean
-  user: {
-    address: string
-    name: string
-    profileImage: string
-    subscribersAmount: number
-    subscriptionsAmount: number
-    videosAmount: number
-  }
+  user: TShortUserInfo
 }

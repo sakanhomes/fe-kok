@@ -28,9 +28,14 @@ interface INetworkPalette {
   polygon: string
 }
 
+interface IUniqPalette {
+  leaderboardBg: string
+}
+
 declare module 'styled-components' {
   export interface DefaultTheme {
     palette: IPalette
     network: INetworkPalette
+    uniq: IUniqPalette
   }
 }
