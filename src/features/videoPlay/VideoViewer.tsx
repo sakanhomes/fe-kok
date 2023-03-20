@@ -99,8 +99,6 @@ export const VideoViewer: FC = () => {
     <Box marginBottom={31}>
       {memorizedVideo && (
         <>
-          <BaseButton onClick={stopTimer}>Stop</BaseButton>
-          <BaseButton onClick={startTimer}>Start</BaseButton>
           <Box height="538px">
             <VideoPlayer
               onPlay={startTimer}
