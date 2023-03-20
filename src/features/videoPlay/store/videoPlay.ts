@@ -104,6 +104,27 @@ export const setLikeAsync =
     }
   }
 
+export const getViewedAsync =
+  (id: string): TAsyncAction =>
+  async (dispatch, _store) => {
+    const { videoPlay } = _store()
+    try {
+      if (!videoPlay.video) return
+      const {
+        data: {
+          data: { video },
+        },
+      } = await videosApi.getViewed(id)
+
+      dispatch(setVideo(video))
+    } catch (e) {
+      handleActionErrors({
+        e,
+        dispatch,
+      })
+    }
+  }
+
 export const getRelatedVideosAsync = (): TAsyncAction => async (dispatch, _store) => {
   const {
     videoPlay: { video, related },

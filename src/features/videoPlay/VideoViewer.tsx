@@ -9,6 +9,7 @@ import { VideoPlayer } from '@/components/VideoPlayer'
 import { useAuth } from '@/hooks/use-auth'
 import { useRedux } from '@/hooks/use-redux'
 import { useTimeAgo } from '@/hooks/use-time-ago'
+import { useStopwatch } from '@/hooks/useStopWatch'
 import Box from '@/styles/Box'
 import { formatViews } from '@/utils/formatViews'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
@@ -19,6 +20,7 @@ import { useUnmount } from 'react-use'
 import styled from 'styled-components'
 import {
   getVideoAsync,
+  getViewedAsync,
   resetVideoPlay,
   setLikeAsync,
   setVideoId,
@@ -53,6 +55,14 @@ export const VideoViewer: FC = () => {
   const { t } = useTranslation('common')
   const { user, address } = useAuth()
   const { openConnectModal } = useConnectModal()
+  const { elapsedTime, startTimer, stopTimer } = useStopwatch()
+
+  useEffect(() => {
+    if (id && +elapsedTime >= 5) {
+      stopTimer()
+      dispatch(getViewedAsync(id))
+    }
+  }, [elapsedTime])
 
   const time = useTimeAgo(video?.createdAt)
 
@@ -62,7 +72,7 @@ export const VideoViewer: FC = () => {
 
   useEffect(() => {
     if (id) dispatch(getVideoAsync(id))
-  }, [id])
+  }, [id, user])
 
   useUnmount(() => dispatch(resetVideoPlay()))
 
@@ -89,8 +99,14 @@ export const VideoViewer: FC = () => {
     <Box marginBottom={31}>
       {memorizedVideo && (
         <>
+          <BaseButton onClick={stopTimer}>Stop</BaseButton>
+          <BaseButton onClick={startTimer}>Start</BaseButton>
           <Box height="538px">
-            <VideoPlayer url={memorizedVideo.video} />
+            <VideoPlayer
+              onPlay={startTimer}
+              onPause={stopTimer}
+              url={memorizedVideo.video}
+            />
           </Box>
           <Text margin="0 0 6px" variant="h5">
             {memorizedVideo.title}

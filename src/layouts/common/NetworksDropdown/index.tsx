@@ -56,19 +56,15 @@ const DropdownButton = styled(Button)<{ itemId: number; open: boolean }>((props)
 
 const networksList: {
   network: keyof typeof NETWORKS
-  amount: string
 }[] = [
   {
     network: 'BNB',
-    amount: '1.005',
   },
   {
     network: 'ETH',
-    amount: '2.05',
   },
   {
     network: 'POLYGON',
-    amount: '1.1',
   },
 ]
 
@@ -101,7 +97,7 @@ export const NetworksDropdown: FC = () => {
       >
         <NetworksIcon network={selectedNetwork.network} />
       </Button>
-      {user && <AmountWrapper>$ {user.balance}</AmountWrapper>}
+      {user && <AmountWrapper>KOK {user.balance}</AmountWrapper>}
     </Box>
   )
 }

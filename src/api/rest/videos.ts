@@ -44,10 +44,16 @@ const deleteLike = (
 ): TAxiosResponse<{ status: number; data: { video: TVideo } }> =>
   api.delete(`videos/${id}/likes`)
 
+const getViewed = (
+  id: string
+): TAxiosResponse<{ status: number; data: { video: TVideo } }> =>
+  api.post(`videos/${id}/viewed`)
+
 export const videosApi = {
   getRandom,
   getVideo,
   updateVideo,
   setLike,
   deleteLike,
+  getViewed,
 }
