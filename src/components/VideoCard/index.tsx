@@ -8,32 +8,61 @@ import { TVideo } from '@/types/video'
 import { formatViews } from '@/utils/formatViews'
 import useTranslation from 'next-translate/useTranslation'
 import { useRouter } from 'next/router'
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import * as S from './styled'
 
-export const VideoCard: FC<TVideo> = ({
+export const VideoCard: FC<
+  TVideo & { isHorizontal?: boolean; showedTitleRows?: number; uniqId: string }
+> = ({
   id,
   title,
   previewImage,
   viewsAmount,
   createdAt,
   user,
+  isHorizontal,
+  showedTitleRows = 2,
+  uniqId,
 }) => {
   const { push } = useRouter()
+
   const onVideoClick = () => push({ pathname: `${ROUTES.VIDEO}/${id}` })
   const onUserClick = () => push({ pathname: `${ROUTES.CREATOR_PAGE}/${id}` })
+
+  const [showFullTitle, setShowFullTitle] = useState(false)
 
   const time = useTimeAgo(createdAt)
   const { t } = useTranslation('common')
 
+  const horizontalProps = isHorizontal
+    ? {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(2, 1fr)',
+        gridGap: 24,
+      }
+    : {}
+
   return (
-    <Box maxWidth="100%" display="grid" gridTemplateColumns="repeat(2, 1fr)" gridGap={24}>
+    <Box maxWidth="100%" {...horizontalProps}>
       <S.ImageButton image={previewImage} onClick={onVideoClick} />
       <Box>
         <S.TitleButton onClick={onVideoClick}>
-          <S.Title maxLine={3} component="h3" text={title} basedOn="words" />
+          <Tooltip isTooltiped={showFullTitle} content={title} id={`${id}${uniqId}`}>
+            <S.Title
+              maxLine={showedTitleRows}
+              component="h3"
+              text={title}
+              basedOn="words"
+              onReflow={({ clamped }) => setShowFullTitle(clamped)}
+            />
+          </Tooltip>
         </S.TitleButton>
-        <Box marginBottom="4px" display="flex" gridGap={10} alignItems="center">
+        <Box
+          marginBottom="4px"
+          display="flex"
+          gridGap={isHorizontal ? 10 : 29}
+          alignItems="center"
+        >
           <Text color="primary600" variant="p4" tag="span">
             {formatViews(viewsAmount)} {t('views')}
           </Text>
@@ -52,20 +81,13 @@ export const VideoCard: FC<TVideo> = ({
           onClick={onUserClick}
         >
           <Avatar avatar={user.profileImage} sizes="xs" />
-          <Text data-for={`${user.address}_${createdAt}`} data-tip>
-            {user.name ?? `${user.address.substring(0, 8)}...`}
-          </Text>
-          {!user.name && (
-            <Tooltip
-              delayShow={200}
-              id={`${user.address}_${createdAt}`}
-              clickable
-              place="bottom"
-              type="light"
-            >
-              {user.address}
-            </Tooltip>
-          )}
+          <Tooltip
+            content={user.address}
+            id={`${user.address}_${createdAt}`}
+            isTooltiped={!user.name}
+          >
+            <Text>{user.name ?? `${user.address.substring(0, 8)}...`}</Text>
+          </Tooltip>
         </S.User>
       </Box>
     </Box>

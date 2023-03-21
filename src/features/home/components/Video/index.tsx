@@ -47,20 +47,13 @@ export const Video: FC<{ video: TVideo }> = ({ video }) => {
         onClick={onUserClick}
       >
         <Avatar avatar={user.profileImage} sizes="xs" />
-        <Text data-for={`${user.address}_${createdAt}`} data-tip>
-          {user.name ?? `${user.address.substring(0, 8)}...`}
-        </Text>
-        {!user.name && (
-          <Tooltip
-            delayShow={200}
-            id={`${user.address}_${createdAt}`}
-            clickable
-            place="bottom"
-            type="light"
-          >
-            {user.address}
-          </Tooltip>
-        )}
+        <Tooltip
+          isTooltiped={!user.name}
+          id={`${user.address}_${createdAt}`}
+          content={user.address}
+        >
+          <Text>{user.name ?? `${user.address.substring(0, 8)}...`}</Text>
+        </Tooltip>
       </S.User>
     </Box>
   )

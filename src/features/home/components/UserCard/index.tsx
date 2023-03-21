@@ -13,10 +13,6 @@ const Wrapper = styled(Box)`
   border-radius: 5px;
 `
 
-const Image = styled(Avatar)`
-  min-width: 40px;
-`
-
 export const UserCard: FC<TShortUserInfo & { type?: 'year' | 'month' }> = ({
   name,
   profileImage,
@@ -24,21 +20,9 @@ export const UserCard: FC<TShortUserInfo & { type?: 'year' | 'month' }> = ({
   type = 'year',
 }) => (
   <Wrapper display="flex" alignItems="center" gridGap={12}>
-    <Image sizes="sm" avatar={profileImage} />
-    <Text data-for={`${address}${type}leaderboard`} data-tip>
-      {name ?? `${address.substring(0, 8)}...`}
-    </Text>
-    {!name && (
-      <Tooltip
-        delayShow={200}
-        id={`${address}${type}leaderboard`}
-        clickable
-        place="bottom"
-        type="light"
-        effect="float"
-      >
-        {address}
-      </Tooltip>
-    )}
+    <Avatar sizes="sm" avatar={profileImage} />
+    <Tooltip id={`${address}${type}leaderboard`} content={address} isTooltiped={!name}>
+      <Text>{name ?? `${address.substring(0, 8)}...`}</Text>
+    </Tooltip>
   </Wrapper>
 )

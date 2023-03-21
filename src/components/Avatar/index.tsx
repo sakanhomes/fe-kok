@@ -31,6 +31,7 @@ const Wrapper = styled.div<{ sizes: TAvatarProps['sizes']; avatar: boolean }>((p
     case 'xs':
       return css`
         ${baseStyles}
+        min-width: 35px;
         width: 35px;
         height: 35px;
         ${avatar && hasAvatar('3px')}
@@ -38,6 +39,7 @@ const Wrapper = styled.div<{ sizes: TAvatarProps['sizes']; avatar: boolean }>((p
     case 'sm':
       return css`
         ${baseStyles}
+        min-width: 40px;
         width: 40px;
         height: 40px;
         ${avatar && hasAvatar('3.5px')}
@@ -45,6 +47,7 @@ const Wrapper = styled.div<{ sizes: TAvatarProps['sizes']; avatar: boolean }>((p
     case 'md':
       return css`
         ${baseStyles}
+        min-width: 50px;
         width: 50px;
         height: 50px;
         ${avatar && hasAvatar('4.5px')}
@@ -52,6 +55,7 @@ const Wrapper = styled.div<{ sizes: TAvatarProps['sizes']; avatar: boolean }>((p
     case 'md2':
       return css`
         ${baseStyles}
+        min-width: 62px;
         width: 62px;
         height: 62px;
         ${avatar && hasAvatar('4.5px')}
@@ -59,6 +63,7 @@ const Wrapper = styled.div<{ sizes: TAvatarProps['sizes']; avatar: boolean }>((p
     case 'lg':
       return css`
         ${baseStyles}
+        min-width: 76px;
         width: 76px;
         height: 76px;
         ${avatar && hasAvatar('7px')}
@@ -66,6 +71,7 @@ const Wrapper = styled.div<{ sizes: TAvatarProps['sizes']; avatar: boolean }>((p
     case 'xl':
       return css`
         ${baseStyles}
+        min-width: 129px;
         width: 129px;
         height: 129px;
         ${avatar && hasAvatar('12px')}
@@ -73,6 +79,7 @@ const Wrapper = styled.div<{ sizes: TAvatarProps['sizes']; avatar: boolean }>((p
     case '2xl':
       return css`
         ${baseStyles}
+        min-width: 160px;
         width: 160px;
         height: 160px;
         ${avatar && hasAvatar('15px')}

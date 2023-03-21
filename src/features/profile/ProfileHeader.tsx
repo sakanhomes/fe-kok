@@ -60,45 +60,26 @@ export const ProfileHeader: FC = () => {
               <Avatar avatar={user.profileImage} sizes="2xl" />
             </Box>
             <Box maxWidth={505} display="flex" flexDirection="column">
-              <Text
-                data-for={`${user.address}header`}
-                data-tip
-                variant="h1"
-                tag="h2"
-                margin="0 0 30px"
-                color="secondary100"
+              <Tooltip
+                isTooltiped={!user.name}
+                id={`${user.address}header`}
+                content={user.address}
               >
-                {user.name ?? `${user.address.substring(0, 8)}...`}
-              </Text>
-              {!user.name && (
-                <Tooltip
-                  delayShow={200}
-                  id={`${user.address}header`}
-                  clickable
-                  place="bottom"
-                  type="light"
-                  effect="float"
-                >
-                  {user.address}
-                </Tooltip>
-              )}
-              <Description
-                maxLine={4}
-                text={user.description ?? 'About me...'}
-                basedOn="words"
-                data-for="description_tooltip"
-                data-tip
-              />
+                <Text variant="h1" tag="h2" margin="0 0 30px" color="secondary100">
+                  {user.name ?? `${user.address.substring(0, 8)}...`}
+                </Text>
+              </Tooltip>
               {user.description && (
                 <Tooltip
-                  delayShow={200}
+                  isTooltiped={!!user.description}
                   id="description_tooltip"
-                  clickable
-                  place="bottom"
-                  type="light"
-                  effect="float"
+                  content={user.description}
                 >
-                  {user.description}
+                  <Description
+                    maxLine={4}
+                    text={user.description ?? 'About me...'}
+                    basedOn="words"
+                  />
                 </Tooltip>
               )}
             </Box>

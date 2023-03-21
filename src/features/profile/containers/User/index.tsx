@@ -38,25 +38,15 @@ export const User: FC = () => {
       {user && (
         <>
           <StyledAvatar sizes="xl" avatar={user?.profileImage} />
-          <Text
-            data-for={`${user.address}user`}
-            data-tip
-            variant="h5"
-            tag="h2"
-            color="primary100"
-          >
-            {user.name ?? `${user.address.substring(0, 8)}...`}
-          </Text>
           {!user.name && (
             <Tooltip
-              delayShow={200}
+              isTooltiped={!user.name}
               id={`${user.address}user`}
-              clickable
-              place="bottom"
-              type="light"
-              effect="float"
+              content={user.address}
             >
-              {user.address}
+              <Text variant="h5" tag="h2" color="primary100">
+                {user.name ?? `${user.address.substring(0, 8)}...`}
+              </Text>
             </Tooltip>
           )}
           <Box display="flex" as="ul" alignItems="center">

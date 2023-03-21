@@ -8,6 +8,7 @@ export type TInit = {
   id: string | null
   video: TVideo | null
   videoFetching: boolean
+  likingFetching: boolean
   related: {
     videos: TVideo[] | null
     fetching: boolean
@@ -18,6 +19,7 @@ const init: TInit = {
   id: null,
   video: null,
   videoFetching: true,
+  likingFetching: false,
   related: {
     videos: null,
     fetching: true,
@@ -37,6 +39,9 @@ const videoPlay = createSlice({
     setVideoFetching(state, actions: PayloadAction<boolean>) {
       state.videoFetching = actions.payload
     },
+    setLikingFetching(state, actions: PayloadAction<boolean>) {
+      state.likingFetching = actions.payload
+    },
     setRelatedVideos(state, actions: PayloadAction<TVideo[]>) {
       state.related.videos = actions.payload
     },
@@ -53,6 +58,7 @@ export const {
   setVideo,
   setVideoFetching,
   setRelatedVideos,
+  setLikingFetching,
   setRelatedVideoFetching,
   resetVideoPlay,
 } = videoPlay.actions
@@ -88,6 +94,7 @@ export const setLikeAsync =
   async (dispatch, _store) => {
     const { videoPlay } = _store()
     try {
+      dispatch(setLikingFetching(true))
       if (!videoPlay.video) return
       const {
         data: {
@@ -101,6 +108,8 @@ export const setLikeAsync =
         e,
         dispatch,
       })
+    } finally {
+      dispatch(setLikingFetching(false))
     }
   }
 

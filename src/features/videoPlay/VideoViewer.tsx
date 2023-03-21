@@ -51,7 +51,7 @@ const UserBox = styled(Box)`
 export const VideoViewer: FC = () => {
   const { query } = useRouter()
   const { dispatch, select } = useRedux()
-  const { id, video, videoFetching } = select(videoPlaySelector)
+  const { id, video, videoFetching, likingFetching } = select(videoPlaySelector)
   const { t } = useTranslation('common')
   const { user, address } = useAuth()
   const { openConnectModal } = useConnectModal()
@@ -127,7 +127,7 @@ export const VideoViewer: FC = () => {
             marginBottom={28}
             alignItems="center"
           >
-            <BaseButton onClick={onLikeClick}>
+            <BaseButton onClick={onLikeClick} disabled={likingFetching}>
               <LikeIcon
                 color={memorizedVideo.flags.isLiked ? 'danger100' : 'accent300'}
               />

@@ -1,8 +1,8 @@
 import { useRedux } from '@/hooks/use-redux'
 import Box from '@/styles/Box'
 import { FC, useEffect } from 'react'
+import { VideoCard } from '@/components/VideoCard'
 import { Title } from './componetns/Title'
-import { VideoCard } from './componetns/VideoCard'
 import { getRelatedVideosAsync, videoPlaySelector } from './store/videoPlay'
 
 export const RealatedVideos: FC = () => {
@@ -11,13 +11,19 @@ export const RealatedVideos: FC = () => {
 
   useEffect(() => {
     if (video) dispatch(getRelatedVideosAsync())
-  }, [video])
+  }, [video?.category])
 
   return (
     <Box display="grid" gridGap={18} gridTemplateRows="min-content">
       <Title>RELATED VIDEOS</Title>
       {related.videos?.map((item) => (
-        <VideoCard key={item.id} {...item} />
+        <VideoCard
+          isHorizontal
+          uniqId="related"
+          showedTitleRows={3}
+          key={item.id}
+          {...item}
+        />
       ))}
     </Box>
   )

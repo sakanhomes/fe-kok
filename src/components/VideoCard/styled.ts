@@ -24,9 +24,10 @@ export const Duration = styled(Text)`
   z-index: 1;
 `
 
-export const TitleButton = styled(BaseButton)`
+export const TitleButton = styled(Box)`
   padding: 4px 0;
   text-align: left;
+  cursor: pointer;
 `
 
 export const Title = styled(LinesEllipsis)`

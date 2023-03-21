@@ -1,11 +1,11 @@
 import { Loader } from '@/components/Loader'
+import { VideoCard } from '@/components/VideoCard'
 import { useRedux } from '@/hooks/use-redux'
 import Box from '@/styles/Box'
 import useTranslation from 'next-translate/useTranslation'
 import { useRouter } from 'next/router'
 import React, { FC, useEffect } from 'react'
 import { Title } from './components/Title'
-import { Video } from './components/Video'
 import { ECategories } from './enums/categories'
 import { getRandomVideosAsync, homeSelector } from './store/home'
 
@@ -29,7 +29,7 @@ export const RandomVideos: FC = () => {
       <Title>{t('forYou')}</Title>
       <Box width="100%" display="grid" gridGap={18} gridTemplateColumns="repeat(4, 1fr)">
         {videos?.map((video) => (
-          <Video key={video.id} video={video} />
+          <VideoCard uniqId="for_you" key={video.id} {...video} />
         ))}
       </Box>
     </Box>
