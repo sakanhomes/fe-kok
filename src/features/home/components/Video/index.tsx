@@ -15,7 +15,7 @@ export const Video: FC<{ video: TVideo }> = ({ video }) => {
   const { id, title, previewImage, duration, viewsAmount, createdAt, user } = video
   const { push } = useRouter()
   const onVideoClick = () => push({ pathname: `${ROUTES.VIDEO}/${id}` })
-  const onUserClick = () => push({ pathname: `${ROUTES.CREATOR_PAGE}/${id}` })
+  const onUserClick = () => push({ pathname: `${ROUTES.CREATOR_PAGE}/${user.address}` })
 
   const time = useTimeAgo(createdAt)
   const { t } = useTranslation('common')

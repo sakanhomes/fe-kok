@@ -75,7 +75,8 @@ export const DiscoverVideo: FC = () => {
 
   const { push } = useRouter()
   const onVideoClick = () => push({ pathname: `${ROUTES.VIDEO}/${video?.id}` })
-  const onUserClick = () => push({ pathname: `${ROUTES.CREATOR_PAGE}/${video?.id}` })
+  const onUserClick = () =>
+    push({ pathname: `${ROUTES.CREATOR_PAGE}/${video?.user.address}` })
 
   return (
     <Box display="flex" flexDirection="column" gridGap={23}>

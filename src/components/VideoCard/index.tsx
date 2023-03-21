@@ -27,7 +27,7 @@ export const VideoCard: FC<
   const { push } = useRouter()
 
   const onVideoClick = () => push({ pathname: `${ROUTES.VIDEO}/${id}` })
-  const onUserClick = () => push({ pathname: `${ROUTES.CREATOR_PAGE}/${id}` })
+  const onUserClick = () => push({ pathname: `${ROUTES.CREATOR_PAGE}/${user.address}` })
 
   const [showFullTitle, setShowFullTitle] = useState(false)
 
