@@ -3,6 +3,15 @@
   "defaultLocale": "en",
   "logBuild": false,
   "pages": {
-    "*": ["common", "inputs", "validation", "error", "layout", "home", "settings"]
+    "*": [
+      "common",
+      "inputs",
+      "validation",
+      "error",
+      "layout",
+      "home",
+      "settings",
+      "creator-center"
+    ]
   }
 }

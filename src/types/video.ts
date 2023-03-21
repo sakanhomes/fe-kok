@@ -19,3 +19,5 @@ export type TVideo = {
     isLiked: boolean
   }
 }
+
+export type TOwnerVideo = Omit<TVideo, 'user'>

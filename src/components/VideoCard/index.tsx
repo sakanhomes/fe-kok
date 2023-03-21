@@ -4,16 +4,24 @@ import { Tooltip } from '@/components/Tooltip'
 import { ROUTES } from '@/constants/routes'
 import { useTimeAgo } from '@/hooks/use-time-ago'
 import Box from '@/styles/Box'
-import { TVideo } from '@/types/video'
+import { TShortUserInfo } from '@/types/common'
+import { TOwnerVideo } from '@/types/video'
 import { formatViews } from '@/utils/formatViews'
 import useTranslation from 'next-translate/useTranslation'
 import { useRouter } from 'next/router'
-import React, { FC, useState } from 'react'
+import React, { FC, ReactNode, useState } from 'react'
 import * as S from './styled'
 
-export const VideoCard: FC<
-  TVideo & { isHorizontal?: boolean; showedTitleRows?: number; uniqId: string }
-> = ({
+export type TVideoCard = {
+  isHorizontal?: boolean
+  showedTitleRows?: number
+  uniqId: string
+  additionalContent?: ReactNode
+  showUser?: boolean
+  user?: TShortUserInfo
+} & TOwnerVideo
+
+export const VideoCard: FC<TVideoCard> = ({
   id,
   title,
   previewImage,
@@ -23,11 +31,13 @@ export const VideoCard: FC<
   isHorizontal,
   showedTitleRows = 2,
   uniqId,
+  additionalContent,
+  showUser = true,
 }) => {
   const { push } = useRouter()
 
   const onVideoClick = () => push({ pathname: `${ROUTES.VIDEO}/${id}` })
-  const onUserClick = () => push({ pathname: `${ROUTES.CREATOR_PAGE}/${user.address}` })
+  const onUserClick = () => push({ pathname: `${ROUTES.CREATOR_PAGE}/${user?.address}` })
 
   const [showFullTitle, setShowFullTitle] = useState(false)
 
@@ -73,22 +83,25 @@ export const VideoCard: FC<
             </Text>
           )}
         </Box>
-        <S.User
-          height={35}
-          display="flex"
-          gridGap="10px"
-          alignItems="center"
-          onClick={onUserClick}
-        >
-          <Avatar avatar={user.profileImage} sizes="xs" />
-          <Tooltip
-            content={user.address}
-            id={`${user.address}_${createdAt}`}
-            isTooltiped={!user.name}
+        {showUser && user && (
+          <S.User
+            height={35}
+            display="flex"
+            gridGap="10px"
+            alignItems="center"
+            onClick={onUserClick}
           >
-            <Text>{user.name ?? `${user.address.substring(0, 8)}...`}</Text>
-          </Tooltip>
-        </S.User>
+            <Avatar avatar={user.profileImage} sizes="xs" />
+            <Tooltip
+              content={user.address}
+              id={`${user.address}_${createdAt}`}
+              isTooltiped={!user.name}
+            >
+              <Text>{user.name ?? `${user.address.substring(0, 8)}...`}</Text>
+            </Tooltip>
+          </S.User>
+        )}
+        {additionalContent}
       </Box>
     </Box>
   )

@@ -1,5 +1,6 @@
 import { TProlile } from '@/types/profile'
 import { TMeSettings } from '@/types/settings'
+import { TOwnerVideo } from '@/types/video'
 import { api } from './instance'
 import { TAxiosResponse } from './types'
 
@@ -34,9 +35,15 @@ const getSettings = (): TAxiosResponse<{
   data: { settings: TMeSettings }
 }> => api.get('me/settings')
 
+const getVideos = (): TAxiosResponse<{
+  status: number
+  data: { videos: TOwnerVideo[] }
+}> => api.get('me/videos')
+
 export const profileApi = {
   get,
   set,
   setSettings,
   getSettings,
+  getVideos,
 }
