@@ -14,6 +14,7 @@ interface IPalette {
   accent100: string
   accent200: string
   accent300: string
+  accent400: string
   success100: string
   success200: string
   success300: string

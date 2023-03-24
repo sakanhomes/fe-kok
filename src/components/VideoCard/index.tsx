@@ -7,10 +7,17 @@ import Box from '@/styles/Box'
 import { TShortUserInfo } from '@/types/common'
 import { TOwnerVideo } from '@/types/video'
 import { formatViews } from '@/utils/formatViews'
+import { rgba } from 'emotion-rgba'
 import useTranslation from 'next-translate/useTranslation'
 import { useRouter } from 'next/router'
 import React, { FC, ReactNode, useState } from 'react'
+import styled from 'styled-components'
 import * as S from './styled'
+
+const Duration = styled(Box)`
+  background-color: ${({ theme }) => rgba(theme.palette.primary100, 0.75)};
+  border-radius: 4px;
+`
 
 export type TVideoCard = {
   isHorizontal?: boolean
@@ -26,6 +33,7 @@ export const VideoCard: FC<TVideoCard> = ({
   title,
   previewImage,
   viewsAmount,
+  duration,
   createdAt,
   user,
   isHorizontal,
@@ -54,7 +62,20 @@ export const VideoCard: FC<TVideoCard> = ({
 
   return (
     <Box maxWidth="100%" {...horizontalProps}>
-      <S.ImageButton image={previewImage} onClick={onVideoClick} />
+      <Box position="relative">
+        <Duration
+          position="absolute"
+          padding=" 2px 5px"
+          bottom="5px"
+          right="10px"
+          zIndex="1"
+        >
+          <Text color="secondary100" variant="l2">
+            {duration}
+          </Text>
+        </Duration>
+        <S.ImageButton image={previewImage} onClick={onVideoClick} />
+      </Box>
       <Box>
         <S.TitleButton onClick={onVideoClick}>
           <Tooltip isTooltiped={showFullTitle} content={title} id={`${id}${uniqId}`}>

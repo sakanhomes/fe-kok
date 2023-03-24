@@ -39,11 +39,11 @@ export const TextAreaContainer = styled.div<TTextAreaContainer>`
         error ? palette.danger200 : palette.primary100};
   }
 `
-export const TextArea = styled.textarea`
+export const TextArea = styled.textarea<TTextAreaContainer>`
   width: 100%;
   resize: none;
   border: unset;
-  height: 120px;
+  height: ${({ height }) => height ?? 120}px;
   font-weight: 400;
   font-size: 14px;
   line-height: 26px;

@@ -6,6 +6,7 @@ import home from '@/features/home/store/home'
 import videoPlay from '@/features/videoPlay/store/videoPlay'
 import creatorCenter from '@/features/creatorCenter/store/creatorCenter'
 import auth from 'store/auth'
+import uploadVideo from '@/features/uploadVideo/store/uploadVideo'
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     home,
     videoPlay,
     creatorCenter,
+    uploadVideo,
   },
 })
 

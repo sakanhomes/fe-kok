@@ -18,18 +18,21 @@ export const Popup = styled(PopupComponent)`
   }
 `
 
-export const Close = styled.div`
+export const Close = styled(BaseButton)`
   position: absolute;
   top: 20px;
   right: 20px;
 `
 
-export const Container = styled.div<{ maxWidth?: CSSProperties['maxWidth'] }>`
+export const Container = styled.div<{
+  maxWidth?: CSSProperties['maxWidth']
+  padding: CSSProperties['padding']
+}>`
   max-width: ${({ maxWidth }) =>
     typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth};
   background-color: ${({ theme }) => theme.palette.secondary100};
   border-radius: 10px;
-  padding: 20px 60px;
+  padding: ${({ padding }) => padding ?? '20px 60px'};
   margin: 0 auto;
   position: relative;
 `

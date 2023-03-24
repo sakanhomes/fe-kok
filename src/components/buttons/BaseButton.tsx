@@ -5,7 +5,6 @@ import { TButton } from './types'
 const Button = styled.button<TButton>`
   border: none;
   padding: 0;
-  background-color: transparent;
   display: flex;
   gap: 10px;
   cursor: pointer;
@@ -15,7 +14,11 @@ const Button = styled.button<TButton>`
   :not(:disabled):focus {
     filter: brightness(0.9);
   }
+  background-color: ${({ bg, theme }) => (bg ? theme.palette[bg] : 'transparent')};
+  color: ${({ color, theme }) =>
+    color ? theme.palette[color] : theme.palette.primary100};
   :disabled {
+    cursor: default;
     filter: grayscale(0.75);
   }
 `

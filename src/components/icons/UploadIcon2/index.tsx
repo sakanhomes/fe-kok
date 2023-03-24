@@ -2,10 +2,10 @@ import React, { FC } from 'react'
 import { SVG } from '../SVG'
 import { TIcon } from '../type'
 
-export const UploadIcon2: FC<TIcon> = (props) => (
+export const UploadIcon2: FC<TIcon & { size?: string }> = ({ size, ...props }) => (
   <SVG
-    width="18"
-    height="18"
+    width={size ?? '18'}
+    height={size ?? '18'}
     viewBox="0 0 35 35"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

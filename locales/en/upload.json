@@ -1,0 +1,20 @@
+{
+  "closeTitle": "Video uploading will be canceled",
+  "dropTitle": "Drag your files here to start uploading",
+  "or": "OR",
+  "browseFiles": "Browse files",
+  "videoTitle": "Video title",
+  "category": "Category",
+  "titleRequired": "Title(required)",
+  "description": "Description",
+  "uploadThumbnail": "Upload thumbnail",
+  "private": "Private",
+  "privateDescr": "Only you can watch your video",
+  "public": "Public",
+  "publicTitle": "Everyone can watch your video",
+  "upload": "Upload",
+  "back": "Back",
+  "videoUploaded": "Video Uploaded!",
+  "published": "Published",
+  "videoLink": "Video Link"
+}

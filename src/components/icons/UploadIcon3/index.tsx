@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { SVG } from '../SVG'
 import { TIcon } from '../type'
 
-export const UploadIcon2: FC<TIcon> = (props) => (
+export const UploadIcon3: FC<TIcon> = (props) => (
   <SVG
     width="50"
     height="50"

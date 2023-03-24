@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useClickAway, useUnmount } from 'react-use'
+import { CSSProperties } from 'styled-components'
 import { CloseIcon } from '../icons/CloseIcon'
 import { Text } from '../Text'
 import * as S from './styled'
@@ -13,6 +14,7 @@ export type TModalBase = {
   closeOutside?: boolean
   title?: string
   withCloseButton?: boolean
+  padding?: CSSProperties['padding']
 }
 export const Modal: React.FC<TModalBase> = ({
   open,
@@ -22,6 +24,7 @@ export const Modal: React.FC<TModalBase> = ({
   closeOutside,
   maxWidth,
   title,
+  padding,
   withCloseButton = true,
 }) => {
   const [isClient, setIsClient] = useState(false)
@@ -83,7 +86,12 @@ export const Modal: React.FC<TModalBase> = ({
 
   return (
     <S.Popup modal nested open={open} onClose={onClose}>
-      <S.Container ref={containerRef} className={className} maxWidth={maxWidth}>
+      <S.Container
+        padding={padding}
+        ref={containerRef}
+        className={className}
+        maxWidth={maxWidth}
+      >
         {title && (
           <Text variant="h7" tag="h2" margin="0 0 26px">
             {title}

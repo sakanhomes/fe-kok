@@ -1,5 +1,5 @@
 import { ECategories } from '@/features/home/enums/categories'
-import { TVideo } from '@/types/video'
+import { TOwnerVideo, TVideo } from '@/types/video'
 import { api } from './instance'
 import { TAxiosResponse } from './types'
 
@@ -10,6 +10,16 @@ export type TUpdateVideoReq = {
 export type TVideosReq = {
   amount: number
   category?: ECategories
+}
+
+export type TVideoCreateReq = {
+  title: string
+  description: string
+  category: ECategories
+  duration: number
+  isPublic: boolean
+  videoUploadId: string
+  previewUploadId: string
 }
 
 const getRandom = (
@@ -25,6 +35,13 @@ const getVideo = (
   status: number
   data: { video: TVideo }
 }> => api.get(`videos/${id}`)
+
+const createVideo = (
+  params: TVideoCreateReq
+): TAxiosResponse<{
+  status: number
+  data: { video: TOwnerVideo }
+}> => api.post(`videos`, params)
 
 const updateVideo = (
   id: string,
@@ -56,4 +73,5 @@ export const videosApi = {
   setLike,
   deleteLike,
   getViewed,
+  createVideo,
 }

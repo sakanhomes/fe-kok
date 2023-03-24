@@ -4,10 +4,11 @@ import { WalletIcon } from '@/components/icons/WalletIcon'
 import { useAuth } from '@/hooks/use-auth'
 import Box from '@/styles/Box'
 import useTranslation from 'next-translate/useTranslation'
-import React, { FC, ReactNode } from 'react'
+import React, { FC, ReactNode, useState } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { BaseButton } from '@/components/buttons/BaseButton'
 import { ConnectButton, useConnectModal } from '@rainbow-me/rainbowkit'
+import { UploadModal } from '@/features/uploadVideo/UploadModal'
 import { NetworksDropdown } from '../NetworksDropdown'
 import { UserMenu } from '../UserMenu'
 
@@ -32,6 +33,7 @@ export const Header: FC<THeader> = ({ searchInput, withSpaces }) => {
   const { t } = useTranslation('layout')
   const { openConnectModal } = useConnectModal()
   const { palette } = useTheme()
+  const [openUpload, setOpenUpload] = useState(false)
 
   return (
     <Box
@@ -61,6 +63,8 @@ export const Header: FC<THeader> = ({ searchInput, withSpaces }) => {
           onClick={() => {
             if (!user && !address && openConnectModal) {
               openConnectModal()
+            } else {
+              setOpenUpload(true)
             }
           }}
         >
@@ -100,6 +104,12 @@ export const Header: FC<THeader> = ({ searchInput, withSpaces }) => {
         </ConnectButton.Custom>
       )}
       {user && <UserMenu />}
+      <UploadModal
+        open={openUpload}
+        onClose={() => {
+          setOpenUpload(false)
+        }}
+      />
     </Box>
   )
 }

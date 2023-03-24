@@ -26,6 +26,7 @@ export type TInputProps = {
   error?: string
   label?: TLabelProps
   maxLength?: number
+  height?: number
   decimals?: number
   iconButton?: ReactElement
   onIconButtonClick?: () => void
@@ -41,6 +42,7 @@ export type TCheckBoxProps = {
   error?: string
   type: 'checkbox' | 'radio'
   value?: string
+  checked?: boolean
   name: string
   className?: string
   id?: string

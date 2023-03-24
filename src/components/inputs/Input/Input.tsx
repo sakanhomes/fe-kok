@@ -24,6 +24,7 @@ export const Input: React.FC<TInputProps> = ({
   iconButton = undefined,
   iconOutside,
   onIconButtonClick,
+  height,
   className,
   width,
 }) => {
@@ -49,6 +50,7 @@ export const Input: React.FC<TInputProps> = ({
             <S.TextArea
               value={value}
               disabled={disabled}
+              height={height}
               placeholder={placeholder}
               style={style}
               name={name}

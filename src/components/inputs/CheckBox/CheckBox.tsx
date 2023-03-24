@@ -12,6 +12,7 @@ export const CheckBox: React.FC<TCheckBoxProps> = ({
   id,
   className,
   label,
+  checked,
   variant = 'main',
   ...props
 }) => (
@@ -23,12 +24,16 @@ export const CheckBox: React.FC<TCheckBoxProps> = ({
         onChange={onChange}
         name={name}
         value={value}
-        checked={!!value}
+        checked={type === 'radio' ? checked : !!value}
         id={id}
         {...props}
       />
-      {variant === 'main' && <CheckIcon checked={!!value} />}
-      {variant === 'secondary' && <S.SecondaryCheckbox checked={!!value} />}
+      {variant === 'main' && (
+        <CheckIcon checked={type === 'radio' ? !!checked : !!value} />
+      )}
+      {variant === 'secondary' && (
+        <S.SecondaryCheckbox checked={type === 'radio' ? !!checked : !!value} />
+      )}
       <div>{label}</div>
     </S.Label>
     {error && <S.ErrorComponent>{error}</S.ErrorComponent>}

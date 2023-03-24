@@ -7,6 +7,18 @@ export const StyledSelect = styled(ReactSelect)<ISelectProps>`
   z-index: 2;
   ${({ isDisabled }) => isDisabled && 'opacity: 0.5;'}
   .Select__control {
+    border-radius: 5px;
+    height: 42px;
+    border-color: ${({ theme, error }) =>
+      error ? theme.palette.danger200 : theme.palette.primary400};
+    transition: 300ms;
+    :hover,
+    :focus {
+      filter: brightness(0.95);
+      border: 1px solid
+        ${({ error, theme: { palette } }) =>
+          error ? palette.danger200 : palette.primary100};
+    }
   }
 
   .Select__menu-list {

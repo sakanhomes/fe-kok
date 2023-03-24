@@ -9,6 +9,8 @@ export const ImageButton = styled(BaseButton)<{ image: string }>`
   height: 170px;
   background-image: url(${({ image }) => image});
   background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
   border-radius: 8px;
   position: relative;
 `

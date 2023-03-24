@@ -39,7 +39,7 @@ export const StyledText = styled.div<TText>((props) => {
     `,
     h5: css`
       font-weight: 400;
-      font-size: 23px;
+      font-size: 24px;
       line-height: 36px;
     `,
     h6: css`

@@ -13,6 +13,7 @@ const Wrapper = styled(Box)<{ image?: string }>`
   background: url(${({ image }) => image ?? baseProfile.src});
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center center;
   height: 100%;
 `
 

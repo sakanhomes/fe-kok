@@ -2,6 +2,9 @@
   "success": "Success",
   "error": "Error",
   "close": "Close",
+  "cancel": "Cancel",
+  "copy": "Copy",
+  "copied": "Copied",
   "commingSoon": "Coming Soon",
   "time": {
     "yearsAgo": "{{time}} years ago",

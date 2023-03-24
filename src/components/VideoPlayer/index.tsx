@@ -39,6 +39,13 @@ export const VideoPlayer: FC<
       }
     : {}
 
+  const previewAtributes = preview
+    ? {
+        autoPlay: true,
+        muted: true,
+      }
+    : {}
+
   useEffect(() => {
     const existingVideoAsync = async () => {
       try {
@@ -69,8 +76,7 @@ export const VideoPlayer: FC<
           file: {
             attributes: {
               controlsList: 'nodownload',
-              autoPlay: true,
-              muted: true,
+              ...previewAtributes,
             },
           },
         }}

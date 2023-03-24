@@ -1,3 +1,4 @@
+import { IPalette } from '@/styles/styled'
 import { ButtonHTMLAttributes, ReactNode } from 'react'
 
 export type TButton = {
@@ -5,4 +6,6 @@ export type TButton = {
     el: ReactNode
     place?: 'append' | 'prepend'
   }
+  color?: keyof IPalette
+  bg?: keyof IPalette
 } & ButtonHTMLAttributes<HTMLButtonElement>

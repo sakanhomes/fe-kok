@@ -21,6 +21,7 @@ const dark: DefaultTheme = {
     accent100: '#173456',
     accent200: '#08A0F7',
     accent300: '#648DCA',
+    accent400: '#E1E9F8',
     success100: '#0DBC9C',
     success200: '#0CD781',
     success300: '#12A969',

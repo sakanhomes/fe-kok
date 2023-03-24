@@ -20,5 +20,14 @@ export const FormikCheckbox: React.FC<TProps> = ({ formik, ...props }) => {
 
   const fieldError = getFieldError({ touched, error, t })
 
-  return <CheckBox {...props} {...field} onChange={handlerChange} error={fieldError} />
+  return (
+    <CheckBox
+      {...props}
+      {...field}
+      value={props.type === 'radio' ? props.value : field.value}
+      checked={props.value === field.value}
+      onChange={handlerChange}
+      error={fieldError}
+    />
+  )
 }

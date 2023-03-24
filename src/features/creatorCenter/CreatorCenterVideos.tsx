@@ -37,7 +37,12 @@ export const CreatorCenterVideos: FC<{
       >
         {t('uploadVideo')}
       </UploadButton>
-      {uploadVideo({ open: openUpload, onClose: openUploadToogle })}
+      {uploadVideo({
+        open: openUpload,
+        onClose: () => {
+          setOpenUpload(false)
+        },
+      })}
       <Videos />
     </Box>
   )
