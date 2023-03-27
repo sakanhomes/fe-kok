@@ -4,11 +4,8 @@ import { Modal } from '@/components/modals/Modal'
 import { UploadFiles } from '@/components/UploadFiles'
 import 'react-circular-progressbar/dist/styles.css'
 import { useRedux } from '@/hooks/use-redux'
-import styled from 'styled-components'
-import { BaseButton } from '@/components/buttons/BaseButton'
-import { Text } from '@/components/Text'
-import Box from '@/styles/Box'
 import useTranslation from 'next-translate/useTranslation'
+import { ConfirmModal } from '@/components/modals/ConfirmModal'
 import { UploadVideoForm } from './containers/UploadVideoFrom'
 import {
   resetUpload,
@@ -18,28 +15,6 @@ import {
   uploadVideoSelector,
 } from './store/uploadVideo'
 import { SuccessModal } from './components/SuccessModal'
-
-const Button = styled(BaseButton)`
-  height: 36px;
-  font-size: 24px;
-  justify-content: center;
-  border-radius: 10px;
-  color: ${({ theme }) => theme.palette.primary100};
-  font-weight: 400;
-  width: fit-content;
-  padding: 0 16px;
-`
-
-const CancelButton = styled(Button)`
-  background-color: ${({ theme }) => theme.palette.accent300};
-`
-const CloseButton = styled(Button)`
-  background-color: ${({ theme }) => theme.palette.secondary200};
-`
-
-const ModalTitle = styled(Text)`
-  text-align: center;
-`
 
 export const UploadModal: FC<{ onClose: () => void; open: boolean }> = ({
   open,
@@ -91,31 +66,27 @@ export const UploadModal: FC<{ onClose: () => void; open: boolean }> = ({
       {step === 'form' && videoData && <UploadVideoForm videoData={videoData} />}
       {step === 'success' && video && <SuccessModal {...video} />}
       {closeType && (
-        <Modal maxWidth="509px" open={!!closeType} padding="36px">
-          <ModalTitle variant="h5">{t('closeTitle')}</ModalTitle>
-          <Box marginTop={56} paddingX={48} display="flex" justifyContent="space-between">
-            <CancelButton
-              onClick={() => {
-                dispatch(setVideoClosed(null))
-              }}
-            >
-              {t('common:cancel')}
-            </CancelButton>
-            <CloseButton
-              onClick={() => {
-                if (closeType === 'back') {
-                  dispatch(resetUpload())
-                }
-                if (closeType === 'close') {
-                  onClose()
-                  dispatch(resetUpload())
-                }
-              }}
-            >
-              {t('common:close')}
-            </CloseButton>
-          </Box>
-        </Modal>
+        <ConfirmModal
+          modal={{ open: !!closeType }}
+          title={t('closeTitle')}
+          confirm={{
+            onClick: () => {
+              if (closeType === 'back') {
+                dispatch(resetUpload())
+              }
+              if (closeType === 'close') {
+                onClose()
+                dispatch(resetUpload())
+              }
+            },
+            title: t('common:close'),
+          }}
+          cancel={{
+            onClick: () => {
+              dispatch(setVideoClosed(null))
+            },
+          }}
+        />
       )}
     </Modal>
   )

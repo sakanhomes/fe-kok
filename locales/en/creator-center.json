@@ -3,5 +3,6 @@
   "myArticles": "My articles",
   "uploadVideo": "Upload video",
   "public": "Public",
-  "private": "Private"
+  "private": "Private",
+  "deleteTitle": "Delete this video"
 }

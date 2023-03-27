@@ -7,7 +7,6 @@ const Button = styled.button<TButton>`
   padding: 0;
   display: flex;
   gap: 10px;
-  cursor: pointer;
   align-items: center;
   transition: 0.3s;
   :not(:disabled):hover,
@@ -18,9 +17,10 @@ const Button = styled.button<TButton>`
   color: ${({ color, theme }) =>
     color ? theme.palette[color] : theme.palette.primary100};
   :disabled {
-    cursor: default;
+    cursor: ${({ isLoading }) => (isLoading ? 'wait' : 'default')};
     filter: grayscale(0.75);
   }
+  cursor: ${({ isLoading }) => (isLoading ? 'wait' : 'pointer')};
 `
 
 export const BaseButton: FC<TButton> = ({
@@ -29,7 +29,7 @@ export const BaseButton: FC<TButton> = ({
   type = 'button',
   ...props
 }) => (
-  <Button type={type} {...props}>
+  <Button type={type} {...props} disabled={props.isLoading || props.disabled}>
     {icon?.place === 'prepend' && icon.el}
     {children}
     {icon?.place === 'append' && icon.el}

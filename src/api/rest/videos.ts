@@ -51,6 +51,12 @@ const updateVideo = (
   data: { video: TVideo }
 }> => api.patch(`videos/${id}`, params)
 
+const deleteVideo = (
+  id: string
+): TAxiosResponse<{
+  status: number
+}> => api.delete(`videos/${id}`)
+
 const setLike = (
   id: string
 ): TAxiosResponse<{ status: number; data: { video: TVideo } }> =>
@@ -70,6 +76,7 @@ export const videosApi = {
   getRandom,
   getVideo,
   updateVideo,
+  deleteVideo,
   setLike,
   deleteLike,
   getViewed,

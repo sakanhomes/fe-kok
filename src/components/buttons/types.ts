@@ -8,4 +8,5 @@ export type TButton = {
   }
   color?: keyof IPalette
   bg?: keyof IPalette
+  isLoading?: boolean
 } & ButtonHTMLAttributes<HTMLButtonElement>
