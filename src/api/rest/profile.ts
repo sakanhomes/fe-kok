@@ -6,8 +6,8 @@ import { TAxiosResponse } from './types'
 
 export type TUpdateProfile = {
   name?: string
-  profileImage?: string
-  backgroundImage?: string
+  profileImageUploadId?: string
+  backgroundImageUploadId?: string
   description?: string
 }
 

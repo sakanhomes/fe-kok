@@ -1,7 +1,7 @@
 import Box from '@/styles/Box'
 import useTranslation from 'next-translate/useTranslation'
 import React, { FC, ReactNode } from 'react'
-import { useDropzone } from 'react-dropzone'
+import { DropzoneState, useDropzone } from 'react-dropzone'
 import styled from 'styled-components'
 import { BaseButton } from '../buttons/BaseButton'
 import { File } from '../icons/File'
@@ -39,7 +39,7 @@ export const UploadFiles: FC<{
   onDropAccepted: (file: File) => void
   className?: string
   type?: 'video' | 'images'
-  customContent?: ReactNode
+  customContent?: (props: DropzoneState) => ReactNode
   bg?: string
   noClick?: boolean
   noKeyboard?: boolean
@@ -52,7 +52,7 @@ export const UploadFiles: FC<{
   noClick = true,
   noKeyboard = true,
 }) => {
-  const { getRootProps, getInputProps, open } = useDropzone({
+  const dropzone = useDropzone({
     noClick,
     noKeyboard,
     accept:
@@ -70,9 +70,9 @@ export const UploadFiles: FC<{
   const { t } = useTranslation('upload')
 
   return (
-    <Wrapper bg={bg} width="100%" className={className} {...getRootProps()}>
-      <input type="file" {...getInputProps()} />
-      {customContent ?? (
+    <Wrapper bg={bg} width="100%" className={className} {...dropzone.getRootProps()}>
+      <input type="file" {...dropzone.getInputProps()} />
+      {customContent?.(dropzone) ?? (
         <Box
           display="flex"
           flexDirection="column"
@@ -95,7 +95,7 @@ export const UploadFiles: FC<{
               {t('or')}
             </Text>
           </DividerBox>
-          <Button onClick={open}>
+          <Button onClick={dropzone.open}>
             <Text variant="h5" fontWeight={500} color="secondary100">
               {t('browseFiles')}
             </Text>

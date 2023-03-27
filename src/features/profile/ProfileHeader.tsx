@@ -15,6 +15,7 @@ const Wrapper = styled(Box)<{ image?: string }>`
   background-size: cover;
   background-position: center center;
   height: 100%;
+  text-shadow: ${({ theme }) => theme.palette.primary100} 1px 0 5px;
 `
 
 const StatsItem = styled(Box).attrs((props) => ({

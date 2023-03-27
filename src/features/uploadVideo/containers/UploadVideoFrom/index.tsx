@@ -217,7 +217,7 @@ export const UploadVideoForm: FC<{ videoData: TVideoData }> = ({ videoData }) =>
                 dispatch(singleUploadAsync(file.name, file, 'image'))
               }
               bg={`url(${localImage})` ?? theme.palette.secondary100}
-              customContent={
+              customContent={() => (
                 <Box
                   height={203}
                   gridGap={12}
@@ -230,7 +230,7 @@ export const UploadVideoForm: FC<{ videoData: TVideoData }> = ({ videoData }) =>
                   <UploadIcon3 color="primary500" />
                   <Text>{t('uploadThumbnail')}</Text>
                 </Box>
-              }
+              )}
             />
           </Box>
           <Box display="grid" gridTemplateColumns="2fr 1fr" gridGap={36}>

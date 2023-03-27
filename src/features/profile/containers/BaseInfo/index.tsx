@@ -52,7 +52,7 @@ const Form = styled.form`
 
 export const BaseInfo: FC = () => {
   const { select, dispatch } = useRedux()
-  const { profileData } = select(settingsSelector)
+  const { profileData, imageLocal } = select(settingsSelector)
   const { user } = useAuth()
   const { t } = useTranslation('settings')
 
@@ -93,7 +93,8 @@ export const BaseInfo: FC = () => {
           </Button>
           <Button
             variant="main"
-            disabled={formik.isSubmitting || !formik.dirty}
+            isLoading={formik.isSubmitting}
+            disabled={!formik.dirty && !imageLocal}
             type="submit"
           >
             {t('save')}

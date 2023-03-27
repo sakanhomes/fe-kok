@@ -43,7 +43,6 @@ export const Layout: React.FC<{ searchInput: ReactNode; withSpaces?: boolean }> 
           display="grid"
           flexDirection="column"
           gridAutoRows="min-content"
-          height="100%"
           paddingBottom={40}
         >
           {children}

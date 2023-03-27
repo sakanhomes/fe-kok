@@ -15,7 +15,10 @@ const Wrapper = styled.div<{ sizes: TAvatarProps['sizes']; avatar: boolean }>((p
     padding: ${padding};
     border: 1px solid ${({ theme }) => theme.palette.secondary300};
     img {
+      object-fit: cover;
       border-radius: 50%;
+      width: 100%;
+      height: 100%;
     }
   `
 
