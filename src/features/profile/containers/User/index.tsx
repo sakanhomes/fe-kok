@@ -29,6 +29,13 @@ const StyledAvatar = styled(Avatar)`
   filter: drop-shadow(0px 4px 4px ${({ theme }) => rgba(theme.palette.primary100, 0.25)});
 `
 
+const UserName = styled(Text)`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+`
+
 export const User: FC = () => {
   const { user } = useAuth()
   const { t } = useTranslation('settings')
@@ -38,17 +45,11 @@ export const User: FC = () => {
       {user && (
         <>
           <StyledAvatar sizes="xl" avatar={user?.profileImage} />
-          {!user.name && (
-            <Tooltip
-              isTooltiped={!user.name}
-              id={`${user.address}user`}
-              content={user.address}
-            >
-              <Text variant="h5" tag="h2" color="primary100">
-                {user.name ?? `${user.address.substring(0, 8)}...`}
-              </Text>
-            </Tooltip>
-          )}
+          <Tooltip id={`${user.address}user`} content={user.address}>
+            <UserName variant="h5" tag="h2" color="primary100">
+              {user.name ?? user.address}
+            </UserName>
+          </Tooltip>
           <Box display="flex" as="ul" alignItems="center">
             <StatsItem>
               <Text color="primary100" variant="p1">

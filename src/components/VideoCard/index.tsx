@@ -19,6 +19,13 @@ const Duration = styled(Box)`
   border-radius: 4px;
 `
 
+const UserName = styled(Text)`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+`
+
 export type TVideoCard = {
   isHorizontal?: boolean
   showedTitleRows?: number
@@ -114,11 +121,10 @@ export const VideoCard: FC<TVideoCard> = ({
           >
             <Avatar avatar={user.profileImage} sizes="xs" />
             <Tooltip
-              content={user.address}
+              content={user.name ?? user.address}
               id={`${user.address}_${createdAt}`}
-              isTooltiped={!user.name}
             >
-              <Text>{user.name ?? `${user.address.substring(0, 8)}...`}</Text>
+              <UserName>{user.name ?? user.address}</UserName>
             </Tooltip>
           </S.User>
         )}

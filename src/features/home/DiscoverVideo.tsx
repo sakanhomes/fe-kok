@@ -2,6 +2,7 @@ import { Avatar } from '@/components/Avatar'
 import { BaseButton } from '@/components/buttons/BaseButton'
 import { Loader } from '@/components/Loader'
 import { Text } from '@/components/Text'
+import { Tooltip } from '@/components/Tooltip'
 import { VideoPlayer } from '@/components/VideoPlayer'
 import { ROUTES } from '@/constants/routes'
 import { useTimeAgo } from '@/hooks/use-time-ago'
@@ -52,6 +53,13 @@ const ContentWrapper = styled(Box)`
   );
 `
 
+const UserName = styled(Text)`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+`
+
 const DotSeparator = styled.div`
   width: 5px;
   height: 5px;
@@ -97,9 +105,19 @@ export const DiscoverVideo: FC = () => {
                 >
                   <Avatar sizes="md2" avatar={video.user.profileImage} />
                   <Box>
-                    <Text color="secondary100" variant="l2" tag="h3" margin="0 0 10px">
-                      {video.user.name ?? `${video.user.address.substring(0, 8)}...`}
-                    </Text>
+                    <Tooltip
+                      content={video.user.name ?? video.user.address}
+                      id={`${video.user.address}_discover-user`}
+                    >
+                      <UserName
+                        color="secondary100"
+                        variant="l2"
+                        tag="h3"
+                        margin="0 0 10px"
+                      >
+                        {video.user.name ?? video.user.address}
+                      </UserName>
+                    </Tooltip>
                     <Box display="flex" gridGap="10px" alignItems="center">
                       <Text color="secondary100" variant="p4" tag="span">
                         {formatViews(video.viewsAmount)} {t('views')}

@@ -16,6 +16,13 @@ const Wrapper = styled(Box)`
   cursor: pointer;
 `
 
+const UserName = styled(Text)`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 105px;
+`
+
 export const UserCard: FC<TShortUserInfo & { type?: 'year' | 'month' }> = ({
   name,
   profileImage,
@@ -32,8 +39,8 @@ export const UserCard: FC<TShortUserInfo & { type?: 'year' | 'month' }> = ({
       gridGap={12}
     >
       <Avatar sizes="sm" avatar={profileImage} />
-      <Tooltip id={`${address}${type}leaderboard`} content={address} isTooltiped={!name}>
-        <Text>{name ?? `${address.substring(0, 8)}...`}</Text>
+      <Tooltip id={`${address}${type}leaderboard`} content={name ?? address}>
+        <UserName>{name ?? address}</UserName>
       </Tooltip>
     </Wrapper>
   )

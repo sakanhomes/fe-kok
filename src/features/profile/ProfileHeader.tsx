@@ -41,6 +41,13 @@ const Description = styled(LinesEllipsis)`
   color: ${({ theme }) => theme.palette.secondary100};
 `
 
+const UserName = styled(Text)`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 400px;
+`
+
 export const ProfileHeader: FC = () => {
   const { user } = useAuth()
   const { t } = useTranslation('settings')
@@ -61,14 +68,10 @@ export const ProfileHeader: FC = () => {
               <Avatar avatar={user.profileImage} sizes="2xl" />
             </Box>
             <Box maxWidth={505} display="flex" flexDirection="column">
-              <Tooltip
-                isTooltiped={!user.name}
-                id={`${user.address}header`}
-                content={user.address}
-              >
-                <Text variant="h1" tag="h2" margin="0 0 30px" color="secondary100">
-                  {user.name ?? `${user.address.substring(0, 8)}...`}
-                </Text>
+              <Tooltip id={`${user.address}header`} content={user.address}>
+                <UserName variant="h1" tag="h2" margin="0 0 30px" color="secondary100">
+                  {user.name ?? user.address}
+                </UserName>
               </Tooltip>
               {user.description && (
                 <Tooltip

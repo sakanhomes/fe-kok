@@ -27,7 +27,7 @@ export const Leaderboard: FC = () => {
   }, [])
 
   return (
-    <Wrapper padding={22}>
+    <Wrapper maxWidth={384} padding={22}>
       <Text variant="h3" tag="h2" margin="0 0 32px">
         {t('ranking')}
       </Text>
