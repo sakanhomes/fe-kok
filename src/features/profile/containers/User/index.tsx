@@ -97,7 +97,7 @@ export const User: FC = () => {
           </Box>
           <Box>
             <UplaodButton color="secondary100" onClick={() => setOpenDrop(true)}>
-              Upload new avatar
+              {t('uploadNewAvatar')}
             </UplaodButton>
             <Modal
               open={openDrop}

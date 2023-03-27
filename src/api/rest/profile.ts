@@ -1,3 +1,4 @@
+import { TShortUserInfo } from '@/types/common'
 import { TProlile } from '@/types/profile'
 import { TMeSettings } from '@/types/settings'
 import { TOwnerVideo } from '@/types/video'
@@ -40,10 +41,26 @@ const getVideos = (): TAxiosResponse<{
   data: { videos: TOwnerVideo[] }
 }> => api.get('me/videos')
 
+const getSubscribers = (params?: {
+  search?: string
+}): TAxiosResponse<{
+  status: number
+  data: { users: TShortUserInfo[] }
+}> => api.get('me/subscribers', { params })
+
+const getSubscriptions = (params?: {
+  search?: string
+}): TAxiosResponse<{
+  status: number
+  data: { users: TShortUserInfo[] }
+}> => api.get('me/subscriptions', { params })
+
 export const profileApi = {
   get,
   set,
   setSettings,
   getSettings,
   getVideos,
+  getSubscribers,
+  getSubscriptions,
 }

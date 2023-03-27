@@ -8,6 +8,7 @@ import { actionsAsync } from 'store/auth'
 import styled from 'styled-components'
 import baseProfile from '@/assets/base-profile-bg.jpg'
 import { rgba } from 'emotion-rgba'
+import useTranslation from 'next-translate/useTranslation'
 import {
   resetSettings,
   setProfileData,
@@ -37,6 +38,7 @@ export const Profile: FC = () => {
   const { select, dispatch } = useRedux()
   const { user } = useAuth()
   const { profileData, imageLocal } = select(settingsSelector)
+  const { t } = useTranslation('settings')
 
   useEffect(() => {
     if (!user)
@@ -66,7 +68,7 @@ export const Profile: FC = () => {
                   height={104}
                 >
                   <UplaodButton color="secondary100" onClick={open}>
-                    Change Background
+                    {t('changeBackground')}
                   </UplaodButton>
                 </Box>
               )}
