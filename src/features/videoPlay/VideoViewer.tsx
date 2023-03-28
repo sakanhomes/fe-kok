@@ -1,5 +1,6 @@
 import { Avatar } from '@/components/Avatar'
 import { BaseButton } from '@/components/buttons/BaseButton'
+import { FollowingButton } from '@/components/FollowingButton'
 import { CollectIcon } from '@/components/icons/CollectIcon'
 import { LikeIcon } from '@/components/icons/LikeIcon'
 import { ShareIcon } from '@/components/icons/ShareIcon'
@@ -9,6 +10,7 @@ import { VideoPlayer } from '@/components/VideoPlayer'
 import { useAuth } from '@/hooks/use-auth'
 import { useRedux } from '@/hooks/use-redux'
 import { useTimeAgo } from '@/hooks/use-time-ago'
+import { useIsSubscribed } from '@/hooks/useIsSubscrubed'
 import { useStopwatch } from '@/hooks/useStopWatch'
 import Box from '@/styles/Box'
 import { formatViews } from '@/utils/formatViews'
@@ -34,16 +36,6 @@ const DotSeparator = styled.div`
   background-color: ${({ theme }) => theme.palette.primary600};
 `
 
-const FollowButton = styled(BaseButton)`
-  border: 1px solid ${({ theme }) => theme.palette.accent300};
-  color: ${({ theme }) => theme.palette.accent300};
-  border-radius: 8px;
-  min-width: 162px;
-  height: 41px;
-  justify-content: center;
-  text-transform: uppercase;
-`
-
 const UserBox = styled(Box)`
   border-top: 1px solid ${({ theme }) => theme.palette.secondary200};
 `
@@ -56,6 +48,7 @@ export const VideoViewer: FC = () => {
   const { user, address } = useAuth()
   const { openConnectModal } = useConnectModal()
   const { elapsedTime, startTimer, stopTimer } = useStopwatch()
+  const isSubscribed = useIsSubscribed()
 
   useEffect(() => {
     if (id && +elapsedTime >= 5) {
@@ -86,10 +79,6 @@ export const VideoViewer: FC = () => {
   }
 
   const onCollectClick = () => {
-    if (!address && !user && openConnectModal) openConnectModal()
-  }
-
-  const onFollowClick = () => {
     if (!address && !user && openConnectModal) openConnectModal()
   }
 
@@ -157,7 +146,11 @@ export const VideoViewer: FC = () => {
                 </Text>
               </Box>
             </Box>
-            <FollowButton onClick={onFollowClick}>+ {t('follow')}</FollowButton>
+            <FollowingButton
+              isSubscribed={isSubscribed}
+              $address={memorizedVideo.user.address}
+              type="Main"
+            />
           </UserBox>
           {memorizedVideo.description && (
             <Text variant="l2">{memorizedVideo.description}</Text>

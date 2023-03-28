@@ -23,5 +23,8 @@
   },
   "views": "views",
   "followers": "followers",
-  "follow": "Follow"
+  "followMain": "+ Follow",
+  "followedMain": "Following",
+  "followSecondary": "Unfollow",
+  "followedSecondary": "Followed"
 }

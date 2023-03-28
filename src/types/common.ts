@@ -11,3 +11,7 @@ export type TLeaderboard = {
   month: TShortUserInfo[]
   year: TShortUserInfo[]
 }
+
+export type TUsersFlags = {
+  isSubscribed: boolean
+}
