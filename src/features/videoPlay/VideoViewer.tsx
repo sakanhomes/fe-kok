@@ -1,7 +1,6 @@
 import { Avatar } from '@/components/Avatar'
 import { BaseButton } from '@/components/buttons/BaseButton'
 import { FollowingButton } from '@/components/FollowingButton'
-import { CollectIcon } from '@/components/icons/CollectIcon'
 import { LikeIcon } from '@/components/icons/LikeIcon'
 import { ShareIcon } from '@/components/icons/ShareIcon'
 import { Loader } from '@/components/Loader'
@@ -20,6 +19,7 @@ import { useRouter } from 'next/router'
 import React, { FC, useEffect, useMemo } from 'react'
 import { useUnmount } from 'react-use'
 import styled from 'styled-components'
+import { CollectButton } from './containers/CollectButton'
 import {
   getVideoAsync,
   getViewedAsync,
@@ -78,10 +78,6 @@ export const VideoViewer: FC = () => {
     }
   }
 
-  const onCollectClick = () => {
-    if (!address && !user && openConnectModal) openConnectModal()
-  }
-
   if (videoFetching) return <Loader />
 
   return (
@@ -122,9 +118,7 @@ export const VideoViewer: FC = () => {
               />
               {formatViews(memorizedVideo.likesAmount)}
             </BaseButton>
-            <BaseButton onClick={onCollectClick}>
-              <CollectIcon color="accent300" />
-            </BaseButton>
+            <CollectButton id={memorizedVideo.id} />
             <BaseButton>
               <ShareIcon variant={2} color="accent300" />
             </BaseButton>
