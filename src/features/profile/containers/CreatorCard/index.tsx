@@ -1,4 +1,5 @@
 import { Avatar } from '@/components/Avatar'
+import { FollowingButton } from '@/components/FollowingButton'
 import { Text } from '@/components/Text'
 import Box from '@/styles/Box'
 import { TShortUserInfo } from '@/types/common'
@@ -12,7 +13,10 @@ const Wrapper = styled(Box)`
   border-radius: 8px;
 `
 
-export const CreatorCard: FC<{ user: TShortUserInfo }> = ({ user }) => (
+export const CreatorCard: FC<{
+  user: TShortUserInfo
+  type: 'subscribers' | 'subscriptions'
+}> = ({ user, type }) => (
   <Wrapper
     display="flex"
     justifyContent="space-between"
@@ -25,5 +29,8 @@ export const CreatorCard: FC<{ user: TShortUserInfo }> = ({ user }) => (
       <Avatar avatar={user.profileImage} />
       <Text>{user.name ?? user.address}</Text>
     </Box>
+    {type === 'subscriptions' && (
+      <FollowingButton isSubscribed type="Secondary" $address={user.address} />
+    )}
   </Wrapper>
 )

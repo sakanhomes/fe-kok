@@ -2,17 +2,17 @@ import Box from '@/styles/Box'
 import React, { FC } from 'react'
 import { SearchInput } from './components/SearchInput'
 import { CreatorCard } from './containers/CreatorCard'
-import { useSubscribers } from './hooks/useSubscribers'
+import { useSubscriptions } from './hooks/useSubscriptions'
 
-export const UsersList: FC<{ type?: 'floowers' | 'following' }> = () => {
-  const { subscribers, setSubscribers } = useSubscribers()
+export const Subscriptions: FC = () => {
+  const { subscriptions, setSubscriptions } = useSubscriptions()
 
   return (
     <Box paddingTop={130}>
-      <SearchInput onSubmit={setSubscribers} />
+      <SearchInput onSubmit={setSubscriptions} />
       <Box marginTop={62} maxWidth={695} display="grid" gridGap={10} marginX="auto">
-        {subscribers.map((item) => (
-          <CreatorCard user={item} key={item.address} />
+        {subscriptions.map((item) => (
+          <CreatorCard type="subscriptions" user={item} key={item.address} />
         ))}
       </Box>
     </Box>

@@ -12,6 +12,8 @@ import styled, {
   FlattenInterpolation,
   ThemeProps,
 } from 'styled-components'
+import { FollowedIcon } from './icons/FollowedIcon'
+import { UnfollowedIcon } from './icons/UnfollowedIcon'
 
 type TButtonType = 'Main' | 'Secondary'
 
@@ -27,6 +29,7 @@ const variants: {
     color: ${({ theme }) => theme.palette.accent300};
     border-radius: 8px;
     text-transform: uppercase;
+    min-width: 162px;
   `,
   followedMain: css`
     border: none;
@@ -34,13 +37,13 @@ const variants: {
     color: ${({ theme }) => theme.palette.secondary100};
     border-radius: 8px;
     text-transform: uppercase;
+    min-width: 162px;
   `,
   followSecondary: css``,
   followedSecondary: css``,
 }
 
 const FollowButton = styled(BaseButton)<TFollowingButton>`
-  min-width: 162px;
   height: 41px;
   justify-content: center;
   ${({ $type }) => variants[$type]}
@@ -81,7 +84,23 @@ export const FollowingButton: FC<{
   const name: TFollowingButton['$type'] = `${subscribed ? 'followed' : 'follow'}${type}`
 
   return (
-    <FollowButton isLoading={fetching} $type={name} onClick={onFollowClick}>
+    <FollowButton
+      isLoading={fetching}
+      icon={
+        type === 'Secondary'
+          ? {
+              place: 'prepend',
+              el: subscribed ? (
+                <FollowedIcon color="primary100" />
+              ) : (
+                <UnfollowedIcon color="primary300" />
+              ),
+            }
+          : undefined
+      }
+      $type={name}
+      onClick={onFollowClick}
+    >
       {t(name)}
     </FollowButton>
   )

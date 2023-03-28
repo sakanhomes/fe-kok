@@ -24,7 +24,7 @@ export const SearchInput: FC<{ onSubmit: (value: string, formik?: TFormik) => vo
   return (
     <Box maxWidth={494} margin="0 auto" as="form" onSubmit={formik.handleSubmit}>
       <FormikInput
-        placeholder={t('searchVideo')}
+        placeholder={t('search')}
         name="value"
         formik={formik}
         iconButton={
