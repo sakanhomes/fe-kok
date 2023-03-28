@@ -41,6 +41,13 @@ const getVideos = (): TAxiosResponse<{
   data: { videos: TOwnerVideo[] }
 }> => api.get('me/videos')
 
+const getFavourites = (params?: {
+  search?: string
+}): TAxiosResponse<{
+  status: number
+  data: { videos: TOwnerVideo[] }
+}> => api.get('me/favourites', { params })
+
 const getSubscribers = (params?: {
   search?: string
 }): TAxiosResponse<{
@@ -63,4 +70,5 @@ export const profileApi = {
   getVideos,
   getSubscribers,
   getSubscriptions,
+  getFavourites,
 }

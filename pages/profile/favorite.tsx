@@ -5,11 +5,14 @@ import { SearchInput } from '@/features/search/SearchInput'
 import { PermissionsAuth } from '@/containers/permissions/PermissionAuth'
 import { ProfileLayout } from '@/layouts/pages/profile/ProfileLayout'
 import { ProfileHeader } from '@/features/profile/ProfileHeader'
+import { Favorites } from '@/features/profile/Favorites'
 
 const Profile: NextPage = () => (
   <PermissionsAuth>
     <Layout withSpaces={false} searchInput={<SearchInput />}>
-      <ProfileLayout header={<ProfileHeader />}>Favorite</ProfileLayout>
+      <ProfileLayout header={<ProfileHeader />}>
+        <Favorites />
+      </ProfileLayout>
     </Layout>
   </PermissionsAuth>
 )
