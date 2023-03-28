@@ -1,4 +1,5 @@
 import { profileApi } from '@/api/rest/profile'
+import { useAuth } from '@/hooks/use-auth'
 import { useRedux } from '@/hooks/use-redux'
 import { TShortUserInfo } from '@/types/common'
 import { TFormik } from '@/types/formik'
@@ -9,7 +10,8 @@ export const useSubscriptions = (): {
   subscriptions: TShortUserInfo[]
   setSubscriptions: (search?: string) => void
 } => {
-  const [subscriptions, setSubscriptions] = useState<TShortUserInfo[]>([])
+  const auth = useAuth()
+  const [subscriptions, setSubscriptions] = useState<TShortUserInfo[]>(auth.subscriptions)
   const { dispatch } = useRedux()
 
   const getSubscribersAsync = async (search?: string, formik?: TFormik) => {
@@ -27,7 +29,7 @@ export const useSubscriptions = (): {
   }
 
   useEffect(() => {
-    getSubscribersAsync()
+    if (auth.subscriptions.length === 0) getSubscribersAsync()
   }, [])
 
   const setSyncSubscriptions = (search?: string, formik?: TFormik) => {

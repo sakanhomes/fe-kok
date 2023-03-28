@@ -5,18 +5,21 @@ import { TSelector, TAsyncAction } from '@/store'
 import { TProlile } from '@/types/profile'
 import { profileApi } from '@/api/rest/profile'
 import { AuthenticationConfig } from '@rainbow-me/rainbowkit'
+import { TShortUserInfo } from '@/types/common'
 import { authApi } from '../api/rest/auth'
 
 export type TInit = {
   user: TProlile | null
   authStatus: AuthenticationConfig<string>['status']
   globalFetching: boolean
+  subscriptions: TShortUserInfo[]
 }
 
 const init: TInit = {
   user: null,
   authStatus: 'unauthenticated',
   globalFetching: true,
+  subscriptions: [],
 }
 
 const auth = createSlice({
@@ -28,6 +31,9 @@ const auth = createSlice({
     },
     setAuthStatus(state, actions: PayloadAction<TInit['authStatus']>) {
       state.authStatus = actions.payload
+    },
+    setSubscriptions(state, actions: PayloadAction<TShortUserInfo[]>) {
+      state.subscriptions = actions.payload
     },
     setGlobalFetching(state, actions: PayloadAction<boolean>) {
       state.globalFetching = actions.payload
@@ -74,7 +80,13 @@ const getProfileAsync =
     try {
       if (!authorized.get()) return dispatch(actions.setGlobalFetching(false))
       const { data } = await profileApi.get()
+      const {
+        data: {
+          data: { users },
+        },
+      } = await profileApi.getSubscriptions()
       dispatch(setUserData(data.data.user))
+      dispatch(actions.setSubscriptions(users))
       if (callback) callback()
     } catch (e) {
       handleActionErrors({

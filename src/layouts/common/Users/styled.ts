@@ -8,7 +8,11 @@ export const StyledText = styled(Text)<{ isOpen: boolean }>`
 
 export const ItemBox = styled(Box)`
   cursor: pointer;
-  span {
-    white-space: nowrap;
-  }
+`
+
+export const UserName = styled(Text)`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
 `

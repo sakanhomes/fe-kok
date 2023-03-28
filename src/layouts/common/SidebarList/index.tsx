@@ -2,7 +2,6 @@ import { Text } from '@/components/Text'
 import Box from '@/styles/Box'
 import useTranslation from 'next-translate/useTranslation'
 import React, { FC, Fragment } from 'react'
-import { Avatar } from '@/components/Avatar'
 import { useRouter } from 'next/router'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { useAuth } from '@/hooks/use-auth'
@@ -22,8 +21,7 @@ export const SidebarList: FC<{
   isOpen: boolean
   data: TSidebarData
   title: string
-  isUsersList?: boolean
-}> = ({ isOpen, data, title, isUsersList }) => {
+}> = ({ isOpen, data, title }) => {
   const { t } = useTranslation('layout')
   const router = useRouter()
   const { openConnectModal } = useConnectModal()
@@ -50,9 +48,8 @@ export const SidebarList: FC<{
                 gridGap={[14]}
                 alignItems="center"
                 justifyContent={isOpen ? 'flex-start' : 'center'}
-                isUsersList={isUsersList}
               >
-                {!isUsersList ? icon : <Avatar />}
+                {icon}
                 {isOpen && (
                   <Text tag="span" variant="p3">
                     {t(name)}
@@ -66,10 +63,9 @@ export const SidebarList: FC<{
                 gridGap={[14]}
                 alignItems="center"
                 justifyContent={isOpen ? 'flex-start' : 'center'}
-                isUsersList={isUsersList}
                 onClick={() => commingSoon && dispatch(setCommingSoon(true))}
               >
-                {!isUsersList ? icon : <Avatar />}
+                {icon}
                 {isOpen && (
                   <Text tag="span" variant="p3">
                     {t(name)}

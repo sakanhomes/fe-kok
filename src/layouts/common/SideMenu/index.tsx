@@ -8,8 +8,9 @@ import React, { FC } from 'react'
 import { Logo } from '@/components/icons/Logo'
 import { useAuth } from '@/hooks/use-auth'
 import { SidebarList } from '../SidebarList'
-import { followingMockData, menuData } from './data'
+import { menuData } from './data'
 import * as S from './styled'
+import { Users } from '../Users'
 
 export const SideMenu: FC<{ open: boolean; toggleMenu: () => void }> = ({
   open,
@@ -30,14 +31,7 @@ export const SideMenu: FC<{ open: boolean; toggleMenu: () => void }> = ({
         </S.StyledLogo>
       </Link>
       <SidebarList title={t('menu')} data={menuData} isOpen={open} />
-      {user && (
-        <SidebarList
-          title={t('following')}
-          data={followingMockData}
-          isOpen={open}
-          isUsersList
-        />
-      )}
+      {user && <Users title={t('following')} isOpen={open} />}
       {open && (
         <Box display="flex" mb="22px" gridGap={[14]} alignItems="center">
           <LanguageIcon />
