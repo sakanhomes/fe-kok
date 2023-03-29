@@ -1,4 +1,5 @@
 import { TShortUserInfo, TUsersFlags } from '@/types/common'
+import { TOwnerPlaylist } from '@/types/playlists'
 import { TProlile } from '@/types/profile'
 import { TVideo } from '@/types/video'
 import { api } from './instance'
@@ -30,6 +31,14 @@ const getUserVideos = (
   data: { videos: TVideo<never>[] }
 }> => api.get(`users/${address}/videos`)
 
+const getCollection = (
+  id: string,
+  address: string
+): TAxiosResponse<{
+  status: number
+  data: { playlist: TOwnerPlaylist }
+}> => api.get(`users/${address}/playlists/${id}`)
+
 const setSubscribe = (
   address: string
 ): TAxiosResponse<{
@@ -50,5 +59,6 @@ export const usersApi = {
   getFlags,
   getUserVideos,
   setSubscribe,
+  getCollection,
   removeSubscribe,
 }

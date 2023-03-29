@@ -1,16 +1,11 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC } from 'react'
 import { UserInfo } from '@/components/UserInfo'
-import { useRouter } from 'next/router'
 import { useAuth } from '@/hooks/use-auth'
 import { useUser } from './hooks/useUser'
 
 export const CreatorHeader: FC = () => {
-  const { query } = useRouter()
-  const { user, setUser } = useUser()
+  const { user } = useUser()
   const auth = useAuth()
-  useEffect(() => {
-    if (typeof query.id === 'string') setUser(query.id)
-  }, [query])
 
   return (
     <>

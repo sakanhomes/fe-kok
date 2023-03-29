@@ -26,5 +26,9 @@
   "followMain": "+ Follow",
   "followedMain": "Following",
   "followSecondary": "Unfollow",
-  "followedSecondary": "Followed"
+  "followedSecondary": "Followed",
+  "all_videos": "All videos",
+  "collection": "Collection",
+  "column": "Column",
+  "nft": "NFT"
 }
