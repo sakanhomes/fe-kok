@@ -3,7 +3,7 @@ import { useRedux } from '@/hooks/use-redux'
 import { TFormik } from '@/types/formik'
 import { TOwnerPlaylist } from '@/types/playlists'
 import { handleActionErrors } from '@/utils/handleActionErrors'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export const useCollection = (
   collectionData: TOwnerPlaylist
@@ -27,6 +27,10 @@ export const useCollection = (
       formik?.setSubmitting(false)
     }
   }
+
+  useEffect(() => {
+    getCollectionAsync()
+  }, [])
 
   const setSyncCollection = (search?: string, formik?: TFormik) => {
     getCollectionAsync(search, formik)

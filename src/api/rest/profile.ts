@@ -1,4 +1,5 @@
 import { TShortUserInfo } from '@/types/common'
+import { THistory } from '@/types/history'
 import { TOwnerPlaylist } from '@/types/playlists'
 import { TProlile } from '@/types/profile'
 import { TMeSettings } from '@/types/settings'
@@ -80,6 +81,13 @@ const getCollection = (
   data: { playlist: TOwnerPlaylist }
 }> => api.get(`me/playlists/${id}`, { params })
 
+const getHistory = (params?: {
+  search?: string
+}): TAxiosResponse<{
+  status: number
+  data: { views: THistory }
+}> => api.get(`me/history`, { params })
+
 const addToCollection = (
   playlistId: string,
   id: string
@@ -93,7 +101,7 @@ const removeFromCollection = (
 ): TAxiosResponse<{
   status: number
   data: { users: TShortUserInfo[] }
-}> => api.get(`me/playlists/${playlistId}/videos/${id}`)
+}> => api.delete(`me/playlists/${playlistId}/videos/${id}`)
 
 export const profileApi = {
   get,
@@ -108,4 +116,5 @@ export const profileApi = {
   addToCollection,
   removeFromCollection,
   getCollection,
+  getHistory,
 }

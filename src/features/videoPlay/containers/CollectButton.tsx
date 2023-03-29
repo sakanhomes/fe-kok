@@ -9,7 +9,6 @@ import React, { FC, useEffect, useState } from 'react'
 
 export const CollectButton: FC<{ id: string }> = ({ id }) => {
   const { user, address } = useAuth()
-  const [collectionId, setCollectionId] = useState<string>()
   const [collectionVideoIds, setCollectionVideoIds] = useState<string[]>([])
   const { dispatch } = useRedux()
   const { openConnectModal } = useConnectModal()
@@ -17,11 +16,12 @@ export const CollectButton: FC<{ id: string }> = ({ id }) => {
   const getCollectionsAsync = async () => {
     try {
       const { data } = await profileApi.getCollections()
-      const videosId = data.data.playlists
-        .find((item) => item.isDefault)
-        ?.videos.map((item) => item.id)
-      if (videosId) setCollectionVideoIds(videosId)
-      setCollectionId(data.data.playlists.find((item) => item.isDefault)?.id)
+      const collectionId = data.data.playlists.find((item) => item.isDefault)?.id
+      if (collectionId) {
+        const { data } = await profileApi.getCollection(collectionId)
+        const videosId = data.data.playlist.videos.map((item) => item.id)
+        if (videosId) setCollectionVideoIds(videosId)
+      }
     } catch (e) {
       handleActionErrors({ e, dispatch })
     }
@@ -29,7 +29,6 @@ export const CollectButton: FC<{ id: string }> = ({ id }) => {
 
   const addToCollectionAsync = async () => {
     try {
-      if (!collectionId) return
       await profileApi.addToCollection('default', id)
       getCollectionsAsync()
     } catch (e) {
@@ -39,7 +38,6 @@ export const CollectButton: FC<{ id: string }> = ({ id }) => {
 
   const removeFromCollectionAsync = async () => {
     try {
-      if (!collectionId) return
       await profileApi.removeFromCollection('default', id)
       getCollectionsAsync()
     } catch (e) {
@@ -62,7 +60,7 @@ export const CollectButton: FC<{ id: string }> = ({ id }) => {
   }
 
   return (
-    <BaseButton disabled={!collectionId} onClick={onCollectClick}>
+    <BaseButton disabled={!collectionVideoIds} onClick={onCollectClick}>
       <CollectIcon color={collectionVideoIds.includes(id) ? 'danger100' : 'accent300'} />
     </BaseButton>
   )
