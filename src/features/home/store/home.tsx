@@ -12,6 +12,10 @@ export type TInit = {
     videos: null | TVideo[]
     fetching: boolean
   }
+  trending: {
+    videos: null | TVideo[]
+    fetching: boolean
+  }
   leaderboard: {
     data: TLeaderboard | null
     fetching: boolean
@@ -20,6 +24,10 @@ export type TInit = {
 
 const init: TInit = {
   forYou: {
+    videos: null,
+    fetching: true,
+  },
+  trending: {
     videos: null,
     fetching: true,
   },
@@ -39,6 +47,12 @@ const home = createSlice({
     setRandomVideoFetching(state, actions: PayloadAction<boolean>) {
       state.forYou.fetching = actions.payload
     },
+    setTrendingVideo(state, actions: PayloadAction<TVideo[]>) {
+      state.trending.videos = actions.payload
+    },
+    setTrendingVideoFetching(state, actions: PayloadAction<boolean>) {
+      state.trending.fetching = actions.payload
+    },
     setLeaderboard(state, actions: PayloadAction<TLeaderboard>) {
       state.leaderboard.data = actions.payload
     },
@@ -55,6 +69,8 @@ export const {
   setRandomVideoFetching,
   setLeaderboard,
   setLeaderboardFetching,
+  setTrendingVideo,
+  setTrendingVideoFetching,
   resetSettings,
 } = home.actions
 // selectors
@@ -81,6 +97,28 @@ export const getRandomVideosAsync =
       })
     } finally {
       dispatch(setRandomVideoFetching(false))
+    }
+  }
+
+export const getTrendingVideosAsync =
+  (category?: ECategories): TAsyncAction =>
+  async (dispatch, _store) => {
+    const { home } = _store()
+    try {
+      if (!home.trending.fetching) dispatch(setTrendingVideoFetching(true))
+      const {
+        data: {
+          data: { videos },
+        },
+      } = await videosApi.getTranding({ amount: 12, category })
+      dispatch(setTrendingVideo(videos))
+    } catch (e) {
+      handleActionErrors({
+        e,
+        dispatch,
+      })
+    } finally {
+      dispatch(setTrendingVideoFetching(false))
     }
   }
 

@@ -8,33 +8,33 @@ import { useRouter } from 'next/router'
 import React, { FC, useEffect } from 'react'
 import { Title } from './components/Title'
 import { ECategories } from './enums/categories'
-import { getRandomVideosAsync, homeSelector } from './store/home'
+import { getTrendingVideosAsync, homeSelector } from './store/home'
 
-export const RandomVideos: FC = () => {
+export const TrendingVideos: FC = () => {
   const { select, dispatch } = useRedux()
   const { query } = useRouter()
   const {
-    forYou: { fetching, videos },
+    trending: { fetching, videos },
   } = select(homeSelector)
   const { t } = useTranslation('home')
 
   useEffect(() => {
     const category = query.category as ECategories | undefined
-    dispatch(getRandomVideosAsync(category))
+    dispatch(getTrendingVideosAsync(category))
   }, [query])
 
   return fetching ? (
     <Loader />
   ) : (
     <Box marginTop="37px">
-      <Title>{t('forYou')}</Title>
+      <Title>{t('trending')}</Title>
       <Box width="100%" display="grid" gridGap={18} gridTemplateColumns="repeat(4, 1fr)">
         {videos?.map((video) => (
           <VideoCard uniqId="for_you" key={video.id} {...video} />
         ))}
         {videos?.length === 0 && (
           <Text variant="p2" color="primary600">
-            {t('noForYouVideos')}
+            {t('noTrendingVideos')}
           </Text>
         )}
       </Box>

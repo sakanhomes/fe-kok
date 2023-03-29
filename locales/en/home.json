@@ -13,7 +13,10 @@
   "documentary": "Documentary",
   "discover": "Discover",
   "forYou": "For you",
+  "trending": "Trending",
   "ranking": "Ranking",
   "year": "Year",
-  "month": "Month"
+  "month": "Month",
+  "noTrendingVideos": "No trending videos",
+  "noForYouVideos": "No for you videos"
 }

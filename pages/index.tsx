@@ -7,6 +7,7 @@ import { RandomVideos } from '@/features/home/RandomVideos'
 import Box from '@/styles/Box'
 import { DiscoverVideo } from '@/features/home/DiscoverVideo'
 import { Leaderboard } from '@/features/home/Leaderboard'
+import { TrendingVideos } from '@/features/home/Trending'
 
 const Home: NextPage = () => (
   <Layout searchInput={<SearchInput />}>
@@ -21,6 +22,7 @@ const Home: NextPage = () => (
       <Leaderboard />
     </Box>
     <Categories />
+    <TrendingVideos />
     <RandomVideos />
   </Layout>
 )

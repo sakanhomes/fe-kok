@@ -29,6 +29,13 @@ const getRandom = (
   data: { videos: TVideo[] }
 }> => api.get('videos/random', { params })
 
+const getTranding = (
+  params: TVideosReq
+): TAxiosResponse<{
+  status: number
+  data: { videos: TVideo[] }
+}> => api.get('videos/trending', { params })
+
 const getVideo = (
   id: string
 ): TAxiosResponse<{
@@ -81,4 +88,5 @@ export const videosApi = {
   deleteLike,
   getViewed,
   createVideo,
+  getTranding,
 }
