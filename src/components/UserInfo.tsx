@@ -93,16 +93,24 @@ export const UserInfo: FC<{
           )}
         </Box>
       </Box>
-      <Box display="flex" alignItems="center" flexDirection="column" gridGap={20}>
-        <Box height={41}>
-          {followButton && typeof isSubscribed !== 'undefined' && (
-            <FollowingButton
-              color="secondary100"
-              $address={user.address}
-              isSubscribed={isSubscribed}
-            />
-          )}
-        </Box>
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        flexDirection="column"
+        gridGap={20}
+      >
+        {followButton && (
+          <Box height={41}>
+            {typeof isSubscribed !== 'undefined' && (
+              <FollowingButton
+                color="secondary100"
+                $address={user.address}
+                isSubscribed={isSubscribed}
+              />
+            )}
+          </Box>
+        )}
         <Box display="flex" as="ul" alignItems="center">
           <StatsItem>
             <Text color="secondary100" variant="h4">
