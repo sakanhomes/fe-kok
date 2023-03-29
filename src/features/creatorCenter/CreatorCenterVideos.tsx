@@ -3,10 +3,10 @@ import { UploadIcon2 } from '@/components/icons/UploadIcon2'
 import { useRedux } from '@/hooks/use-redux'
 import Box from '@/styles/Box'
 import useTranslation from 'next-translate/useTranslation'
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Videos } from './containers/Videos'
-import { creatorCenterSelector } from './store/creatorCenter'
+import { creatorCenterSelector, getVideosAsync } from './store/creatorCenter'
 
 const UploadButton = styled(BaseButton)`
   color: ${({ theme }) => theme.palette.secondary100};
@@ -18,14 +18,23 @@ const UploadButton = styled(BaseButton)`
 `
 
 export const CreatorCenterVideos: FC<{
-  uploadVideo: (args: { open: boolean; onClose: () => void }) => void
+  uploadVideo: (args: {
+    open: boolean
+    onClose: () => void
+    onSuccess?: () => void
+  }) => void
 }> = ({ uploadVideo }) => {
   const [openUpload, setOpenUpload] = useState(false)
+  const { dispatch } = useRedux()
   const { select } = useRedux()
   const { activeTab } = select(creatorCenterSelector)
   const { t } = useTranslation('creator-center')
-
+  const [uploadSucces, setUploadSuccess] = useState(false)
   const openUploadToogle = () => setOpenUpload(!openUpload)
+
+  useEffect(() => {
+    if (activeTab === 'videos') dispatch(getVideosAsync(() => setUploadSuccess(false)))
+  }, [uploadSucces])
 
   if (activeTab !== 'videos') return <></>
 
@@ -39,6 +48,7 @@ export const CreatorCenterVideos: FC<{
       </UploadButton>
       {uploadVideo({
         open: openUpload,
+        onSuccess: () => setUploadSuccess(true),
         onClose: () => {
           setOpenUpload(false)
         },

@@ -33,6 +33,7 @@ export type TVideoCard = {
   additionalContent?: ReactNode
   showUser?: boolean
   user?: TShortUserInfo
+  height?: number
 } & TOwnerVideo
 
 export const VideoCard: FC<TVideoCard> = ({
@@ -44,6 +45,7 @@ export const VideoCard: FC<TVideoCard> = ({
   createdAt,
   user,
   isHorizontal,
+  height,
   showedTitleRows = 2,
   uniqId,
   additionalContent,
@@ -81,7 +83,7 @@ export const VideoCard: FC<TVideoCard> = ({
             {duration}
           </Text>
         </Duration>
-        <S.ImageButton image={previewImage} onClick={onVideoClick} />
+        <S.ImageButton height={height} image={previewImage} onClick={onVideoClick} />
       </Box>
       <Box>
         <S.TitleButton onClick={onVideoClick}>

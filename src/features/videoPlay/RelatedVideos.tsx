@@ -14,13 +14,14 @@ export const RealatedVideos: FC = () => {
   }, [video?.category])
 
   return (
-    <Box display="grid" gridGap={18} gridTemplateRows="min-content">
+    <Box display="grid" height="fit-content" gridGap={18} gridTemplateRows="min-content">
       <Title>RELATED VIDEOS</Title>
       {related.videos?.map((item) => (
         <VideoCard
           isHorizontal
           uniqId="related"
           showedTitleRows={3}
+          height={154}
           key={item.id}
           {...item}
         />

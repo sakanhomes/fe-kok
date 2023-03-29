@@ -6,7 +6,7 @@ import { IPalette } from '@/styles/styled'
 import { handleActionErrors } from '@/utils/handleActionErrors'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import useTranslation from 'next-translate/useTranslation'
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, MouseEventHandler, useEffect, useState } from 'react'
 import { actionsAsync } from 'store/auth'
 import styled, {
   css,
@@ -82,7 +82,8 @@ export const FollowingButton: FC<{
     }
   }
 
-  const onFollowClick = () => {
+  const onFollowClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation()
     if (!address && !user && openConnectModal) openConnectModal()
     else {
       setSubsctiptionsAsync()

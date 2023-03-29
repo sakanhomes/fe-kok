@@ -73,7 +73,7 @@ export const SuccessModal: FC<TOwnerVideo> = ({
             {title}
           </Text>
           <Text variant="l1">
-            {t('published')} {format(createdAt * 1000, 'MM dd,yyyy')}
+            {t('published')} {format(createdAt * 1000, 'MMM dd,yyyy')}
           </Text>
         </Box>
       </VideoWrapper>

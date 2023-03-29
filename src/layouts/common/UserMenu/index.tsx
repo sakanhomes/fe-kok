@@ -98,7 +98,7 @@ export const UserMenu: FC = () => {
   const openMenuToggle = () => setOpenMenu(!openMenu)
   const router = useRouter()
   const { disconnect } = useDisconnect()
-  const { logoutAsync } = useAuth()
+  const { logoutAsync, user } = useAuth()
   const theme = useTheme()
   return (
     <Box
@@ -128,7 +128,7 @@ export const UserMenu: FC = () => {
       ))}
       <MenuButton
         onClick={openMenuToggle}
-        icon={{ place: 'prepend', el: <Avatar sizes="md" /> }}
+        icon={{ place: 'prepend', el: <Avatar sizes="md" avatar={user?.profileImage} /> }}
       />
     </Box>
   )

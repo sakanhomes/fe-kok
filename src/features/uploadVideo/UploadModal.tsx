@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { Modal } from '@/components/modals/Modal'
 
 import { UploadFiles } from '@/components/UploadFiles'
@@ -16,13 +16,19 @@ import {
 } from './store/uploadVideo'
 import { SuccessModal } from './components/SuccessModal'
 
-export const UploadModal: FC<{ onClose: () => void; open: boolean }> = ({
-  open,
-  onClose,
-}) => {
+export const UploadModal: FC<{
+  onClose: () => void
+  onSuccess?: () => void
+  open: boolean
+}> = ({ open, onClose, onSuccess }) => {
   const { dispatch, select } = useRedux()
   const { videoData, closeType, step, video } = select(uploadVideoSelector)
   const { t } = useTranslation('upload')
+
+  useEffect(() => {
+    if (step === 'success') onSuccess?.()
+  }, [step])
+
   const madalPaddings = (): string | undefined => {
     switch (step) {
       case 'drop':

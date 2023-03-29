@@ -262,7 +262,7 @@ export const UploadVideoForm: FC<{ videoData: TVideoData }> = ({ videoData }) =>
                 }
               />
             </Box>
-            <Box display="flex" flexDirection="column" justifyContent="space-between">
+            <Box display="flex" flexDirection="column" gridGap={20}>
               <UploadButton
                 type="submit"
                 disabled={!formik.dirty && !thumbnail && !uploadVideoComplete}

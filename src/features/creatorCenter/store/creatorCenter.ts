@@ -41,22 +41,25 @@ export const creatorCenterSelector: TSelector<TInit> = (state) => state.creatorC
 // reducer
 export default creatorCenter.reducer
 
-export const getVideosAsync = (): TAsyncAction => async (dispatch, _store) => {
-  const { creatorCenter } = _store()
-  try {
-    if (!creatorCenter.videosFetching) dispatch(setVideosFetching(true))
-    const {
-      data: {
-        data: { videos },
-      },
-    } = await profileApi.getVideos()
-    dispatch(setVideos(videos))
-  } catch (e) {
-    handleActionErrors({
-      e,
-      dispatch,
-    })
-  } finally {
-    dispatch(setVideosFetching(false))
+export const getVideosAsync =
+  (callback?: () => void): TAsyncAction =>
+  async (dispatch, _store) => {
+    const { creatorCenter } = _store()
+    try {
+      if (!creatorCenter.videosFetching) dispatch(setVideosFetching(true))
+      const {
+        data: {
+          data: { videos },
+        },
+      } = await profileApi.getVideos()
+      dispatch(setVideos(videos))
+      callback?.()
+    } catch (e) {
+      handleActionErrors({
+        e,
+        dispatch,
+      })
+    } finally {
+      dispatch(setVideosFetching(false))
+    }
   }
-}

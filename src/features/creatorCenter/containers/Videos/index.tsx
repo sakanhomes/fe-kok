@@ -1,18 +1,14 @@
 import { Loader } from '@/components/Loader'
 import { useRedux } from '@/hooks/use-redux'
 import Box from '@/styles/Box'
-import React, { FC, useEffect } from 'react'
-import { creatorCenterSelector, getVideosAsync } from '../../store/creatorCenter'
+import React, { FC } from 'react'
+import { creatorCenterSelector } from '../../store/creatorCenter'
 import { Video } from '../Video'
 
 export const Videos: FC = () => {
-  const { dispatch, select } = useRedux()
+  const { select } = useRedux()
 
   const { videos, videosFetching } = select(creatorCenterSelector)
-
-  useEffect(() => {
-    dispatch(getVideosAsync())
-  }, [])
 
   if (videosFetching) return <Loader />
 

@@ -13,6 +13,7 @@ const Wrapper = styled(Box)`
   background-color: ${({ theme }) => theme.palette.secondary100};
   border: 1px solid ${({ theme }) => rgba(theme.palette.primary100, 0.26)};
   border-radius: 8px;
+  cursor: pointer;
 `
 
 export const CreatorCard: FC<{
@@ -28,15 +29,10 @@ export const CreatorCard: FC<{
       alignItems="center"
       paddingX={12}
       width="100%"
+      onClick={() => push({ pathname: `${ROUTES.CREATOR_PAGE}/${user.address}` })}
       height={60}
     >
-      <Box
-        onClick={() => push({ pathname: `${ROUTES.CREATOR_PAGE}/${user.address}` })}
-        width="fit-content"
-        display="flex"
-        gridGap="7px"
-        alignItems="center"
-      >
+      <Box width="fit-content" display="flex" gridGap="7px" alignItems="center">
         <Avatar avatar={user.profileImage} />
         <Text>{user.name ?? user.address}</Text>
       </Box>

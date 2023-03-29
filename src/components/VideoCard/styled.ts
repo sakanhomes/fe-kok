@@ -4,9 +4,9 @@ import Box from '@/styles/Box'
 import LinesEllipsis from 'react-lines-ellipsis'
 import styled from 'styled-components'
 
-export const ImageButton = styled(BaseButton)<{ image: string }>`
+export const ImageButton = styled(BaseButton)<{ image: string; height?: number }>`
   width: 100%;
-  height: 170px;
+  height: ${({ height }) => (height ? `${height}px` : '170px')};
   background-image: url(${({ image }) => image});
   background-size: cover;
   background-position: center center;
