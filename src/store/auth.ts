@@ -74,19 +74,30 @@ const logoutAsync = (): TAsyncAction => async (dispatch) => {
   }
 }
 
+const getSubscriptionsAsync =
+  (callback?: () => void): TAsyncAction =>
+  async (dispatch) => {
+    try {
+      const { data } = await profileApi.getSubscriptions()
+      dispatch(actions.setSubscriptions(data.data.users))
+      if (callback) callback()
+    } catch (e) {
+      handleActionErrors({
+        e,
+        dispatch,
+        additionalConditions: () => true,
+      })
+    }
+  }
+
 const getProfileAsync =
   (callback?: () => void): TAsyncAction =>
   async (dispatch) => {
     try {
       if (!authorized.get()) return dispatch(actions.setGlobalFetching(false))
       const { data } = await profileApi.get()
-      const {
-        data: {
-          data: { users },
-        },
-      } = await profileApi.getSubscriptions()
       dispatch(setUserData(data.data.user))
-      dispatch(actions.setSubscriptions(users))
+      dispatch(getSubscriptionsAsync())
       if (callback) callback()
     } catch (e) {
       handleActionErrors({
@@ -104,6 +115,7 @@ export const actionsAsync = {
   logout,
   setUserData,
   getProfileAsync,
+  getSubscriptionsAsync,
 }
 
 export const selectors = { authSelector }

@@ -1,7 +1,9 @@
 export type TShortUserInfo = {
   address: string
-  name: string
-  profileImage: string
+  name?: string
+  profileImage?: string
+  backgroundImage?: string
+  description?: string
   subscribersAmount: number
   subscriptionsAmount: number
   videosAmount: number

@@ -2,10 +2,12 @@ import { usersApi } from '@/api/rest/users'
 import { BaseButton } from '@/components/buttons/BaseButton'
 import { useAuth } from '@/hooks/use-auth'
 import { useRedux } from '@/hooks/use-redux'
+import { IPalette } from '@/styles/styled'
 import { handleActionErrors } from '@/utils/handleActionErrors'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import useTranslation from 'next-translate/useTranslation'
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
+import { actionsAsync } from 'store/auth'
 import styled, {
   css,
   DefaultTheme,
@@ -19,6 +21,7 @@ type TButtonType = 'Main' | 'Secondary'
 
 type TFollowingButton = {
   $type: `follow${TButtonType}` | `followed${TButtonType}`
+  color?: keyof IPalette
 }
 
 const variants: {
@@ -47,15 +50,19 @@ const FollowButton = styled(BaseButton)<TFollowingButton>`
   height: 41px;
   justify-content: center;
   ${({ $type }) => variants[$type]}
+  width: fit-content;
+  ${({ theme, color }) => color && `color: ${theme.palette[color]};`}
+  ${({ theme, color }) => color && `border-color: ${theme.palette[color]};`}
 `
 
 export const FollowingButton: FC<{
   type?: TButtonType
   isSubscribed: boolean
   $address: string
-}> = ({ type = 'Main', isSubscribed, $address }) => {
+  color?: keyof IPalette
+}> = ({ type = 'Main', isSubscribed, $address, color }) => {
   const { user, address } = useAuth()
-  const [subscribed, setSubscribed] = useState(isSubscribed)
+  const [subscribed, setSubscribed] = useState(false)
   const [fetching, setFetching] = useState(false)
   const { t } = useTranslation('common')
   const { openConnectModal } = useConnectModal()
@@ -67,6 +74,7 @@ export const FollowingButton: FC<{
       if (!subscribed) await usersApi.setSubscribe($address)
       else await usersApi.removeSubscribe($address)
       setSubscribed(!subscribed)
+      dispatch(actionsAsync.getSubscriptionsAsync())
     } catch (e) {
       handleActionErrors({ e, dispatch })
     } finally {
@@ -81,11 +89,16 @@ export const FollowingButton: FC<{
     }
   }
 
+  useEffect(() => {
+    setSubscribed(isSubscribed)
+  }, [isSubscribed])
+
   const name: TFollowingButton['$type'] = `${subscribed ? 'followed' : 'follow'}${type}`
 
   return (
     <FollowButton
       isLoading={fetching}
+      color={color}
       icon={
         type === 'Secondary'
           ? {

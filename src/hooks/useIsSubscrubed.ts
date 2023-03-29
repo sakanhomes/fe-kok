@@ -1,26 +1,25 @@
 import { usersApi } from '@/api/rest/users'
 import { handleActionErrors } from '@/utils/handleActionErrors'
 import { useEffect, useState } from 'react'
-import { useAuth } from './use-auth'
 import { useRedux } from './use-redux'
 
-export const useIsSubscribed = (): boolean => {
-  const [isSubscribed, setIsSubscribed] = useState(false)
+export const useIsSubscribed = (address?: string): boolean | undefined => {
+  const [isSubscribed, setIsSubscribed] = useState<boolean>()
   const { dispatch } = useRedux()
-  const { user } = useAuth()
 
   const getFlugsAsync = async () => {
-    if (!user) return
     try {
-      const { data } = await usersApi.getFlags(user.address)
+      if (!address) return
+      const { data } = await usersApi.getFlags(address)
       setIsSubscribed(data.data.flags.isSubscribed)
     } catch (e) {
       handleActionErrors({ e, dispatch })
     }
   }
+
   useEffect(() => {
     getFlugsAsync()
-  }, [user?.address])
+  }, [address])
 
   return isSubscribed
 }

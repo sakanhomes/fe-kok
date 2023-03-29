@@ -48,7 +48,6 @@ export const VideoViewer: FC = () => {
   const { user, address } = useAuth()
   const { openConnectModal } = useConnectModal()
   const { elapsedTime, startTimer, stopTimer } = useStopwatch()
-  const isSubscribed = useIsSubscribed()
 
   useEffect(() => {
     if (id && +elapsedTime >= 5) {
@@ -70,6 +69,8 @@ export const VideoViewer: FC = () => {
   useUnmount(() => dispatch(resetVideoPlay()))
 
   const memorizedVideo = useMemo(() => video, [video])
+
+  const isSubscribed = useIsSubscribed(memorizedVideo?.user.address)
 
   const onLikeClick = () => {
     if (memorizedVideo) {
@@ -140,11 +141,13 @@ export const VideoViewer: FC = () => {
                 </Text>
               </Box>
             </Box>
-            <FollowingButton
-              isSubscribed={isSubscribed}
-              $address={memorizedVideo.user.address}
-              type="Main"
-            />
+            {typeof isSubscribed !== 'undefined' && (
+              <FollowingButton
+                isSubscribed={isSubscribed}
+                $address={memorizedVideo.user.address}
+                type="Main"
+              />
+            )}
           </UserBox>
           {memorizedVideo.description && (
             <Text variant="l2">{memorizedVideo.description}</Text>
