@@ -20,7 +20,7 @@ export const useHistory = (): {
       setHistory(data.data.views)
       formik?.resetForm()
     } catch (e) {
-      handleActionErrors({ e, dispatch })
+      handleActionErrors({ e, dispatch, formik })
     } finally {
       formik?.setSubmitting(false)
     }

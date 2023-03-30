@@ -7,17 +7,17 @@ import { BaseButton } from '@/components/buttons/BaseButton'
 import Box from '@/styles/Box'
 import { TFormik } from '@/types/formik'
 
-export const SearchInput: FC<{ onSubmit: (value: string, formik?: TFormik) => void }> = ({
-  onSubmit,
-}) => {
+export const SearchInput: FC<{
+  onSubmit: (search: string, formik?: TFormik) => void
+}> = ({ onSubmit }) => {
   const { t } = useTranslation('inputs')
 
   const formik = useFormik({
     initialValues: {
-      value: '',
+      search: '',
     },
-    onSubmit: ({ value }) => {
-      onSubmit(value, formik)
+    onSubmit: ({ search }) => {
+      onSubmit(search, formik)
     },
   })
 
@@ -25,7 +25,7 @@ export const SearchInput: FC<{ onSubmit: (value: string, formik?: TFormik) => vo
     <Box maxWidth={494} margin="0 auto" as="form" onSubmit={formik.handleSubmit}>
       <FormikInput
         placeholder={t('search')}
-        name="value"
+        name="search"
         formik={formik}
         iconButton={
           <BaseButton isLoading={formik.isSubmitting} type="submit">

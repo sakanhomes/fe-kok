@@ -6,8 +6,10 @@ import 'react-circular-progressbar/dist/styles.css'
 import { useRedux } from '@/hooks/use-redux'
 import useTranslation from 'next-translate/useTranslation'
 import { ConfirmModal } from '@/components/modals/ConfirmModal'
+import { cancelTokenSource, resetCancelToken } from '@/api/rest/instance'
 import { UploadVideoForm } from './containers/UploadVideoFrom'
 import {
+  abortAsync,
   resetUpload,
   setVideoClosed,
   setVideoData,
@@ -22,7 +24,8 @@ export const UploadModal: FC<{
   open: boolean
 }> = ({ open, onClose, onSuccess }) => {
   const { dispatch, select } = useRedux()
-  const { videoData, closeType, step, video } = select(uploadVideoSelector)
+  const { videoData, closeType, step, video, uploads, uploadVideoComplete } =
+    select(uploadVideoSelector)
   const { t } = useTranslation('upload')
 
   useEffect(() => {
@@ -42,6 +45,20 @@ export const UploadModal: FC<{
     }
   }
 
+  const onCloseHandler = () => {
+    onClose()
+    if (uploads && !uploadVideoComplete) {
+      dispatch(
+        abortAsync(uploads?.id, () => {
+          cancelTokenSource.cancel()
+          resetCancelToken()
+        })
+      )
+    } else if (uploadVideoComplete) {
+      dispatch(resetUpload())
+    }
+  }
+
   return (
     <Modal
       open={open}
@@ -49,7 +66,7 @@ export const UploadModal: FC<{
       maxWidth="fit-content"
       onClose={() => {
         if (step === 'form') dispatch(setVideoClosed('close'))
-        else onClose()
+        else onCloseHandler()
       }}
     >
       {step === 'drop' && (
@@ -78,11 +95,19 @@ export const UploadModal: FC<{
           confirm={{
             onClick: () => {
               if (closeType === 'back') {
-                dispatch(resetUpload())
+                if (uploads && !uploadVideoComplete) {
+                  dispatch(
+                    abortAsync(uploads?.id, () => {
+                      cancelTokenSource.cancel()
+                      resetCancelToken()
+                    })
+                  )
+                } else if (uploadVideoComplete) {
+                  dispatch(resetUpload())
+                }
               }
               if (closeType === 'close') {
-                onClose()
-                dispatch(resetUpload())
+                onCloseHandler()
               }
             },
             title: t('common:close'),

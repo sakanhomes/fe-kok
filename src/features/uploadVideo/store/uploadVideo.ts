@@ -8,6 +8,7 @@ import { CHUNK_SIZE } from '@/constants/upload'
 import { TParts, TUploads } from '@/types/uploads'
 import { TVideoCreateReq, videosApi } from '@/api/rest/videos'
 import { TOwnerVideo } from '@/types/video'
+import { TFormik } from '@/types/formik'
 
 export type TVideoData = {
   size: number
@@ -170,6 +171,7 @@ export const getUploadAsync = (): TAsyncAction => async (dispatch, _store) => {
   if (!uploadVideo.allChanksCreated) return
   if (uploadVideo.uploadVideoComplete) return
   if (!uploadVideo.uploads) return
+
   try {
     const {
       data: { data },
@@ -195,24 +197,27 @@ export const getUploadAsync = (): TAsyncAction => async (dispatch, _store) => {
 }
 
 export const abortAsync =
-  (id: string): TAsyncAction =>
+  (id: string, callback: () => void): TAsyncAction =>
   async (dispatch) => {
     try {
       await uploadsApi.abort({ id })
       dispatch(resetUpload())
+      callback?.()
     } catch (e) {
       handleActionErrors({ dispatch, e })
     }
   }
 
 export const createVideoAsync =
-  (params: TVideoCreateReq, callback: () => void): TAsyncAction =>
+  (params: TVideoCreateReq, formik: TFormik, callback: () => void): TAsyncAction =>
   async (dispatch) => {
     try {
       const { data } = await videosApi.createVideo(params)
       dispatch(setVideo(data.data.video))
       if (callback) callback()
     } catch (e) {
-      handleActionErrors({ dispatch, e })
+      handleActionErrors({ dispatch, e, formik })
+    } finally {
+      formik.setSubmitting(false)
     }
   }

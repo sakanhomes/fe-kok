@@ -24,6 +24,15 @@ const axiosBaseConfig = {
   withCredentials: true,
 }
 
+// eslint-disable-next-line import/no-mutable-exports
+export let cancelTokenSource = axios.CancelToken.source()
+
+export const resetCancelToken = (): void => {
+  cancelTokenSource.cancel()
+  const newCancelTokenSource = axios.CancelToken.source()
+  cancelTokenSource = newCancelTokenSource
+}
+
 export const api: AxiosInstance = axios.create(axiosBaseConfig)
 
 const refreshAuthLogic = async () =>

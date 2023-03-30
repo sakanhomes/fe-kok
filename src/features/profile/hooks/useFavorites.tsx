@@ -20,7 +20,7 @@ export const useFavorites = (): {
       setFavorites(data.data.videos)
       formik?.resetForm()
     } catch (e) {
-      handleActionErrors({ e, dispatch })
+      handleActionErrors({ e, dispatch, formik })
     } finally {
       formik?.setSubmitting(false)
     }

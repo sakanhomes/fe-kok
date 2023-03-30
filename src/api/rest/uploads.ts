@@ -1,6 +1,6 @@
 import { API_UPLOAD_URL } from '@/constants/config'
 import { TUploads } from '@/types/uploads'
-import { api } from './instance'
+import { api, cancelTokenSource } from './instance'
 import { TAxiosResponse } from './types'
 
 export type TMultipartReq = {
@@ -35,7 +35,8 @@ const createMultipart = (
 ): TAxiosResponse<{
   status: number
   data: { upload: TUploads }
-}> => api.post(`${API_UPLOAD_URL}uploads`, params)
+}> =>
+  api.post(`${API_UPLOAD_URL}uploads`, params, { cancelToken: cancelTokenSource.token })
 
 const uploadSingle = ({
   name,
@@ -62,6 +63,7 @@ const uploadPart = ({
     headers: {
       'Content-Type': 'application/octet-stream',
     },
+    cancelToken: cancelTokenSource.token,
   })
 
 const complete = ({

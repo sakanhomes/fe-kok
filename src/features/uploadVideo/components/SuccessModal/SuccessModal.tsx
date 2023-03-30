@@ -87,12 +87,13 @@ export const SuccessModal: FC<TOwnerVideo> = ({
           <Text margin="0 0 10px">{t('videoLink')}</Text>
           <Text color="accent200">
             {APP_URL}
+            video/
             {id}
           </Text>
         </Box>
         <BaseButton
           onClick={() => {
-            navigator.clipboard.writeText(APP_URL + id)
+            navigator.clipboard.writeText(`${APP_URL}video/${id}`)
             setCopied(true)
           }}
           color="accent200"

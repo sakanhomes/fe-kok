@@ -89,19 +89,20 @@ export const UploadVideoForm: FC<{ videoData: TVideoData }> = ({ videoData }) =>
       title: validation.required,
       description: validation.required,
     }),
-    onSubmit: (formData) => {
+    onSubmit: ({ title, description, ...formData }) => {
       if (videoData.duration && uploads && thumbnail)
         dispatch(
           createVideoAsync(
             {
-              title: formData.title,
-              description: formData.description,
+              title,
+              description,
               isPublic: formData.isPublic === 'public',
               category: formData.category as unknown as ECategories,
               duration: videoData.duration,
               videoUploadId: uploads.id,
               previewUploadId: thumbnail.id,
             },
+            formik,
             () => dispatch(setStep('success'))
           )
         )

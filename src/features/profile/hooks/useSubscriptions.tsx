@@ -22,7 +22,7 @@ export const useSubscriptions = (): {
       setSubscriptions(data.data.users)
       formik?.resetForm()
     } catch (e) {
-      handleActionErrors({ e, dispatch })
+      handleActionErrors({ e, dispatch, formik })
     } finally {
       formik?.setSubmitting(false)
     }

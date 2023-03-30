@@ -22,7 +22,7 @@ export const useCollection = (
       setCollection(data.data.playlist)
       formik?.resetForm()
     } catch (e) {
-      handleActionErrors({ e, dispatch })
+      handleActionErrors({ e, dispatch, formik })
     } finally {
       formik?.setSubmitting(false)
     }
