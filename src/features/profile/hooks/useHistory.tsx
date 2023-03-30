@@ -29,7 +29,6 @@ export const useHistory = (): {
   useEffect(() => {
     getHistoryAsync()
   }, [])
-  console.log(history)
 
   const setSyncHistory = (search?: string, formik?: TFormik) => {
     getHistoryAsync(search, formik)

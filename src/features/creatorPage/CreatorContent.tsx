@@ -89,7 +89,7 @@ export const CreatorContent: FC = () => {
           </Tab>
         </Tabs>
       </Box>
-      <Box>
+      <Box width="100%">
         {tab === 'all_videos' && <Videos />}
         {tab === 'collections' && <Collection />}
       </Box>
