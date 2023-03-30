@@ -7,12 +7,15 @@ import { useEffect, useState } from 'react'
 
 export const useHistory = (): {
   history: THistory | null
+  fetching: boolean
   setHistory: (search?: string) => void
 } => {
   const [history, setHistory] = useState<THistory | null>(null)
+  const [fetching, setFetching] = useState(true)
   const { dispatch } = useRedux()
 
   const getHistoryAsync = async (search?: string, formik?: TFormik) => {
+    setFetching(true)
     try {
       const { data } = search
         ? await profileApi.getHistory({ search })
@@ -22,6 +25,7 @@ export const useHistory = (): {
     } catch (e) {
       handleActionErrors({ e, dispatch, formik })
     } finally {
+      setFetching(false)
       formik?.setSubmitting(false)
     }
   }
@@ -34,5 +38,5 @@ export const useHistory = (): {
     getHistoryAsync(search, formik)
   }
 
-  return { history, setHistory: setSyncHistory }
+  return { history, fetching, setHistory: setSyncHistory }
 }
