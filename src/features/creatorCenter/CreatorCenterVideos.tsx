@@ -46,13 +46,14 @@ export const CreatorCenterVideos: FC<{
       >
         {t('uploadVideo')}
       </UploadButton>
-      {uploadVideo({
-        open: openUpload,
-        onSuccess: () => setUploadSuccess(true),
-        onClose: () => {
-          setOpenUpload(false)
-        },
-      })}
+      {openUpload &&
+        uploadVideo({
+          open: openUpload,
+          onSuccess: () => setUploadSuccess(true),
+          onClose: () => {
+            setOpenUpload(false)
+          },
+        })}
       <Videos />
     </Box>
   )

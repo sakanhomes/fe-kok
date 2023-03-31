@@ -104,12 +104,14 @@ export const Header: FC<THeader> = ({ searchInput, withSpaces }) => {
         </ConnectButton.Custom>
       )}
       {user && <UserMenu />}
-      <UploadModal
-        open={openUpload}
-        onClose={() => {
-          setOpenUpload(false)
-        }}
-      />
+      {openUpload && (
+        <UploadModal
+          open={openUpload}
+          onClose={() => {
+            setOpenUpload(false)
+          }}
+        />
+      )}
     </Box>
   )
 }
