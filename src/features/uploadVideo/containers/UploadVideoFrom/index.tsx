@@ -5,7 +5,7 @@ import { useRedux } from '@/hooks/use-redux'
 import Box from '@/styles/Box'
 import { validation } from '@/utils/validation'
 import { useFormik } from 'formik'
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar'
 import styled, { useTheme } from 'styled-components'
 import * as yup from 'yup'
@@ -65,6 +65,7 @@ export const UploadVideoForm: FC<{ videoData: TVideoData }> = ({ videoData }) =>
   const { thumbnail, uploadVideoComplete, uploads, localImage, completedPercentage } =
     select(uploadVideoSelector)
   const theme = useTheme()
+  const [validateThumbnail, setValidateThumbnail] = useState(false)
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -103,7 +104,9 @@ export const UploadVideoForm: FC<{ videoData: TVideoData }> = ({ videoData }) =>
               previewUploadId: thumbnail.id,
             },
             formik,
-            () => dispatch(setStep('success'))
+            () => {
+              dispatch(setStep('success'))
+            }
           )
         )
     },
@@ -213,10 +216,12 @@ export const UploadVideoForm: FC<{ videoData: TVideoData }> = ({ videoData }) =>
             <UploadFiles
               type="images"
               noClick={false}
+              borderColor={validateThumbnail && !thumbnail ? 'danger200' : undefined}
               noKeyboard={false}
-              onDropAccepted={(file) =>
+              onDropAccepted={(file) => {
                 dispatch(singleUploadAsync(file.name, file, 'image'))
-              }
+                setValidateThumbnail(false)
+              }}
               bg={`url(${localImage})` ?? theme.palette.secondary100}
               customContent={() => (
                 <Box
@@ -226,10 +231,18 @@ export const UploadVideoForm: FC<{ videoData: TVideoData }> = ({ videoData }) =>
                   flexDirection="column"
                   justifyContent="center"
                   alignItems="center"
+                  position="relative"
                   bg={rgba(theme.palette.secondary100, 0.5)}
                 >
                   <UploadIcon3 color="primary500" />
                   <Text>{t('uploadThumbnail')}</Text>
+                  {validateThumbnail && !thumbnail && (
+                    <Box position="absolute" bottom={10}>
+                      <Text variant="l2" color="danger100">
+                        {t('validation:required')}
+                      </Text>
+                    </Box>
+                  )}
                 </Box>
               )}
             />
@@ -266,7 +279,11 @@ export const UploadVideoForm: FC<{ videoData: TVideoData }> = ({ videoData }) =>
             <Box display="flex" flexDirection="column" gridGap={20}>
               <UploadButton
                 type="submit"
-                disabled={!formik.dirty && !thumbnail && !uploadVideoComplete}
+                onClick={() => {
+                  if (!thumbnail) setValidateThumbnail(true)
+                  else setValidateThumbnail(false)
+                }}
+                disabled={!formik.isValid || !thumbnail || !uploadVideoComplete}
               >
                 {t('upload')}
               </UploadButton>

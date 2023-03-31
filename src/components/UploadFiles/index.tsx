@@ -1,4 +1,5 @@
 import Box from '@/styles/Box'
+import { IPalette } from '@/styles/styled'
 import useTranslation from 'next-translate/useTranslation'
 import React, { FC, ReactNode } from 'react'
 import { DropzoneState, useDropzone } from 'react-dropzone'
@@ -7,10 +8,12 @@ import { BaseButton } from '../buttons/BaseButton'
 import { File } from '../icons/File'
 import { Text } from '../Text'
 
-const Wrapper = styled(Box)<{ bg?: string }>`
+const Wrapper = styled(Box)<{ bg?: string; borderColor?: keyof IPalette }>`
   border-radius: 20px;
   background: ${({ theme, bg }) => bg ?? theme.palette.accent400};
-  border: 2px dashed ${({ theme }) => theme.palette.primary600};
+  border: 2px dashed
+    ${({ theme, borderColor }) =>
+      borderColor ? theme.palette[borderColor] : theme.palette.primary600};
   cursor: pointer;
   background-size: cover;
   background-repeat: no-repeat;
@@ -41,10 +44,12 @@ export const UploadFiles: FC<{
   type?: 'video' | 'images'
   customContent?: (props: DropzoneState) => ReactNode
   bg?: string
+  borderColor?: keyof IPalette
   noClick?: boolean
   noKeyboard?: boolean
 }> = ({
   onDropAccepted,
+  borderColor,
   className,
   type,
   customContent,
@@ -70,7 +75,13 @@ export const UploadFiles: FC<{
   const { t } = useTranslation('upload')
 
   return (
-    <Wrapper bg={bg} width="100%" className={className} {...dropzone.getRootProps()}>
+    <Wrapper
+      borderColor={borderColor}
+      bg={bg}
+      width="100%"
+      className={className}
+      {...dropzone.getRootProps()}
+    >
       <input type="file" {...dropzone.getInputProps()} />
       {customContent?.(dropzone) ?? (
         <Box
