@@ -116,6 +116,7 @@ export const singleUploadAsync =
         dispatch(setLocalImage(URL.createObjectURL(body)))
         dispatch(setThumbnail(data.upload))
       }
+      dispatch(setUploadVideoComplete(true))
     } catch (e) {
       handleActionErrors({ dispatch, e })
     }

@@ -6,6 +6,8 @@ import useTranslation from 'next-translate/useTranslation'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 import { BaseButton } from '@/components/buttons/BaseButton'
+import Box from '@/styles/Box'
+import { CloseIcon } from '@/components/icons/CloseIcon'
 
 export const SearchInput: FC = () => {
   const router = useRouter()
@@ -20,16 +22,26 @@ export const SearchInput: FC = () => {
   })
   return (
     <form onSubmit={formik.handleSubmit}>
-      <FormikInput
-        placeholder={t('searchVideo')}
-        name="value"
-        formik={formik}
-        iconButton={
-          <BaseButton type="submit">
-            <SearchIcon color="primary400" />
-          </BaseButton>
-        }
-      />
+      <Box position="relative">
+        <FormikInput
+          placeholder={t('searchVideo')}
+          name="value"
+          formik={formik}
+          style={{ paddingRight: 60 }}
+          iconButton={
+            <BaseButton type="submit">
+              <SearchIcon color="primary400" />
+            </BaseButton>
+          }
+        />
+        {formik.values.value.length > 0 && (
+          <Box position="absolute" opacity={0.9} right={55} top={12}>
+            <BaseButton onClick={() => formik.resetForm()}>
+              <CloseIcon color="danger100" />
+            </BaseButton>
+          </Box>
+        )}
+      </Box>
     </form>
   )
 }

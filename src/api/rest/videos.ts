@@ -22,6 +22,13 @@ export type TVideoCreateReq = {
   previewUploadId: string
 }
 
+const get = (params?: {
+  search?: string
+}): TAxiosResponse<{
+  status: number
+  data: { videos: TVideo[] }
+}> => api.get('videos', { params })
+
 const getRandom = (
   params: TVideosReq
 ): TAxiosResponse<{
@@ -80,6 +87,7 @@ const getViewed = (
   api.post(`videos/${id}/viewed`)
 
 export const videosApi = {
+  get,
   getRandom,
   getVideo,
   updateVideo,

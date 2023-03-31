@@ -5,10 +5,12 @@ import { TVideo } from '@/types/video'
 import { api } from './instance'
 import { TAxiosResponse } from './types'
 
-const get = (): TAxiosResponse<{
+const get = (params?: {
+  search?: string
+}): TAxiosResponse<{
   status: number
   data: { users: TProlile[] }
-}> => api.get('users')
+}> => api.get('users', { params })
 
 const getByAddress = (
   address: string

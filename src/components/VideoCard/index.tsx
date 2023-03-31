@@ -19,11 +19,11 @@ const Duration = styled(Box)`
   border-radius: 4px;
 `
 
-const UserName = styled(Text)`
+const UserName = styled(Text)<{ fullWidth: boolean }>`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 140px;
+  max-width: ${({ fullWidth }) => (fullWidth ? '100%' : '140px')};
 `
 
 export type TVideoCard = {
@@ -33,6 +33,10 @@ export type TVideoCard = {
   additionalContent?: ReactNode
   showUser?: boolean
   user?: TShortUserInfo
+  horizontalCogfig?: {
+    gridTemplateColumns?: string
+    fullUsername?: boolean
+  }
   height?: number
 } & TOwnerVideo
 
@@ -45,6 +49,7 @@ export const VideoCard: FC<TVideoCard> = ({
   createdAt,
   user,
   isHorizontal,
+  horizontalCogfig,
   height,
   showedTitleRows = 2,
   uniqId,
@@ -64,7 +69,7 @@ export const VideoCard: FC<TVideoCard> = ({
   const horizontalProps = isHorizontal
     ? {
         display: 'grid',
-        gridTemplateColumns: 'repeat(2, 1fr)',
+        gridTemplateColumns: horizontalCogfig?.gridTemplateColumns ?? 'repeat(2, 1fr)',
         gridGap: 24,
       }
     : {}
@@ -83,7 +88,12 @@ export const VideoCard: FC<TVideoCard> = ({
             {duration}
           </Text>
         </Duration>
-        <S.ImageButton height={height} image={previewImage} onClick={onVideoClick} />
+        <S.ImageButton
+          height={height}
+          isHorizontal={isHorizontal}
+          image={previewImage}
+          onClick={onVideoClick}
+        />
       </Box>
       <Box>
         <S.TitleButton onClick={onVideoClick}>
@@ -126,7 +136,9 @@ export const VideoCard: FC<TVideoCard> = ({
               content={user.name ?? user.address}
               id={`${user.address}_${createdAt}`}
             >
-              <UserName>{user.name ?? user.address}</UserName>
+              <UserName fullWidth={!!horizontalCogfig?.fullUsername && !!isHorizontal}>
+                {user.name ?? user.address}
+              </UserName>
             </Tooltip>
           </S.User>
         )}

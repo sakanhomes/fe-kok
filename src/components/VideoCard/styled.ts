@@ -4,7 +4,11 @@ import Box from '@/styles/Box'
 import LinesEllipsis from 'react-lines-ellipsis'
 import styled from 'styled-components'
 
-export const ImageButton = styled(BaseButton)<{ image: string; height?: number }>`
+export const ImageButton = styled(BaseButton)<{
+  image: string
+  height?: number
+  isHorizontal?: boolean
+}>`
   width: 100%;
   height: ${({ height }) => (height ? `${height}px` : '170px')};
   background-image: url(${({ image }) => image});
@@ -13,6 +17,7 @@ export const ImageButton = styled(BaseButton)<{ image: string; height?: number }
   background-repeat: no-repeat;
   border-radius: 8px;
   position: relative;
+  ${({ isHorizontal }) => isHorizontal && 'max-width: 240px;'}
 `
 
 export const Duration = styled(Text)`
