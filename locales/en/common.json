@@ -14,7 +14,7 @@
     "monthsAgo1": "{{time}} month ago",
     "daysAgo": "{{time}} days ago",
     "daysAgo1": "{{time}} day ago",
-    "hoursAgo": "{{time}} hours age",
+    "hoursAgo": "{{time}} hours ago",
     "hoursAgo1": "{{time}} hour ago",
     "minutesAgo": "{{time}} minutes ago",
     "minutesAgo1": "{{time}} menute ago",

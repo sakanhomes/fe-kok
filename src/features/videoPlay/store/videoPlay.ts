@@ -3,6 +3,8 @@ import { handleActionErrors } from '@/utils/handleActionErrors'
 import { TSelector, TAsyncAction } from '@/store'
 import { TVideo } from '@/types/video'
 import { videosApi } from '@/api/rest/videos'
+import { TComments } from '@/types/comments'
+import { commentsApi, TCommentsParams } from '@/api/rest/comments'
 
 export type TInit = {
   id: string | null
@@ -12,6 +14,11 @@ export type TInit = {
   related: {
     videos: TVideo[] | null
     fetching: boolean
+  }
+  comments: {
+    data: TComments[]
+    fetching: boolean
+    sortingFetching: boolean
   }
 }
 
@@ -23,6 +30,11 @@ const init: TInit = {
   related: {
     videos: null,
     fetching: true,
+  },
+  comments: {
+    data: [],
+    fetching: true,
+    sortingFetching: false,
   },
 }
 
@@ -48,6 +60,15 @@ const videoPlay = createSlice({
     setRelatedVideoFetching(state, actions: PayloadAction<boolean>) {
       state.related.fetching = actions.payload
     },
+    setComments(state, actions: PayloadAction<TComments[]>) {
+      state.comments.data = actions.payload
+    },
+    setCommentsFetching(state, actions: PayloadAction<boolean>) {
+      state.comments.fetching = actions.payload
+    },
+    setSortingFetching(state, actions: PayloadAction<boolean>) {
+      state.comments.sortingFetching = actions.payload
+    },
     resetVideoPlay: () => init,
   },
 })
@@ -60,6 +81,9 @@ export const {
   setRelatedVideos,
   setLikingFetching,
   setRelatedVideoFetching,
+  setComments,
+  setSortingFetching,
+  setCommentsFetching,
   resetVideoPlay,
 } = videoPlay.actions
 // selectors
@@ -86,6 +110,30 @@ export const getVideoAsync =
       })
     } finally {
       dispatch(setVideoFetching(false))
+    }
+  }
+
+export const getCommentsAsync =
+  (id: string, params?: TCommentsParams): TAsyncAction =>
+  async (dispatch, _store) => {
+    const { videoPlay } = _store()
+    try {
+      if (!videoPlay.comments.fetching && !params) dispatch(setCommentsFetching(true))
+      if (params) dispatch(setSortingFetching(true))
+      const {
+        data: {
+          data: { comments },
+        },
+      } = await commentsApi.get(id, params)
+      dispatch(setComments(comments))
+    } catch (e) {
+      handleActionErrors({
+        e,
+        dispatch,
+      })
+    } finally {
+      if (!params) dispatch(setCommentsFetching(false))
+      if (params) dispatch(setSortingFetching(false))
     }
   }
 

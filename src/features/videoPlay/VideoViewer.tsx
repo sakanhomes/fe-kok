@@ -6,6 +6,7 @@ import { ShareIcon } from '@/components/icons/ShareIcon'
 import { Loader } from '@/components/Loader'
 import { Text } from '@/components/Text'
 import { VideoPlayer } from '@/components/VideoPlayer'
+import { ROUTES } from '@/constants/routes'
 import { useAuth } from '@/hooks/use-auth'
 import { useRedux } from '@/hooks/use-redux'
 import { useTimeAgo } from '@/hooks/use-time-ago'
@@ -40,8 +41,8 @@ const UserBox = styled(Box)`
   border-top: 1px solid ${({ theme }) => theme.palette.secondary200};
 `
 
-export const VideoViewer: FC = () => {
-  const { query } = useRouter()
+export const VideoViewer: FC<{ commnets: (id: string) => void }> = ({ commnets }) => {
+  const { query, push } = useRouter()
   const { dispatch, select } = useRedux()
   const { id, video, videoFetching, likingFetching } = select(videoPlaySelector)
   const { t } = useTranslation('common')
@@ -130,17 +131,25 @@ export const VideoViewer: FC = () => {
             justifyContent="space-between"
             alignItems="center"
           >
-            <Box display="flex" gridGap={12} alignItems="center">
-              <Avatar avatar={memorizedVideo.user.profileImage} sizes="lg" />
-              <Box>
-                <Text variant="p1" margin="0 0 7px">
-                  {memorizedVideo.user.name ?? memorizedVideo.user.address}
-                </Text>
-                <Text variant="p4" color="primary600">
-                  {formatViews(memorizedVideo.user.subscribersAmount)} {t('followers')}
-                </Text>
+            <BaseButton
+              onClick={() =>
+                push({
+                  pathname: `${ROUTES.CREATOR_PAGE}/${memorizedVideo.user.address}`,
+                })
+              }
+            >
+              <Box display="flex" gridGap={12} alignItems="center">
+                <Avatar avatar={memorizedVideo.user.profileImage} sizes="lg" />
+                <Box>
+                  <Text variant="p1" margin="0 0 7px">
+                    {memorizedVideo.user.name ?? memorizedVideo.user.address}
+                  </Text>
+                  <Text variant="p4" color="primary600">
+                    {formatViews(memorizedVideo.user.subscribersAmount)} {t('followers')}
+                  </Text>
+                </Box>
               </Box>
-            </Box>
+            </BaseButton>
             {typeof isSubscribed !== 'undefined' && (
               <FollowingButton
                 isSubscribed={isSubscribed}
@@ -150,8 +159,11 @@ export const VideoViewer: FC = () => {
             )}
           </UserBox>
           {memorizedVideo.description && (
-            <Text variant="l2">{memorizedVideo.description}</Text>
+            <Text margin="0 0 50px" variant="l2">
+              {memorizedVideo.description}
+            </Text>
           )}
+          {commnets(memorizedVideo.id)}
         </>
       )}
     </Box>
