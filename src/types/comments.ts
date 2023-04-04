@@ -12,10 +12,10 @@ export type TReply = {
 export type TComments = {
   id: string
   content: string
-  likesAmount: string
-  dislikesAmount: string
+  likesAmount: number
+  dislikesAmount: number
   createdAt: number
-  repliesAmount: string
+  repliesAmount: number
   user: TShortUserInfo
   flags: {
     isLiked: boolean

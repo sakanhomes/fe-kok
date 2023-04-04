@@ -1,11 +1,13 @@
 import { BaseButton } from '@/components/buttons/BaseButton'
 import { Text } from '@/components/Text'
+import { useAuth } from '@/hooks/use-auth'
 import { useRedux } from '@/hooks/use-redux'
 import Box from '@/styles/Box'
 import useTranslation from 'next-translate/useTranslation'
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useMemo } from 'react'
 import styled from 'styled-components'
 import { Comment } from './componetns/Comment'
+import { LikeCommentActions } from './componetns/LikeCommentActions'
 import { getCommentsAsync, videoPlaySelector } from './store/videoPlay'
 
 const SortButton = styled(BaseButton)`
@@ -21,10 +23,13 @@ export const Comments: FC<{ id: string }> = ({ id }) => {
     comments: { data, sortingFetching },
   } = select(videoPlaySelector)
   const { t } = useTranslation('comments')
+  const { user } = useAuth()
 
   useEffect(() => {
     dispatch(getCommentsAsync(id))
-  }, [])
+  }, [user])
+
+  const memorizedComments = useMemo(() => data, [data])
 
   return (
     <Box>
@@ -46,8 +51,21 @@ export const Comments: FC<{ id: string }> = ({ id }) => {
         </SortButton>
       </Box>
       <Box display="grid" gridGap={20}>
-        {data.map((item) => (
-          <Comment key={item.id} comment={item} />
+        {memorizedComments.map((item) => (
+          <Comment
+            likeActions={() => (
+              <LikeCommentActions
+                id={id}
+                onUpdate={() => dispatch(getCommentsAsync(id))}
+                commentId={item.id}
+                {...item.flags}
+                likesAmount={item.likesAmount}
+                dislikesAmount={item.dislikesAmount}
+              />
+            )}
+            key={item.id}
+            comment={item}
+          />
         ))}
       </Box>
     </Box>

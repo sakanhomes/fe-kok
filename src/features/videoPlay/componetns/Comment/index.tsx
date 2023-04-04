@@ -1,7 +1,5 @@
 import { Avatar } from '@/components/Avatar'
 import { BaseButton } from '@/components/buttons/BaseButton'
-import { DislikeIcon } from '@/components/icons/DislikeIcon'
-import { LikeIcon2 } from '@/components/icons/LikeIcon2'
 import { ReplyIcon } from '@/components/icons/ReplyIcon'
 import { Text } from '@/components/Text'
 import { useTimeAgo } from '@/hooks/use-time-ago'
@@ -18,7 +16,10 @@ const UserName = styled(Text)`
   max-width: 200px;
 `
 
-export const Comment: FC<{ comment: TComments }> = ({ comment }) => {
+export const Comment: FC<{ comment: TComments; likeActions: () => void }> = ({
+  comment,
+  likeActions,
+}) => {
   const time = useTimeAgo(comment.createdAt)
 
   return (
@@ -39,22 +40,7 @@ export const Comment: FC<{ comment: TComments }> = ({ comment }) => {
         {comment.content}
       </Text>
       <Box display="flex" gridGap={24} marginLeft={33}>
-        <BaseButton
-          icon={{
-            place: 'prepend',
-            el: <LikeIcon2 color={comment.flags.isLiked ? 'danger100' : 'accent300'} />,
-          }}
-        >
-          {comment.likesAmount}
-        </BaseButton>
-        <BaseButton
-          icon={{
-            place: 'prepend',
-            el: <DislikeIcon color={comment.flags.isLiked ? 'danger100' : 'accent300'} />,
-          }}
-        >
-          {comment.likesAmount}
-        </BaseButton>
+        {likeActions()}
         <BaseButton icon={{ place: 'prepend', el: <ReplyIcon color="accent300" /> }}>
           {comment.repliesAmount}
         </BaseButton>
