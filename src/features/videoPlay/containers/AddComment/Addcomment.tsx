@@ -4,7 +4,9 @@ import { BaseButton } from '@/components/buttons/BaseButton'
 import { SendArrow } from '@/components/icons/SendArrow'
 import { FormikInput } from '@/components/inputs/FormikInput'
 import { useAuth } from '@/hooks/use-auth'
+import { useOpenAuth } from '@/hooks/use-open-auth'
 import { useRedux } from '@/hooks/use-redux'
+import Box from '@/styles/Box'
 import { TFormik } from '@/types/formik'
 import { handleActionErrors } from '@/utils/handleActionErrors'
 import { useFormik } from 'formik'
@@ -41,6 +43,7 @@ export const AddComment: FC<{ id: string }> = ({ id }) => {
   const { user } = useAuth()
   const { dispatch } = useRedux()
   const { t } = useTranslation('comments')
+  const openAuth = useOpenAuth()
 
   const postComment = async (content: string, formik?: TFormik) => {
     try {
@@ -62,33 +65,37 @@ export const AddComment: FC<{ id: string }> = ({ id }) => {
       postComment(content, formik)
     },
   })
+
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <Input
-        formik={formik}
-        placeholder={t('placeholder')}
-        name="content"
-        iconButton={
-          <SendButton isLoading={formik.isSubmitting} type="submit">
-            <SendArrow color="accent300" />
-          </SendButton>
-        }
-        additionalContent={{
-          place: 'prepend',
-          el: (
-            <>
-              <Avatar bordered={false} customSize={45} avatar={user?.profileImage} />
-              {/* <Reply
+    <Box onClick={() => openAuth?.()}>
+      <form autoComplete="off" onSubmit={formik.handleSubmit}>
+        <Input
+          formik={formik}
+          placeholder={t('placeholder')}
+          name="content"
+          disabled={!!openAuth}
+          iconButton={
+            <SendButton isLoading={formik.isSubmitting} type="submit">
+              <SendArrow color="accent300" />
+            </SendButton>
+          }
+          additionalContent={{
+            place: 'prepend',
+            el: (
+              <>
+                <Avatar bordered={false} customSize={45} avatar={user?.profileImage} />
+                {/* <Reply
             onDelete={() => console.log('asdasd')}
             reply={{
               id: 'asdasdasdas',
               user: { name: 'John', address: '0xashjdqwldhasldawhd' },
             }}
           /> */}
-            </>
-          ),
-        }}
-      />
-    </form>
+              </>
+            ),
+          }}
+        />
+      </form>
+    </Box>
   )
 }
