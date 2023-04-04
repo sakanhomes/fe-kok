@@ -8,6 +8,7 @@ export const StyledLabel = styled(Text).attrs<{ htmlFor?: string }>((props) => (
 }))<{ htmlFor?: string }>`
   padding-bottom: 12px;
   display: inline-block;
+  width: 100%;
 `
 
 export const ErrorComponent = styled(Text).attrs((props) => ({

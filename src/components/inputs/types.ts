@@ -1,4 +1,4 @@
-import { ChangeEvent, CSSProperties, ReactElement } from 'react'
+import { ChangeEvent, CSSProperties, ReactElement, ReactNode } from 'react'
 
 export type TLabelProps = {
   label?: string
@@ -14,6 +14,10 @@ export type TInputProps = {
   placeholder?: string
   className?: string
   type?: string
+  additionalContent?: {
+    el: ReactNode
+    place: 'append' | 'prepend'
+  }
   style?: CSSProperties
   textarea?: boolean
   disabled?: boolean
@@ -30,7 +34,6 @@ export type TInputProps = {
   decimals?: number
   iconButton?: ReactElement
   onIconButtonClick?: () => void
-  iconOutside?: boolean
   width?: CSSProperties['width']
   iconButtonType?: 'submit' | 'reset' | 'button'
 }

@@ -2,11 +2,7 @@ import styled, { css, CSSProperties } from 'styled-components'
 
 export type TInputContProps = {
   error?: string
-  iconOutside?: boolean
-}
-
-type TIconButton = {
-  iconOutside?: boolean
+  height?: number
 }
 
 type TTextAreaContainer = {
@@ -31,6 +27,10 @@ export const TextAreaContainer = styled.div<TTextAreaContainer>`
     disabled ? palette.secondary200 : 'unset'};
   margin-bottom: 10px;
   background-color: ${({ theme }) => theme.palette.secondary100};
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 14px;
+  align-items: center;
   :hover,
   :focus {
     filter: brightness(0.95);
@@ -43,7 +43,8 @@ export const TextArea = styled.textarea<TTextAreaContainer>`
   width: 100%;
   resize: none;
   border: unset;
-  height: ${({ height }) => height ?? 120}px;
+  min-height: ${({ height }) => height ?? 120}px;
+  height: auto;
   font-weight: 400;
   font-size: 14px;
   line-height: 26px;
@@ -58,9 +59,10 @@ export const TextArea = styled.textarea<TTextAreaContainer>`
 
 export const InputCont = styled.div<TInputContProps>((props) => {
   const { palette } = props.theme
+  const { height } = props
 
   return css`
-    height: 38px;
+    height: ${height ?? 38}px;
     position: relative;
     font-size: 14px;
     font-weight: 500;
@@ -73,6 +75,7 @@ export const InputCont = styled.div<TInputContProps>((props) => {
     padding: 0 18px;
     display: flex;
     flex-wrap: nowrap;
+    gap: 14px;
     align-items: center;
     background-color: ${({ theme }) => theme.palette.secondary100};
     :hover,
@@ -102,17 +105,15 @@ export const Input = styled.input`
   outline: none;
   box-sizing: border-box;
   width: 100%;
+  height: 100%;
   &:read-only {
     pointer-events: none;
   }
 `
 
-export const IconButton = styled.div<TIconButton>`
-  position: absolute;
-  right: 19px;
-
+export const IconButton = styled.div`
   & > button {
     margin: 0;
-    height: 38px;
+    height: 100%;
   }
 `

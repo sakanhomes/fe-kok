@@ -7,7 +7,8 @@ import useTranslation from 'next-translate/useTranslation'
 import React, { FC, useEffect, useMemo } from 'react'
 import styled from 'styled-components'
 import { Comment } from './componetns/Comment'
-import { LikeCommentActions } from './componetns/LikeCommentActions'
+import { LikeCommentActions } from './containers/LikeCommentActions'
+import { AddComment } from './containers/AddComment'
 import { getCommentsAsync, videoPlaySelector } from './store/videoPlay'
 
 const SortButton = styled(BaseButton)`
@@ -49,6 +50,9 @@ export const Comments: FC<{ id: string }> = ({ id }) => {
         >
           {t('top')}
         </SortButton>
+      </Box>
+      <Box marginBottom={19}>
+        <AddComment id={id} />
       </Box>
       <Box display="grid" gridGap={20}>
         {memorizedComments.map((item) => (

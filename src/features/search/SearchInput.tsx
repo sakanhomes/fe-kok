@@ -28,19 +28,26 @@ export const SearchInput: FC = () => {
           name="value"
           formik={formik}
           style={{ paddingRight: 60 }}
+          additionalContent={
+            formik.values.value.length > 0
+              ? {
+                  place: 'append',
+                  el: (
+                    <Box opacity={0.9}>
+                      <BaseButton onClick={() => formik.resetForm()}>
+                        <CloseIcon color="danger100" />
+                      </BaseButton>
+                    </Box>
+                  ),
+                }
+              : undefined
+          }
           iconButton={
             <BaseButton type="submit">
               <SearchIcon color="primary400" />
             </BaseButton>
           }
         />
-        {formik.values.value.length > 0 && (
-          <Box position="absolute" opacity={0.9} right={55} top={12}>
-            <BaseButton onClick={() => formik.resetForm()}>
-              <CloseIcon color="danger100" />
-            </BaseButton>
-          </Box>
-        )}
       </Box>
     </form>
   )

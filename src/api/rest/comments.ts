@@ -6,6 +6,11 @@ export type TCommentsParams = {
   sort?: 'latest' | 'top'
 }
 
+export type TPostComment = {
+  content: string
+  repliedCommentId?: string
+}
+
 const get = (
   id: string,
   params?: TCommentsParams
@@ -13,6 +18,14 @@ const get = (
   status: number
   data: { comments: TComments[] }
 }> => api.get(`videos/${id}/comments`, { params })
+
+const post = (
+  id: string,
+  data?: TPostComment
+): TAxiosResponse<{
+  status: number
+  data: { comments: TComments[] }
+}> => api.post(`videos/${id}/comments`, data)
 
 const setLike = (
   id: string,
@@ -48,6 +61,7 @@ const removeDislike = (
 
 export const commentsApi = {
   get,
+  post,
   setLike,
   setDislike,
   removeDislike,

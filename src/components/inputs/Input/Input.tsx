@@ -16,13 +16,13 @@ export const Input: React.FC<TInputProps> = ({
   onChange,
   onBlur,
   id,
+  additionalContent,
   readOnly,
   error,
   label,
   maxLength,
   decimals,
   iconButton = undefined,
-  iconOutside,
   onIconButtonClick,
   height,
   className,
@@ -44,9 +44,10 @@ export const Input: React.FC<TInputProps> = ({
 
   if (textarea) {
     return (
-      <S.InputContainer className={className} width={width}>
+      <S.InputContainer width={width}>
         <Label {...label} error={error} htmlFor={id}>
           <S.TextAreaContainer error={error} className={className} disabled={disabled}>
+            {additionalContent?.place === 'prepend' && additionalContent?.el}
             <S.TextArea
               value={value}
               disabled={disabled}
@@ -60,6 +61,10 @@ export const Input: React.FC<TInputProps> = ({
               readOnly={readOnly}
               maxLength={maxLength}
             />
+            {additionalContent?.place === 'append' && additionalContent?.el}
+            {iconButton && (
+              <S.IconButton onClick={onIconButtonClick}>{iconButton}</S.IconButton>
+            )}
           </S.TextAreaContainer>
         </Label>
       </S.InputContainer>
@@ -67,9 +72,10 @@ export const Input: React.FC<TInputProps> = ({
   }
 
   return (
-    <S.InputContainer className={className} width={width}>
+    <S.InputContainer width={width}>
       <Label {...label} error={error} htmlFor={id}>
-        <S.InputCont error={error} iconOutside={iconOutside}>
+        <S.InputCont className={className} height={height} error={error}>
+          {additionalContent?.place === 'prepend' && additionalContent?.el}
           <S.Input
             value={value}
             disabled={disabled}
@@ -82,10 +88,9 @@ export const Input: React.FC<TInputProps> = ({
             id={id}
             readOnly={readOnly}
           />
+          {additionalContent?.place === 'append' && additionalContent?.el}
           {iconButton && (
-            <S.IconButton iconOutside={iconOutside} onClick={onIconButtonClick}>
-              {iconButton}
-            </S.IconButton>
+            <S.IconButton onClick={onIconButtonClick}>{iconButton}</S.IconButton>
           )}
         </S.InputCont>
       </Label>
