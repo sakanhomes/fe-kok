@@ -5,6 +5,7 @@ export type TReply = {
   content: string
   likesAmount: number
   dislikesAmount: number
+  createdAt: number
   repliesAmount: number
   user: TShortUserInfo
 }

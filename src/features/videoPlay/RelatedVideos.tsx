@@ -2,7 +2,7 @@ import { useRedux } from '@/hooks/use-redux'
 import Box from '@/styles/Box'
 import { FC, useEffect } from 'react'
 import { VideoCard } from '@/components/VideoCard'
-import { Title } from './componetns/Title'
+import { Title } from './components/Title'
 import { getRelatedVideosAsync, videoPlaySelector } from './store/videoPlay'
 
 export const RealatedVideos: FC = () => {

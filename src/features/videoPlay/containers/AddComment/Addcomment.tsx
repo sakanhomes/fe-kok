@@ -3,6 +3,7 @@ import { Avatar } from '@/components/Avatar'
 import { BaseButton } from '@/components/buttons/BaseButton'
 import { SendArrow } from '@/components/icons/SendArrow'
 import { FormikInput } from '@/components/inputs/FormikInput'
+import { COMMENT_INPUT } from '@/constants/ids'
 import { useAuth } from '@/hooks/use-auth'
 import { useOpenAuth } from '@/hooks/use-open-auth'
 import { useRedux } from '@/hooks/use-redux'
@@ -13,7 +14,8 @@ import { useFormik } from 'formik'
 import useTranslation from 'next-translate/useTranslation'
 import React, { FC } from 'react'
 import styled from 'styled-components'
-import { getCommentsAsync } from '../../store/videoPlay'
+import { Reply } from '../Reply'
+import { getCommentsAsync, setReply, videoPlaySelector } from '../../store/videoPlay'
 
 const Input = styled(FormikInput)`
   border-radius: 30px;
@@ -39,15 +41,31 @@ const SendButton = styled(BaseButton)`
   margin-right: 15px !important;
 `
 
+const Wrapper = styled(Box)`
+  display: grid;
+  margin-top: -100px;
+  :before {
+    content: '';
+    display: block;
+    height: 100px;
+    width: 100%;
+    pointer-events: none;
+  }
+`
+
 export const AddComment: FC<{ id: string }> = ({ id }) => {
   const { user } = useAuth()
-  const { dispatch } = useRedux()
+  const { dispatch, select } = useRedux()
   const { t } = useTranslation('comments')
   const openAuth = useOpenAuth()
+  const {
+    comments: { reply },
+  } = select(videoPlaySelector)
 
   const postComment = async (content: string, formik?: TFormik) => {
     try {
-      await commentsApi.post(id, { content })
+      await commentsApi.post(id, { content, repliedCommentId: reply?.id })
+      if (reply) dispatch(setReply(null))
       dispatch(getCommentsAsync(id))
       formik?.resetForm()
     } catch (e) {
@@ -67,7 +85,7 @@ export const AddComment: FC<{ id: string }> = ({ id }) => {
   })
 
   return (
-    <Box onClick={() => openAuth?.()}>
+    <Wrapper onClick={() => openAuth?.()} id={COMMENT_INPUT}>
       <form autoComplete="off" onSubmit={formik.handleSubmit}>
         <Input
           formik={formik}
@@ -84,18 +102,14 @@ export const AddComment: FC<{ id: string }> = ({ id }) => {
             el: (
               <>
                 <Avatar bordered={false} customSize={45} avatar={user?.profileImage} />
-                {/* <Reply
-            onDelete={() => console.log('asdasd')}
-            reply={{
-              id: 'asdasdasdas',
-              user: { name: 'John', address: '0xashjdqwldhasldawhd' },
-            }}
-          /> */}
+                {reply && (
+                  <Reply onDelete={() => dispatch(setReply(null))} comment={reply} />
+                )}
               </>
             ),
           }}
         />
       </form>
-    </Box>
+    </Wrapper>
   )
 }

@@ -9,6 +9,7 @@ import styled, { useTheme } from 'styled-components'
 import { BaseButton } from '@/components/buttons/BaseButton'
 import { ConnectButton, useConnectModal } from '@rainbow-me/rainbowkit'
 import { UploadModal } from '@/features/uploadVideo/UploadModal'
+import { HEADER_HEIGHT } from '@/constants/leyout'
 import { NetworksDropdown } from '../NetworksDropdown'
 import { UserMenu } from '../UserMenu'
 
@@ -41,7 +42,7 @@ export const Header: FC<THeader> = ({ searchInput, withSpaces }) => {
       alignItems="center"
       justifyContent="space-between"
       gridGap="60px"
-      minHeight={80}
+      minHeight={HEADER_HEIGHT}
       backgroundColor={palette.secondary100}
       padding={withSpaces ? '0 44px 0 35px' : undefined}
     >

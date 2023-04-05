@@ -19,6 +19,8 @@ export type TInit = {
     data: TComments[]
     fetching: boolean
     sortingFetching: boolean
+    reply: TComments | null
+    targetComment?: string
   }
 }
 
@@ -35,6 +37,7 @@ const init: TInit = {
     data: [],
     fetching: true,
     sortingFetching: false,
+    reply: null,
   },
 }
 
@@ -66,8 +69,14 @@ const videoPlay = createSlice({
     setCommentsFetching(state, actions: PayloadAction<boolean>) {
       state.comments.fetching = actions.payload
     },
+    setTargetComment(state, actions: PayloadAction<string>) {
+      state.comments.targetComment = actions.payload
+    },
     setSortingFetching(state, actions: PayloadAction<boolean>) {
       state.comments.sortingFetching = actions.payload
+    },
+    setReply(state, actions: PayloadAction<TComments | null>) {
+      state.comments.reply = actions.payload
     },
     resetVideoPlay: () => init,
   },
@@ -84,6 +93,8 @@ export const {
   setComments,
   setSortingFetching,
   setCommentsFetching,
+  setReply,
+  setTargetComment,
   resetVideoPlay,
 } = videoPlay.actions
 // selectors
