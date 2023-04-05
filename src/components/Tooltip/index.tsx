@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { CSSProperties } from 'styled-components'
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 import { FC } from 'react'
 import Box from '@/styles/Box'
@@ -21,6 +21,7 @@ export const Tooltip: FC<{
   isFloat?: boolean
   isTooltiped?: boolean
   place?: 'top' | 'bottom' | 'left' | 'right'
+  style?: CSSProperties
 }> = ({
   id,
   children,
@@ -30,6 +31,7 @@ export const Tooltip: FC<{
   isFloat,
   isTooltiped = true,
   place = 'bottom',
+  style,
 }) => (
   <>
     <Box data-tooltip-id={id} data-tip>
@@ -43,6 +45,7 @@ export const Tooltip: FC<{
         delayHide={hideDelay}
         id={id}
         place={place}
+        style={style}
       >
         {content}
       </StyledTooltip>

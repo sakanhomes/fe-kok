@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from 'react'
 import Box from '@/styles/Box'
 import styled from 'styled-components'
+import { LEYAOUT_CONTENT } from '@/constants/ids'
 import { SideMenu } from './common/SideMenu'
 import { Header } from './common/Header'
 
@@ -26,6 +27,7 @@ export const Layout: React.FC<{ searchInput: ReactNode; withSpaces?: boolean }> 
     <Wrapper display="flex" maxHeight="100vh" overflow="hidden" gridGap={wrapGap}>
       <SideMenu open={openSideMenu} toggleMenu={openMenutoggle} />
       <Box
+        id={LEYAOUT_CONTENT}
         display="flex"
         flexDirection="column"
         gridGap={bodyGap}

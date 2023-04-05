@@ -1,1 +1,1 @@
-export * from './Addcomment'
+export * from './AddComment'
