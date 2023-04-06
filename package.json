@@ -37,7 +37,6 @@
     "react-lines-ellipsis": "^0.15.3",
     "react-player": "^2.12.0",
     "react-redux": "^7.2.6",
-    "react-scroll": "^1.8.9",
     "react-select": "^5.7.0",
     "react-toastify": "^9.1.1",
     "react-tooltip": "^5.10.0",
