@@ -1,4 +1,3 @@
-import { NotificationIcon } from '@/components/icons/NotificationIcon'
 import { UploadIcon } from '@/components/icons/UploadIcon'
 import { WalletIcon } from '@/components/icons/WalletIcon'
 import { useAuth } from '@/hooks/use-auth'
@@ -7,9 +6,11 @@ import useTranslation from 'next-translate/useTranslation'
 import React, { FC, ReactNode, useState } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { BaseButton } from '@/components/buttons/BaseButton'
-import { ConnectButton, useConnectModal } from '@rainbow-me/rainbowkit'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { UploadModal } from '@/features/uploadVideo/UploadModal'
 import { HEADER_HEIGHT } from '@/constants/leyout'
+import { Notifications } from '@/features/notification/Notifications'
+import { useOpenAuth } from '@/hooks/use-open-auth'
 import { NetworksDropdown } from '../NetworksDropdown'
 import { UserMenu } from '../UserMenu'
 
@@ -30,9 +31,9 @@ const ConnectWallet = styled(BaseButton)`
 `
 
 export const Header: FC<THeader> = ({ searchInput, withSpaces }) => {
-  const { user, address } = useAuth()
+  const { user } = useAuth()
+  const openAuth = useOpenAuth()
   const { t } = useTranslation('layout')
-  const { openConnectModal } = useConnectModal()
   const { palette } = useTheme()
   const [openUpload, setOpenUpload] = useState(false)
 
@@ -51,22 +52,11 @@ export const Header: FC<THeader> = ({ searchInput, withSpaces }) => {
         <NetworksDropdown />
       </Box>
       <Box display="flex" gridGap="64px">
+        <Notifications />
         <BaseButton
           onClick={() => {
-            if (!user && !address && openConnectModal) {
-              openConnectModal()
-            }
-          }}
-        >
-          <NotificationIcon />
-        </BaseButton>
-        <BaseButton
-          onClick={() => {
-            if (!user && !address && openConnectModal) {
-              openConnectModal()
-            } else {
-              setOpenUpload(true)
-            }
+            if (openAuth) openAuth()
+            else setOpenUpload(true)
           }}
         >
           <UploadIcon />

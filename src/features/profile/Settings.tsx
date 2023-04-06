@@ -1,6 +1,8 @@
 import { BaseButton } from '@/components/buttons/BaseButton'
+import { NOTIFICATIONS_QUERY } from '@/constants/router'
 import Box from '@/styles/Box'
 import useTranslation from 'next-translate/useTranslation'
+import { useRouter } from 'next/router'
 import React, { FC, useState } from 'react'
 import styled from 'styled-components'
 import { Notifications } from './containers/Notifications'
@@ -23,7 +25,10 @@ const Action = styled(BaseButton)<{ $active: boolean }>`
 `
 
 export const Settings: FC = () => {
-  const [activeTab, setActiveTab] = useState<'settings' | 'notification'>('settings')
+  const { query } = useRouter()
+  const [activeTab, setActiveTab] = useState<'settings' | 'notification'>(
+    query.tab === NOTIFICATIONS_QUERY ? 'notification' : 'settings'
+  )
   const { t } = useTranslation('settings')
 
   return (

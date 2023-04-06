@@ -9,7 +9,6 @@ export const StyledTooltip = styled(ReactTooltip)`
   padding: 10px;
   opacity: 1;
   border-radius: 8px;
-  max-width: 40%;
   z-index: 1;
 `
 
