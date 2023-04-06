@@ -18,8 +18,10 @@ import { useConnectModal } from '@rainbow-me/rainbowkit'
 import useTranslation from 'next-translate/useTranslation'
 import { useRouter } from 'next/router'
 import React, { FC, useEffect, useMemo } from 'react'
+import { FacebookIcon, FacebookShareButton } from 'react-share'
 import { useUnmount } from 'react-use'
 import styled from 'styled-components'
+import { Share } from './components/Share'
 import { CollectButton } from './containers/CollectButton'
 import {
   getVideoAsync,
@@ -121,9 +123,7 @@ export const VideoViewer: FC<{ commnets: (id: string) => void }> = ({ commnets }
               {formatViews(memorizedVideo.likesAmount)}
             </BaseButton>
             <CollectButton id={memorizedVideo.id} />
-            <BaseButton>
-              <ShareIcon variant={2} color="accent300" />
-            </BaseButton>
+            <Share id={memorizedVideo.id} preview={memorizedVideo.previewImage} />
           </Box>
           <UserBox
             padding="19px 0 39px"
