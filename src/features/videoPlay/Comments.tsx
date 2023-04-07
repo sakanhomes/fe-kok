@@ -51,7 +51,7 @@ export const Comments: FC<{ id: string }> = ({ id }) => {
           {t('top')}
         </SortButton>
       </Box>
-      <Box marginBottom={19}>
+      <Box marginBottom={30}>
         <AddComment id={id} />
       </Box>
       <Box display="grid" gridGap={20}>

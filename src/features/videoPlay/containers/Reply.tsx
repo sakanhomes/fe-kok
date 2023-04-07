@@ -17,6 +17,8 @@ const UserName = styled(Text)`
   text-overflow: ellipsis;
   max-width: 150px;
   display: inline-block;
+  vertical-align: middle;
+  text-align: center;
 `
 
 const ReplyButton = styled(Box)`
@@ -24,10 +26,12 @@ const ReplyButton = styled(Box)`
   padding: 5px 10px;
   background-color: ${({ theme }) => theme.palette.accent300};
   color: ${({ theme }) => theme.palette.secondary100};
-  display: flex;
+  display: inline-flex;
   cursor: pointer;
   align-items: center;
   gap: 5px;
+  vertical-align: middle;
+  text-align: center;
 `
 
 export const Reply: FC<{

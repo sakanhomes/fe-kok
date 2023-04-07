@@ -4,7 +4,6 @@ import { Input } from '@/components/inputs/Input'
 import { Modal } from '@/components/modals/Modal'
 import { Text } from '@/components/Text'
 import { APP_URL } from '@/constants/config'
-import { ROUTES } from '@/constants/routes'
 import Box from '@/styles/Box'
 import useTranslation from 'next-translate/useTranslation'
 import { FC, useEffect, useState } from 'react'
@@ -22,7 +21,7 @@ export const Share: FC<{ id: string; preview: string }> = ({ id, preview }) => {
   const { t } = useTranslation('common')
   const [copied, setCopied] = useState(false)
 
-  const link = `${APP_URL + ROUTES.VIDEO}/${id}`
+  const link = `${APP_URL}video/${id}`
 
   useEffect(() => {
     if (copied) setTimeout(() => setCopied(false), 3000)

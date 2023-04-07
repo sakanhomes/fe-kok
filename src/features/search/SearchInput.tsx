@@ -8,6 +8,8 @@ import React, { FC } from 'react'
 import { BaseButton } from '@/components/buttons/BaseButton'
 import Box from '@/styles/Box'
 import { CloseIcon } from '@/components/icons/CloseIcon'
+import { validation } from '@/utils/validation'
+import * as yup from 'yup'
 
 export const SearchInput: FC = () => {
   const router = useRouter()
@@ -16,6 +18,7 @@ export const SearchInput: FC = () => {
     initialValues: {
       value: '',
     },
+    validationSchema: yup.object().shape({ value: validation.minWidth(3, t) }),
     onSubmit: ({ value }) => {
       if (value) router.push({ pathname: ROUTES.SEARCH, query: { value } })
     },

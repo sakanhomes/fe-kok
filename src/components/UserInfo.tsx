@@ -73,7 +73,7 @@ export const UserInfo: FC<{
           <Avatar avatar={user.profileImage} sizes="2xl" />
         </Box>
         <Box maxWidth={505} display="flex" flexDirection="column">
-          <Tooltip id={`${user.address}header`} content={user.address}>
+          <Tooltip id={`${user.address}header`} content={user.name ?? user.address}>
             <UserName variant="h1" tag="h2" margin="0 0 30px" color="secondary100">
               {user.name ?? user.address}
             </UserName>

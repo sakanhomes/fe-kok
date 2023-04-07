@@ -65,7 +65,7 @@ export const Comment: FC<{ comment: TComments; likeActions: () => void }> = ({
             </Text>
           </Box>
         </BaseButton>
-        <Box marginLeft={33}>
+        <Box marginLeft={33} marginBottom="5px">
           <Text tag="div" variant="l2">
             {comment.repliedComment && video && (
               <>

@@ -10,6 +10,7 @@ export const StyledTooltip = styled(ReactTooltip)`
   opacity: 1;
   border-radius: 8px;
   z-index: 1;
+  text-shadow: none;
 `
 
 export const Tooltip: FC<{

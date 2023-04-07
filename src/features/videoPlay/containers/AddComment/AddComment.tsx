@@ -24,7 +24,6 @@ const Input = styled(FormikInput)`
   height: 57px;
   input {
     font-size: 12px;
-    height: auto;
     padding-left: 10px;
     ::placeholder {
       font-size: 12px;
@@ -34,7 +33,8 @@ const Input = styled(FormikInput)`
     display: flex;
     align-items: center;
   }
-  border-color: ${({ theme }) => theme.palette.secondary200};
+  border-color: ${({ theme, error }) =>
+    error ? theme.palette.danger200 : theme.palette.secondary200};
 `
 
 const SendButton = styled(BaseButton)`
@@ -51,6 +51,12 @@ const Wrapper = styled(Box)`
     width: 100%;
     pointer-events: none;
   }
+`
+
+const Fieldset = styled.fieldset`
+  border: none;
+  padding: 0;
+  margin: 0;
 `
 
 export const AddComment: FC<{ id: string }> = ({ id }) => {
@@ -87,28 +93,30 @@ export const AddComment: FC<{ id: string }> = ({ id }) => {
   return (
     <Wrapper onClick={() => openAuth?.()} id={COMMENT_INPUT}>
       <form autoComplete="off" onSubmit={formik.handleSubmit}>
-        <Input
-          formik={formik}
-          placeholder={t('placeholder')}
-          name="content"
-          disabled={!!openAuth}
-          iconButton={
-            <SendButton isLoading={formik.isSubmitting} type="submit">
-              <SendArrow color="accent300" />
-            </SendButton>
-          }
-          additionalContent={{
-            place: 'prepend',
-            el: (
-              <>
-                <Avatar bordered={false} customSize={45} avatar={user?.profileImage} />
-                {reply && (
-                  <Reply onDelete={() => dispatch(setReply(null))} comment={reply} />
-                )}
-              </>
-            ),
-          }}
-        />
+        <Fieldset disabled={!!openAuth}>
+          <Input
+            formik={formik}
+            placeholder={t('placeholder')}
+            error={formik.errors.content}
+            name="content"
+            iconButton={
+              <SendButton isLoading={formik.isSubmitting} type="submit">
+                <SendArrow color="accent300" />
+              </SendButton>
+            }
+            additionalContent={{
+              place: 'prepend',
+              el: (
+                <>
+                  <Avatar bordered={false} customSize={45} avatar={user?.profileImage} />
+                  {reply && (
+                    <Reply onDelete={() => dispatch(setReply(null))} comment={reply} />
+                  )}
+                </>
+              ),
+            }}
+          />
+        </Fieldset>
       </form>
     </Wrapper>
   )

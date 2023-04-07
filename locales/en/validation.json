@@ -1,3 +1,4 @@
 {
-  "required": "This field is required"
+  "required": "This field is required",
+  "moreThan": "Must be more than {{length}} characters"
 }

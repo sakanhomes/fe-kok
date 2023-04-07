@@ -12,14 +12,18 @@ export const Label: React.FC<TLabelProps> = ({
 }) => {
   const { t } = useTranslation()
   return (
-    <S.StyledLabel style={style} htmlFor={htmlFor} className={className}>
-      {label && <span>{label}</span>}
+    <>
+      {label && (
+        <S.StyledLabel style={style} htmlFor={htmlFor} className={className}>
+          <S.LabelText>{label}</S.LabelText>
+        </S.StyledLabel>
+      )}
       {children}
       {error && (
         <S.ErrorComponent>
           {error.includes('validation:') ? t(error) : error}
         </S.ErrorComponent>
       )}
-    </S.StyledLabel>
+    </>
   )
 }

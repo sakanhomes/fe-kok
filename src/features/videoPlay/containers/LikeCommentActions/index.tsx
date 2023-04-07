@@ -56,7 +56,7 @@ export const LikeCommentActions: FC<
         isLoading={fetching}
         icon={{
           place: 'prepend',
-          el: <LikeIcon2 color={isLiked ? 'danger100' : 'accent300'} />,
+          el: <LikeIcon2 color={isLiked ? 'success300' : 'accent300'} />,
         }}
       >
         {likesAmount}
