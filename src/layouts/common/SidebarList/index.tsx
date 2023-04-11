@@ -1,20 +1,19 @@
-import { Text } from '@/components/Text'
 import Box from '@/styles/Box'
 import useTranslation from 'next-translate/useTranslation'
-import React, { FC, Fragment } from 'react'
+import React, { FC } from 'react'
 import { useRouter } from 'next/router'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { useAuth } from '@/hooks/use-auth'
 import { useRedux } from '@/hooks/use-redux'
 import { setCommingSoon } from '@/containers/comming-soon/store'
+import { TIcon } from '@/components/icons/type'
 import * as S from './styled'
 
 export type TSidebarData = {
   name: string
-  icon: JSX.Element
+  icon: (props: TIcon) => JSX.Element
   link?: string
   isPrivate?: boolean
-  commingSoon?: boolean
 }[]
 
 export const SidebarList: FC<{
@@ -34,47 +33,36 @@ export const SidebarList: FC<{
         {title}
       </S.StyledText>
       <Box display="grid" gridGap={[30]}>
-        {data.map(({ name, icon, link, isPrivate, commingSoon }) => (
-          <Fragment key={name}>
-            {link && (
-              <S.ItemBox
-                onClick={() => {
-                  if (isPrivate && (!user || !address) && openConnectModal)
-                    openConnectModal()
-                  else router.push(link)
-                  if (commingSoon) dispatch(setCommingSoon(true))
-                }}
-                display="flex"
-                gridGap={[14]}
-                alignItems="center"
-                justifyContent={isOpen ? 'flex-start' : 'center'}
-              >
-                {icon}
-                {isOpen && (
-                  <Text tag="span" variant="p3">
-                    {t(name)}
-                  </Text>
-                )}
-              </S.ItemBox>
-            )}
-            {!link && (
-              <S.ItemBox
-                display="flex"
-                gridGap={[14]}
-                alignItems="center"
-                justifyContent={isOpen ? 'flex-start' : 'center'}
-                onClick={() => commingSoon && dispatch(setCommingSoon(true))}
-              >
-                {icon}
-                {isOpen && (
-                  <Text tag="span" variant="p3">
-                    {t(name)}
-                  </Text>
-                )}
-              </S.ItemBox>
-            )}
-          </Fragment>
-        ))}
+        {data.map(({ name, icon, link, isPrivate }) => {
+          const isStartsWith = !!link && router.pathname.startsWith(link)
+          const totalEqual = router.pathname === link
+          const active = isStartsWith && totalEqual
+
+          return (
+            <S.ItemBox
+              key={name}
+              isOpen={isOpen}
+              onClick={() => {
+                if (!link) return dispatch(setCommingSoon(true))
+                if (isPrivate && (!user || !address) && openConnectModal)
+                  openConnectModal()
+                else router.push(link)
+              }}
+              display="flex"
+              gridGap={[14]}
+              alignItems="center"
+              active={active}
+            >
+              {icon({
+                color: active ? 'accent300' : undefined,
+                strokeWidth: active ? 2 : undefined,
+              })}
+              <S.MenuText tag="span" variant="p3">
+                {t(name)}
+              </S.MenuText>
+            </S.ItemBox>
+          )
+        })}
       </Box>
     </Box>
   )

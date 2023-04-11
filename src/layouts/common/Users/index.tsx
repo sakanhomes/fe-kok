@@ -1,16 +1,17 @@
 import Box from '@/styles/Box'
-import React, { FC, Fragment } from 'react'
+import React, { FC } from 'react'
 import { useRouter } from 'next/router'
 import { ROUTES } from '@/constants/routes'
 import { Avatar } from '@/components/Avatar'
 import { useAuth } from '@/hooks/use-auth'
+import { Tooltip } from '@/components/Tooltip'
 import * as S from './styled'
 
 export const Users: FC<{
   isOpen: boolean
   title: string
 }> = ({ isOpen, title }) => {
-  const { push } = useRouter()
+  const router = useRouter()
   const { subscriptions } = useAuth()
 
   return (
@@ -20,13 +21,19 @@ export const Users: FC<{
       </S.StyledText>
       <Box display="grid" gridGap={[30]}>
         {subscriptions.map(({ name, address, profileImage }) => (
-          <Fragment key={name}>
+          <Tooltip
+            id={`${address}_sidebar_following`}
+            content={name ?? address}
+            key={name}
+          >
             <S.ItemBox
-              onClick={() => push({ pathname: `${ROUTES.CREATOR_PAGE}/${address}` })}
+              onClick={() =>
+                router.push({ pathname: `${ROUTES.CREATOR_PAGE}/${address}` })
+              }
               display="flex"
               gridGap={[14]}
+              isOpen={isOpen}
               alignItems="center"
-              justifyContent={isOpen ? 'flex-start' : 'center'}
             >
               <Avatar avatar={profileImage} />
               {isOpen && (
@@ -35,7 +42,7 @@ export const Users: FC<{
                 </S.UserName>
               )}
             </S.ItemBox>
-          </Fragment>
+          </Tooltip>
         ))}
       </Box>
     </Box>

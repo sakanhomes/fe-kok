@@ -12,6 +12,7 @@ import { useRedux } from '@/hooks/use-redux'
 import Box from '@/styles/Box'
 import { TNotification } from '@/types/notification'
 import { handleActionErrors } from '@/utils/handleActionErrors'
+import useTranslation from 'next-translate/useTranslation'
 import { useRouter } from 'next/router'
 import React, { FC, useEffect, useState } from 'react'
 import { Notification } from './components/Notification'
@@ -22,6 +23,7 @@ export const Notifications: FC = () => {
   const [notifications, setNotifications] = useState<TNotification[]>([])
   const [openModal, setOpenModal] = useState(false)
   const { push } = useRouter()
+  const { t } = useTranslation('notifications')
 
   const getNotificationsAsync = async () => {
     try {
@@ -55,44 +57,55 @@ export const Notifications: FC = () => {
         }}
       >
         <NotificationIcon hasNotification={notifications.some((item) => !item.readAt)} />
-        {!openAuth && (
-          <Modal maxWidth="612px" padding="50px 30px" open={openModal}>
-            <Box
-              marginBottom={40}
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Text variant="h7">Notifications</Text>
-              <Box display="flex" gridGap="15px">
-                <BaseButton
-                  onClick={() =>
-                    push({
-                      pathname: ROUTES.PROFILE,
-                      query: { tab: NOTIFICATIONS_QUERY },
-                    })
-                  }
-                >
-                  <SettingsIcon />
-                </BaseButton>
-                <BaseButton
-                  onClick={() => {
-                    readAllNotificationsAsync()
-                    setOpenModal(false)
-                  }}
-                >
-                  <CloseIcon />
-                </BaseButton>
-              </Box>
-            </Box>
-            <Box display="grid" gridGap={35}>
-              {notifications.map((item) => (
-                <Notification {...item} key={item.id} />
-              ))}
-            </Box>
-          </Modal>
-        )}
       </BaseButton>
+      {!openAuth && (
+        <Modal
+          maxWidth="700px"
+          withCloseButton={false}
+          onClose={() => setOpenModal(false)}
+          padding="50px 30px"
+          open={openModal}
+        >
+          <Box
+            marginBottom={40}
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Text variant="h7">Notifications</Text>
+            <Box display="flex" gridGap="15px">
+              <BaseButton
+                onClick={() =>
+                  push({
+                    pathname: ROUTES.PROFILE,
+                    query: { tab: NOTIFICATIONS_QUERY },
+                  })
+                }
+              >
+                <SettingsIcon />
+              </BaseButton>
+              <BaseButton
+                onClick={() => {
+                  readAllNotificationsAsync()
+                  setOpenModal(false)
+                }}
+              >
+                <CloseIcon />
+              </BaseButton>
+            </Box>
+          </Box>
+          <Box display="grid" gridGap={35}>
+            {notifications.map((item) => (
+              <Notification {...item} key={item.id} />
+            ))}
+            {notifications.length === 0 && (
+              <Text variant="p2" color="primary600">
+                {t('noNotifications')}
+              </Text>
+            )}
+          </Box>
+        </Modal>
+      )}
     </>
   )
 }

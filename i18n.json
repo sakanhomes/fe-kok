@@ -14,7 +14,8 @@
       "creator-center",
       "upload",
       "search",
-      "comments"
+      "comments",
+      "notifications"
     ]
   }
 }

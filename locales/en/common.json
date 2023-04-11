@@ -17,7 +17,7 @@
     "hoursAgo": "{{time}} hours ago",
     "hoursAgo1": "{{time}} hour ago",
     "minutesAgo": "{{time}} minutes ago",
-    "minutesAgo1": "{{time}} menute ago",
+    "minutesAgo1": "{{time}} minute ago",
     "secondsAgo": "a few seconds ago",
     "secondsAgo1": "a few seconds ago"
   },

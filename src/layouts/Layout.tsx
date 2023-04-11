@@ -26,28 +26,29 @@ export const Layout: React.FC<{ searchInput: ReactNode; withSpaces?: boolean }> 
   return (
     <Wrapper display="flex" maxHeight="100vh" overflow="hidden" gridGap={wrapGap}>
       <SideMenu open={openSideMenu} toggleMenu={openMenutoggle} />
-      <Box
-        id={LEYAOUT_CONTENT}
-        display="flex"
-        flexDirection="column"
-        gridGap={bodyGap}
-        width="100%"
-        maxWidth={1440}
-        margin="0 auto"
-        overflowY="auto"
-        position="relative"
-        paddingRight={bodyPR}
-      >
-        <Box position="sticky" top="0" left="0" zIndex="10">
-          <Header searchInput={searchInput} withSpaces={!withSpaces} />
-        </Box>
+      <Box overflowY="auto" minHeight="100vh" width="100%">
         <Box
-          display="grid"
+          id={LEYAOUT_CONTENT}
+          display="flex"
           flexDirection="column"
-          gridAutoRows="min-content"
-          paddingBottom={40}
+          gridGap={bodyGap}
+          width="100%"
+          maxWidth={1440}
+          margin="0 auto"
+          position="relative"
+          paddingRight={bodyPR}
         >
-          {children}
+          <Box position="sticky" top="0" left="0" zIndex="10">
+            <Header searchInput={searchInput} withSpaces={!withSpaces} />
+          </Box>
+          <Box
+            display="grid"
+            flexDirection="column"
+            gridAutoRows="min-content"
+            paddingBottom={40}
+          >
+            {children}
+          </Box>
         </Box>
       </Box>
     </Wrapper>

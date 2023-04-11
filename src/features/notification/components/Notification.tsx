@@ -23,7 +23,8 @@ const UserName = styled(Text)`
 `
 
 const Image = styled.img`
-  width: 90px;
+  min-width: 90px;
+  max-width: 90px;
   height: 60px;
   object-fit: cover;
   object-position: center center;

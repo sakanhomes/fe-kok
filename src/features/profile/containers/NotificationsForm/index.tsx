@@ -25,11 +25,7 @@ export const NotificationsForm: FC = () => {
       'channel-activity': notifications
         ? notifications['notifications.events.channel-activity']
         : false,
-      'comment-reply': notifications
-        ? notifications['notifications.events.comment-reply']
-        : false,
       mention: notifications ? notifications['notifications.events.mention'] : false,
-      sharing: notifications ? notifications['notifications.events.sharing'] : false,
       subscription: notifications
         ? notifications['notifications.events.subscription']
         : false,
@@ -95,42 +91,6 @@ export const NotificationsForm: FC = () => {
           label={
             <Trans
               i18nKey="settings:notifications.title3"
-              components={[
-                <Text variant="p3" margin="0 0 5px" key={0} />,
-                <Text variant="p3" key={1} />,
-              ]}
-            />
-          }
-          formik={formik}
-          variant="secondary"
-          disabled={formik.isSubmitting}
-        />
-      </Box>
-      <Box>
-        <FormikCheckbox
-          type="checkbox"
-          name="comment-reply"
-          label={
-            <Trans
-              i18nKey="settings:notifications.title4"
-              components={[
-                <Text variant="p3" margin="0 0 5px" key={0} />,
-                <Text variant="p3" key={1} />,
-              ]}
-            />
-          }
-          formik={formik}
-          variant="secondary"
-          disabled={formik.isSubmitting}
-        />
-      </Box>
-      <Box>
-        <FormikCheckbox
-          type="checkbox"
-          name="sharing"
-          label={
-            <Trans
-              i18nKey="settings:notifications.title5"
               components={[
                 <Text variant="p3" margin="0 0 5px" key={0} />,
                 <Text variant="p3" key={1} />,

@@ -10,33 +10,29 @@ import { TSidebarData } from '../SidebarList'
 export const menuData: TSidebarData = [
   {
     name: 'home',
-    icon: <HomeIcon />,
+    icon: (props) => <HomeIcon {...props} />,
     link: ROUTES.HOME,
   },
   {
     name: 'creatorCenter',
-    icon: <CreatorCenterIcon />,
+    icon: (props) => <CreatorCenterIcon {...props} />,
     link: ROUTES.CREATOR_CENTER,
     isPrivate: true,
   },
   {
     name: 'fanToken',
-    icon: <FanTokenIcon />,
-    commingSoon: true,
+    icon: (props) => <FanTokenIcon {...props} />,
   },
   {
     name: 'dao',
-    icon: <DAOIcon />,
-    commingSoon: true,
+    icon: (props) => <DAOIcon {...props} />,
   },
   {
     name: 'treasury',
-    icon: <TreasuryIcon />,
-    commingSoon: true,
+    icon: (props) => <TreasuryIcon {...props} />,
   },
   {
     name: 'fanManagement',
-    icon: <StarIcon />,
-    commingSoon: true,
+    icon: (props) => <StarIcon {...props} />,
   },
 ]

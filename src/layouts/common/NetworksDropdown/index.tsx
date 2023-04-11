@@ -86,7 +86,10 @@ export const NetworksDropdown: FC = () => {
             open={openNetworks}
             network={NETWORKS[item.network]}
             key={item.network}
-            onClick={() => setSelectedNetwork(item)}
+            onClick={() => {
+              setSelectedNetwork(item)
+              openNetworksToggle()
+            }}
           >
             <NetworksIcon network={item.network} />
           </DropdownButton>
