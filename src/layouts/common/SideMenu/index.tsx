@@ -1,7 +1,7 @@
 import { LanguageIcon } from '@/components/icons/LanguageIcon'
 import { Text } from '@/components/Text'
 import { ROUTES } from '@/constants/routes'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import useTranslation from 'next-translate/useTranslation'
 import Link from 'next/link'
 import React, { FC } from 'react'
@@ -12,6 +12,7 @@ import { SidebarList } from '../SidebarList'
 import { menuData } from './data'
 import * as S from './styled'
 import { Users } from '../Users'
+import { StaticLinks } from '../StaticLinks'
 
 export const SideMenu: FC<{ open: boolean; toggleMenu: () => void }> = ({
   open,
@@ -35,17 +36,14 @@ export const SideMenu: FC<{ open: boolean; toggleMenu: () => void }> = ({
         </Link>
         <SidebarList title={t('menu')} data={menuData} isOpen={open} />
         {user && <Users title={t('following')} isOpen={open} />}
-        <S.AdditionalBox
-          isOpen={open}
-          display="flex"
-          mb="22px"
-          gridGap={[14]}
-          alignItems="center"
-        >
-          <LanguageIcon />
-          <Text tag="span" variant="p3">
-            English
-          </Text>
+        <S.AdditionalBox isOpen={open}>
+          <Box display="flex" mb="22px" gridGap={[14]} alignItems="center">
+            <LanguageIcon />
+            <Text tag="span" variant="p3">
+              English
+            </Text>
+          </Box>
+          <StaticLinks />
         </S.AdditionalBox>
       </S.Wrapper>
     </>

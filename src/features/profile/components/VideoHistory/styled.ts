@@ -1,5 +1,5 @@
 import { BaseButton } from '@/components/buttons/BaseButton'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import { rgba } from 'emotion-rgba'
 import LinesEllipsis from 'react-lines-ellipsis'
 import styled from 'styled-components'

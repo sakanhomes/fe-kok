@@ -1,10 +1,9 @@
 import { usersApi } from '@/api/rest/users'
 import { BaseButton } from '@/components/buttons/BaseButton'
-import { useAuth } from '@/hooks/use-auth'
+import { useOpenAuth } from '@/hooks/use-open-auth'
 import { useRedux } from '@/hooks/use-redux'
 import { IPalette } from '@/styles/styled'
 import { handleActionErrors } from '@/utils/handleActionErrors'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
 import useTranslation from 'next-translate/useTranslation'
 import React, { FC, MouseEventHandler, useEffect, useState } from 'react'
 import { actionsAsync } from 'store/auth'
@@ -61,12 +60,11 @@ export const FollowingButton: FC<{
   $address: string
   color?: keyof IPalette
 }> = ({ type = 'Main', isSubscribed, $address, color }) => {
-  const { user, address } = useAuth()
   const [subscribed, setSubscribed] = useState(false)
   const [fetching, setFetching] = useState(false)
   const { t } = useTranslation('common')
-  const { openConnectModal } = useConnectModal()
   const { dispatch } = useRedux()
+  const openAuth = useOpenAuth()
 
   const setSubsctiptionsAsync = async () => {
     try {
@@ -84,10 +82,8 @@ export const FollowingButton: FC<{
 
   const onFollowClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation()
-    if (!address && !user && openConnectModal) openConnectModal()
-    else {
-      setSubsctiptionsAsync()
-    }
+    if (openAuth) return openAuth()
+    setSubsctiptionsAsync()
   }
 
   useEffect(() => {

@@ -1,11 +1,11 @@
 import { BaseButton } from '@/components/buttons/BaseButton'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import { rgba } from 'emotion-rgba'
 import useTranslation from 'next-translate/useTranslation'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 import styled, { css } from 'styled-components'
-import { ECategories } from './enums/categories'
+import { ECategories } from '../../enums/categories'
 
 const categories = [
   {
@@ -54,6 +54,14 @@ const categories = [
   {
     label: 'documentary',
     category: ECategories.DOCUMENTARY,
+  },
+  {
+    label: 'web3',
+    category: ECategories.WEB3,
+  },
+  {
+    label: 'animals',
+    category: ECategories.ANIMALS,
   },
 ]
 

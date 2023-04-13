@@ -1,4 +1,4 @@
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import React, { FC } from 'react'
 import { SearchInput } from './components/SearchInput'
 import { CreatorCard } from './containers/CreatorCard'

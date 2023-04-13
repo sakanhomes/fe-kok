@@ -1,13 +1,12 @@
 import { CircleCheck } from '@/components/icons/CircleCheck'
 import { Loader } from '@/components/Loader'
 import { Text } from '@/components/Text'
-import { useRedux } from '@/hooks/use-redux'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import useTranslation from 'next-translate/useTranslation'
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import styled from 'styled-components'
-import { UserCard } from './components/UserCard'
-import { getLeaderboardAsync, homeSelector } from './store/home'
+import { UserCard } from '../homeVideos/components/UserCard'
+import { useLeaderboard } from './hooks/useLeaderboard'
 
 const Wrapper = styled(Box)`
   background: ${({ theme }) => theme.uniq.leaderboardBg};
@@ -16,15 +15,8 @@ const Wrapper = styled(Box)`
 `
 
 export const Leaderboard: FC = () => {
-  const { select, dispatch } = useRedux()
   const { t } = useTranslation('home')
-  const {
-    leaderboard: { data, fetching },
-  } = select(homeSelector)
-
-  useEffect(() => {
-    dispatch(getLeaderboardAsync())
-  }, [])
+  const { leaderboard, fetching } = useLeaderboard()
 
   return (
     <Wrapper maxWidth={384} padding={22}>
@@ -32,7 +24,7 @@ export const Leaderboard: FC = () => {
         {t('ranking')}
       </Text>
       {fetching && <Loader />}
-      {!fetching && data && (
+      {!fetching && leaderboard && (
         <Box display="grid" gridGap={24} gridTemplateColumns="1fr 1fr">
           <Box>
             <Box
@@ -45,7 +37,7 @@ export const Leaderboard: FC = () => {
               <CircleCheck color="warning" /> <Text variant="p2">{t('year')}</Text>
             </Box>
             <Box display="grid" gridGap="6px">
-              {data.year.map((item) => (
+              {leaderboard.year.map((item) => (
                 <UserCard key={item.address} {...item} />
               ))}
             </Box>
@@ -61,7 +53,7 @@ export const Leaderboard: FC = () => {
               <CircleCheck color="accent200" /> <Text variant="p2">{t('month')}</Text>
             </Box>
             <Box display="grid" gridGap="6px">
-              {data.month.map((item) => (
+              {leaderboard.month.map((item) => (
                 <UserCard type="month" key={item.address} {...item} />
               ))}
             </Box>

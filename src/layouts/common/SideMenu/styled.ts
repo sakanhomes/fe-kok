@@ -1,5 +1,5 @@
 import { SIDEBAR_CLOSE_WIDTH, SIDEBAR_OPEN_WIDTH } from '@/constants/leyout'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import styled from 'styled-components'
 
 export const Wrapper = styled.div<{ open: boolean }>`
@@ -27,6 +27,7 @@ export const StyledLogo = styled.div<{ open: boolean }>`
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-top: 15px;
   svg {
     min-width: 133px;
   }

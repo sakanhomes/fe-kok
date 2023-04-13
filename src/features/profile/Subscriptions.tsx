@@ -1,4 +1,4 @@
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import React, { FC } from 'react'
 import { useSubscriptions } from '@/features/profile/hooks/useSubscriptions'
 import { SearchInput } from './components/SearchInput'

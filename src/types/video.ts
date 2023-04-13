@@ -1,4 +1,4 @@
-import { ECategories } from '@/features/home/enums/categories'
+import { ECategories } from 'enums/categories'
 import { TShortUserInfo } from './common'
 
 export type TVideo<U = TShortUserInfo> = {

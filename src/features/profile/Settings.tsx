@@ -1,6 +1,6 @@
 import { BaseButton } from '@/components/buttons/BaseButton'
 import { NOTIFICATIONS_QUERY } from '@/constants/router'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import useTranslation from 'next-translate/useTranslation'
 import { useRouter } from 'next/router'
 import React, { FC, useState } from 'react'

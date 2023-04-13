@@ -1,7 +1,7 @@
 import { Avatar } from '@/components/Avatar'
 import { Text } from '@/components/Text'
 import { ROUTES } from '@/constants/routes'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import { TVideo } from '@/types/video'
 import { formatViews } from '@/utils/formatViews'
 import useTranslation from 'next-translate/useTranslation'

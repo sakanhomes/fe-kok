@@ -1,17 +1,16 @@
 import { profileApi } from '@/api/rest/profile'
 import { BaseButton } from '@/components/buttons/BaseButton'
 import { CollectIcon } from '@/components/icons/CollectIcon'
-import { useAuth } from '@/hooks/use-auth'
+import { ConnectWallet } from '@/containers/ConnectWallet'
+import { useOpenAuth } from '@/hooks/use-open-auth'
 import { useRedux } from '@/hooks/use-redux'
 import { handleActionErrors } from '@/utils/handleActionErrors'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
 import React, { FC, useEffect, useState } from 'react'
 
 export const CollectButton: FC<{ id: string }> = ({ id }) => {
-  const { user, address } = useAuth()
   const [collectionVideoIds, setCollectionVideoIds] = useState<string[]>([])
   const { dispatch } = useRedux()
-  const { openConnectModal } = useConnectModal()
+  const openAuth = useOpenAuth()
 
   const getCollectionsAsync = async () => {
     try {
@@ -46,22 +45,24 @@ export const CollectButton: FC<{ id: string }> = ({ id }) => {
   }
 
   useEffect(() => {
-    if (address && user) getCollectionsAsync()
-  }, [address, user])
+    if (!openAuth) getCollectionsAsync()
+  }, [openAuth])
 
   const onCollectClick = () => {
-    if (!address && !user && openConnectModal) {
-      openConnectModal()
-    } else if (collectionVideoIds.includes(id)) {
-      removeFromCollectionAsync()
-    } else {
-      addToCollectionAsync()
-    }
+    if (collectionVideoIds.includes(id)) removeFromCollectionAsync()
+    else addToCollectionAsync()
   }
 
   return (
-    <BaseButton disabled={!collectionVideoIds} onClick={onCollectClick}>
-      <CollectIcon color={collectionVideoIds.includes(id) ? 'danger100' : 'accent300'} />
-    </BaseButton>
+    <ConnectWallet
+      onClick={onCollectClick}
+      target={(onClick) => (
+        <BaseButton disabled={!collectionVideoIds} onClick={onClick}>
+          <CollectIcon
+            color={collectionVideoIds.includes(id) ? 'danger100' : 'accent300'}
+          />
+        </BaseButton>
+      )}
+    />
   )
 }

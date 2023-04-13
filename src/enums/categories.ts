@@ -10,4 +10,6 @@ export enum ECategories {
   LIFESTYLE = 'lifestyle',
   ANIMATION = 'animation',
   DOCUMENTARY = 'documentary',
+  WEB3 = 'web3',
+  ANIMALS = 'animals',
 }

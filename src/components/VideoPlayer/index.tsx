@@ -1,10 +1,6 @@
-import { ERROR_STATUS } from '@/constants/error-status'
-import { useRedux } from '@/hooks/use-redux'
-import Box from '@/styles/Box'
-import { handleActionErrors } from '@/utils/handleActionErrors'
-import axios from 'axios'
+import Box from '@/components/Box'
 import useTranslation from 'next-translate/useTranslation'
-import React, { FC, useEffect, useRef, useState } from 'react'
+import React, { FC, useRef, useState } from 'react'
 import ReactPlayer, { ReactPlayerProps } from 'react-player'
 import { OnProgressProps } from 'react-player/base'
 import styled from 'styled-components'
@@ -28,7 +24,6 @@ export const VideoPlayer: FC<
 > = ({ preview, secconds, ...props }) => {
   const playerRef = useRef<ReactPlayer>(null)
   const [videoError, setVideoError] = useState('')
-  const { dispatch } = useRedux()
   const { t } = useTranslation('error')
   const previewOptions: ReactPlayerProps = preview
     ? {
@@ -45,26 +40,6 @@ export const VideoPlayer: FC<
         muted: true,
       }
     : {}
-
-  useEffect(() => {
-    const existingVideoAsync = async () => {
-      try {
-        await axios.head(props.url)
-      } catch (e) {
-        handleActionErrors({
-          e,
-          dispatch,
-          additionalConditions: (status) => {
-            if (status === ERROR_STATUS.FORBIDDEN) {
-              setVideoError(t('videoError'))
-            }
-            return true
-          },
-        })
-      }
-    }
-    existingVideoAsync()
-  }, [])
 
   return (
     <Box position="relative" height="100%">
@@ -97,11 +72,13 @@ export const VideoPlayer: FC<
         }}
         onError={() => setVideoError(t('videoError'))}
       />
-      <ErrorWrapper position="absolute" top="50%" maxWidth="50%" left="50%">
-        <Text color="danger100" lineHeight="30px" variant="p1">
-          {videoError}
-        </Text>
-      </ErrorWrapper>
+      {videoError && (
+        <ErrorWrapper position="absolute" top="50%" maxWidth="50%" left="50%">
+          <Text color="danger100" lineHeight="30px" variant="p1">
+            {videoError}
+          </Text>
+        </ErrorWrapper>
+      )}
     </Box>
   )
 }

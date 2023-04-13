@@ -1,6 +1,6 @@
 import { Loader } from '@/components/Loader'
 import { useRedux } from '@/hooks/use-redux'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import React, { FC } from 'react'
 import { creatorCenterSelector } from '../../store/creatorCenter'
 import { Video } from '../Video'

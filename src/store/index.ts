@@ -2,7 +2,6 @@ import { configureStore, ThunkAction, AnyAction } from '@reduxjs/toolkit'
 import errorsReducer from '@/containers/errors/store'
 import commingSoon from '@/containers/comming-soon/store'
 import settings from '@/features/profile/store/settings'
-import home from '@/features/home/store/home'
 import videoPlay from '@/features/videoPlay/store/videoPlay'
 import creatorCenter from '@/features/creatorCenter/store/creatorCenter'
 import auth from 'store/auth'
@@ -14,7 +13,6 @@ const store = configureStore({
     errors: errorsReducer,
     commingSoon,
     settings,
-    home,
     videoPlay,
     creatorCenter,
     uploadVideo,

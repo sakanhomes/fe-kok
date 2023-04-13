@@ -1,16 +1,16 @@
 import { UploadIcon } from '@/components/icons/UploadIcon'
 import { WalletIcon } from '@/components/icons/WalletIcon'
-import { useAuth } from '@/hooks/use-auth'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import useTranslation from 'next-translate/useTranslation'
 import React, { FC, ReactNode, useState } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { BaseButton } from '@/components/buttons/BaseButton'
-import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { UploadModal } from '@/features/uploadVideo/UploadModal'
 import { HEADER_HEIGHT } from '@/constants/leyout'
 import { Notifications } from '@/features/notification/Notifications'
 import { useOpenAuth } from '@/hooks/use-open-auth'
+import { Tooltip } from '@/components/Tooltip'
+import { ConnectWallet } from '@/containers/ConnectWallet'
 import { NetworksDropdown } from '../NetworksDropdown'
 import { UserMenu } from '../UserMenu'
 
@@ -19,7 +19,7 @@ export type THeader = {
   withSpaces: boolean
 }
 
-const ConnectWallet = styled(BaseButton)`
+const ConnectWalletButton = styled(BaseButton)`
   font-weight: 300;
   font-size: 12px;
   line-height: 14px;
@@ -31,7 +31,6 @@ const ConnectWallet = styled(BaseButton)`
 `
 
 export const Header: FC<THeader> = ({ searchInput, withSpaces }) => {
-  const { user } = useAuth()
   const openAuth = useOpenAuth()
   const { t } = useTranslation('layout')
   const { palette } = useTheme()
@@ -53,48 +52,31 @@ export const Header: FC<THeader> = ({ searchInput, withSpaces }) => {
       </Box>
       <Box display="flex" gridGap="64px">
         <Notifications />
-        <BaseButton
-          onClick={() => {
-            if (openAuth) openAuth()
-            else setOpenUpload(true)
-          }}
-        >
-          <UploadIcon />
-        </BaseButton>
-        {user && (
-          <a href="https://app.uniswap.org/#/swap" target="_blank" rel="noreferrer">
+        <ConnectWallet
+          onClick={() => setOpenUpload(true)}
+          target={(onClick) => (
+            <BaseButton onClick={onClick}>
+              <UploadIcon />
+            </BaseButton>
+          )}
+        />
+        {!openAuth && (
+          <Tooltip id="header_wallet_id" content={t('walletPopup')}>
             <WalletIcon />
-          </a>
+          </Tooltip>
         )}
       </Box>
-      {!user && (
-        <ConnectButton.Custom>
-          {({ account, chain, openConnectModal, authenticationStatus, mounted }) => {
-            const ready = mounted && authenticationStatus !== 'loading'
-            const connected =
-              ready &&
-              account &&
-              chain &&
-              (!authenticationStatus || authenticationStatus === 'authenticated')
-
-            return (
-              <div>
-                {(() => {
-                  if (!connected) {
-                    return (
-                      <ConnectWallet onClick={openConnectModal}>
-                        <WalletIcon />
-                        {t('connectWallet')}
-                      </ConnectWallet>
-                    )
-                  }
-                })()}
-              </div>
-            )
-          }}
-        </ConnectButton.Custom>
+      {openAuth && (
+        <ConnectWallet
+          target={(onClick) => (
+            <ConnectWalletButton onClick={onClick}>
+              <WalletIcon />
+              {t('connectWallet')}
+            </ConnectWalletButton>
+          )}
+        />
       )}
-      {user && <UserMenu />}
+      {!openAuth && <UserMenu />}
       {openUpload && (
         <UploadModal
           open={openUpload}

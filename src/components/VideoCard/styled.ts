@@ -1,6 +1,6 @@
 import { BaseButton } from '@/components/buttons/BaseButton'
 import { Text } from '@/components/Text'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import LinesEllipsis from 'react-lines-ellipsis'
 import styled from 'styled-components'
 

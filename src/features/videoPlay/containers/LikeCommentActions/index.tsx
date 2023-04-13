@@ -2,7 +2,7 @@ import { commentsApi } from '@/api/rest/comments'
 import { BaseButton } from '@/components/buttons/BaseButton'
 import { DislikeIcon } from '@/components/icons/DislikeIcon'
 import { LikeIcon2 } from '@/components/icons/LikeIcon2'
-import { useOpenAuth } from '@/hooks/use-open-auth'
+import { ConnectWallet } from '@/containers/ConnectWallet'
 import { useRedux } from '@/hooks/use-redux'
 import { TComments } from '@/types/comments'
 import { handleActionErrors } from '@/utils/handleActionErrors'
@@ -19,10 +19,8 @@ export const LikeCommentActions: FC<
 > = ({ isLiked, isDisliked, likesAmount, dislikesAmount, id, commentId, onUpdate }) => {
   const [fetching, setFetching] = useState(false)
 
-  const openAuth = useOpenAuth()
   const { dispatch } = useRedux()
   const setLikeAsync = async () => {
-    if (openAuth) return openAuth()
     setFetching(true)
     try {
       if (!isLiked) await commentsApi.setLike(id, commentId)
@@ -36,7 +34,6 @@ export const LikeCommentActions: FC<
   }
 
   const setDislikeAsync = async () => {
-    if (openAuth) return openAuth()
     setFetching(true)
     try {
       if (!isDisliked) await commentsApi.setDislike(id, commentId)
@@ -51,26 +48,36 @@ export const LikeCommentActions: FC<
 
   return (
     <>
-      <BaseButton
+      <ConnectWallet
         onClick={setLikeAsync}
-        isLoading={fetching}
-        icon={{
-          place: 'prepend',
-          el: <LikeIcon2 color={isLiked ? 'success300' : 'accent300'} />,
-        }}
-      >
-        {likesAmount}
-      </BaseButton>
-      <BaseButton
+        target={(onClick) => (
+          <BaseButton
+            onClick={onClick}
+            isLoading={fetching}
+            icon={{
+              place: 'prepend',
+              el: <LikeIcon2 color={isLiked ? 'success300' : 'accent300'} />,
+            }}
+          >
+            {likesAmount}
+          </BaseButton>
+        )}
+      />
+      <ConnectWallet
         onClick={setDislikeAsync}
-        isLoading={fetching}
-        icon={{
-          place: 'prepend',
-          el: <DislikeIcon color={isDisliked ? 'danger100' : 'accent300'} />,
-        }}
-      >
-        {dislikesAmount}
-      </BaseButton>
+        target={(onClick) => (
+          <BaseButton
+            onClick={onClick}
+            isLoading={fetching}
+            icon={{
+              place: 'prepend',
+              el: <DislikeIcon color={isDisliked ? 'danger100' : 'accent300'} />,
+            }}
+          >
+            {dislikesAmount}
+          </BaseButton>
+        )}
+      />
     </>
   )
 }

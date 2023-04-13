@@ -1,7 +1,7 @@
 import { BaseButton } from '@/components/buttons/BaseButton'
 import { Text } from '@/components/Text'
 import { APP_URL } from '@/constants/config'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import { TOwnerVideo } from '@/types/video'
 import { format } from 'date-fns'
 import { rgba } from 'emotion-rgba'

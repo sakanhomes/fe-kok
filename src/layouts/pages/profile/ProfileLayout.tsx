@@ -1,6 +1,6 @@
 import { BaseButton } from '@/components/buttons/BaseButton'
 import { ROUTES } from '@/constants/routes'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import useTranslation from 'next-translate/useTranslation'
 import { useRouter } from 'next/router'
 import React, { FC, ReactNode } from 'react'

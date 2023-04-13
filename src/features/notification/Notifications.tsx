@@ -9,12 +9,13 @@ import { NOTIFICATIONS_QUERY } from '@/constants/router'
 import { ROUTES } from '@/constants/routes'
 import { useOpenAuth } from '@/hooks/use-open-auth'
 import { useRedux } from '@/hooks/use-redux'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import { TNotification } from '@/types/notification'
 import { handleActionErrors } from '@/utils/handleActionErrors'
 import useTranslation from 'next-translate/useTranslation'
 import { useRouter } from 'next/router'
 import React, { FC, useEffect, useState } from 'react'
+import { ConnectWallet } from '@/containers/ConnectWallet'
 import { Notification } from './components/Notification'
 
 export const Notifications: FC = () => {
@@ -50,14 +51,18 @@ export const Notifications: FC = () => {
 
   return (
     <>
-      <BaseButton
+      <ConnectWallet
+        target={(onClick) => (
+          <BaseButton onClick={onClick}>
+            <NotificationIcon
+              hasNotification={notifications.some((item) => !item.readAt)}
+            />
+          </BaseButton>
+        )}
         onClick={() => {
-          if (openAuth) openAuth()
-          else setOpenModal(true)
+          setOpenModal(true)
         }}
-      >
-        <NotificationIcon hasNotification={notifications.some((item) => !item.readAt)} />
-      </BaseButton>
+      />
       {!openAuth && (
         <Modal
           maxWidth="700px"

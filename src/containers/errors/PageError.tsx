@@ -4,7 +4,7 @@ import { ERROR_STATUS } from '@/constants/error-status'
 import { ROUTES } from '@/constants/routes'
 import { useRouter } from 'next/router'
 import { useRedux } from '@/hooks/use-redux'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import { actions } from './store/index'
 
 type TErrorPageProps = {

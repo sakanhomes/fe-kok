@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from 'react'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import styled from 'styled-components'
 import { LEYAOUT_CONTENT } from '@/constants/ids'
 import { SideMenu } from './common/SideMenu'

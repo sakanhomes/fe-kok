@@ -1,4 +1,4 @@
-import { ECategories } from '@/features/home/enums/categories'
+import { ECategories } from 'enums/categories'
 
 export const categoriesOptions = [
   {
@@ -44,5 +44,13 @@ export const categoriesOptions = [
   {
     label: 'Documentary',
     value: ECategories.DOCUMENTARY,
+  },
+  {
+    label: 'Web3',
+    value: ECategories.WEB3,
+  },
+  {
+    label: 'Animals',
+    value: ECategories.ANIMALS,
   },
 ]

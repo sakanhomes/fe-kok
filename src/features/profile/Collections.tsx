@@ -1,4 +1,4 @@
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import { TFormik } from '@/types/formik'
 import React, { FC, useState } from 'react'
 import styled from 'styled-components'

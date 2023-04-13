@@ -1,7 +1,7 @@
 import { FormikCheckbox } from '@/components/inputs/FormikCheckbox'
 import { Text } from '@/components/Text'
 import { useRedux } from '@/hooks/use-redux'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import { TMeSettings } from '@/types/settings'
 import { useFormik } from 'formik'
 import React, { FC, useEffect } from 'react'

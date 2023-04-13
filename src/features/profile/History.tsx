@@ -1,7 +1,7 @@
 import { PlayArrow } from '@/components/icons/PlayArrow'
 import { Loader } from '@/components/Loader'
 import { Text } from '@/components/Text'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import { format } from 'date-fns'
 import React, { FC } from 'react'
 import styled from 'styled-components'

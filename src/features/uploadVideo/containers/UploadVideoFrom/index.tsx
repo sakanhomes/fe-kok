@@ -2,7 +2,7 @@ import { FormikSelect } from '@/components/inputs/FormikSelect'
 import { Text } from '@/components/Text'
 import { VideoPlayer } from '@/components/VideoPlayer'
 import { useRedux } from '@/hooks/use-redux'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import { validation } from '@/utils/validation'
 import { useFormik } from 'formik'
 import React, { FC, useEffect, useState } from 'react'
@@ -16,7 +16,7 @@ import { UploadIcon3 } from '@/components/icons/UploadIcon3'
 import { BaseButton } from '@/components/buttons/BaseButton'
 import { FormikCheckbox } from '@/components/inputs/FormikCheckbox'
 import { rgba } from 'emotion-rgba'
-import { ECategories } from '@/features/home/enums/categories'
+import { ECategories } from 'enums/categories'
 import useTranslation from 'next-translate/useTranslation'
 import {
   createVideoAsync,
@@ -283,7 +283,7 @@ export const UploadVideoForm: FC<{ videoData: TVideoData }> = ({ videoData }) =>
                   if (!thumbnail) setValidateThumbnail(true)
                   else setValidateThumbnail(false)
                 }}
-                disabled={!formik.isValid || !thumbnail || !uploadVideoComplete}
+                disabled={!formik.isValid || !uploadVideoComplete}
               >
                 {t('upload')}
               </UploadButton>

@@ -4,7 +4,7 @@ import { useFormik } from 'formik'
 import useTranslation from 'next-translate/useTranslation'
 import React, { FC } from 'react'
 import { BaseButton } from '@/components/buttons/BaseButton'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import { TFormik } from '@/types/formik'
 
 export const SearchInput: FC<{

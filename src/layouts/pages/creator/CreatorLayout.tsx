@@ -1,4 +1,4 @@
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import React, { FC, ReactNode } from 'react'
 
 type TProfileLayout = {

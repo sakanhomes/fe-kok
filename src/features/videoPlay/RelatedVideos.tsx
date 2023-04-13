@@ -1,5 +1,5 @@
 import { useRedux } from '@/hooks/use-redux'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import { FC, useEffect } from 'react'
 import { VideoCard } from '@/components/VideoCard'
 import { Title } from './components/Title'

@@ -1,7 +1,7 @@
 import styled, { CSSProperties } from 'styled-components'
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 import { FC } from 'react'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 
 export const StyledTooltip = styled(ReactTooltip)`
   background-color: ${({ theme }) => theme.palette.secondary300};

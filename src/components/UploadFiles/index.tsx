@@ -1,4 +1,4 @@
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import { IPalette } from '@/styles/styled'
 import useTranslation from 'next-translate/useTranslation'
 import React, { FC, ReactNode } from 'react'

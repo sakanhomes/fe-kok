@@ -1,4 +1,4 @@
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import styled, { css } from 'styled-components'
 import { Text } from '@/components/Text'
 

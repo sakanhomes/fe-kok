@@ -4,7 +4,7 @@ import { Input } from '@/components/inputs/Input'
 import { Modal } from '@/components/modals/Modal'
 import { Text } from '@/components/Text'
 import { APP_URL } from '@/constants/config'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import useTranslation from 'next-translate/useTranslation'
 import { FC, useEffect, useState } from 'react'
 import {

@@ -1,5 +1,5 @@
 import { VideoCard } from '@/components/VideoCard'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import { TOwnerPlaylist } from '@/types/playlists'
 import useTranslation from 'next-translate/useTranslation'
 import React, { FC, useEffect } from 'react'

@@ -1,4 +1,4 @@
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import React, { FC } from 'react'
 import { useRouter } from 'next/router'
 import { ROUTES } from '@/constants/routes'

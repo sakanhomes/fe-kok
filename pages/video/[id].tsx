@@ -3,7 +3,7 @@ import type { NextPage } from 'next'
 import { Layout } from '@/layouts/Layout'
 import { SearchInput } from '@/features/search/SearchInput'
 import { VideoViewer } from '@/features/videoPlay/VideoViewer'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import { RealatedVideos } from '@/features/videoPlay/RelatedVideos'
 import { Comments } from '@/features/videoPlay/Comments'
 

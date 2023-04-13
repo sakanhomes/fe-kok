@@ -5,9 +5,10 @@
   "fanToken": "Fan Token EX",
   "dao": "DAO",
   "treasury": "Treasury",
-  "fanManagement": "Fan management",
+  "fanManagement": "Fan Economy",
   "following": "Following",
   "connectWallet": "Connect Wallet",
   "profilePage": "Profile page",
-  "signOut": "Sign out"
+  "signOut": "Sign out",
+  "walletPopup": "The claim function will be available soon."
 }

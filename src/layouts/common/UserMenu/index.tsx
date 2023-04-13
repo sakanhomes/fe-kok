@@ -1,7 +1,7 @@
 import { BaseButton } from '@/components/buttons/BaseButton'
 import { ProfileIcon } from '@/components/icons/ProfileIcon'
 import { SignOutIcon } from '@/components/icons/SignOutIcon'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import React, { FC, ReactNode, useState } from 'react'
 import styled, { css, useTheme } from 'styled-components'
 import { rgba } from 'emotion-rgba'

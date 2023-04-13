@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import useTranslation from 'next-translate/useTranslation'
 import { Modal } from '@/components/modals/Modal'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import * as S from './styled'
 
 type TModalMessageProps = {

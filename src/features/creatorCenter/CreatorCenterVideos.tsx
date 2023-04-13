@@ -1,7 +1,7 @@
 import { BaseButton } from '@/components/buttons/BaseButton'
 import { UploadIcon2 } from '@/components/icons/UploadIcon2'
 import { useRedux } from '@/hooks/use-redux'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import useTranslation from 'next-translate/useTranslation'
 import React, { FC, useEffect, useState } from 'react'
 import styled from 'styled-components'

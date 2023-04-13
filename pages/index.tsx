@@ -2,12 +2,12 @@ import React from 'react'
 import type { NextPage } from 'next'
 import { Layout } from '@/layouts/Layout'
 import { SearchInput } from '@/features/search/SearchInput'
-import { Categories } from '@/features/home/Categories'
-import { RandomVideos } from '@/features/home/RandomVideos'
-import Box from '@/styles/Box'
-import { DiscoverVideo } from '@/features/home/DiscoverVideo'
-import { Leaderboard } from '@/features/home/Leaderboard'
-import { TrendingVideos } from '@/features/home/Trending'
+import { Categories } from '@/features/homeVideos/Categories'
+import { RandomVideos } from '@/features/homeVideos/RandomVideos'
+import Box from '@/components/Box'
+import { DiscoverVideo } from '@/features/discoverVideo/DiscoverVideo'
+import { Leaderboard } from '@/features/leaderboard/Leaderboard'
+import { TrendingVideos } from '@/features/homeVideos/Trending'
 
 const Home: NextPage = () => (
   <Layout searchInput={<SearchInput />}>

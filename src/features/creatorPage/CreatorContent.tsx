@@ -1,7 +1,7 @@
 import { Text } from '@/components/Text'
 import { setCommingSoon } from '@/containers/comming-soon/store'
 import { useRedux } from '@/hooks/use-redux'
-import Box from '@/styles/Box'
+import Box from '@/components/Box'
 import useTranslation from 'next-translate/useTranslation'
 import React, { FC, useState } from 'react'
 import styled, { css } from 'styled-components'

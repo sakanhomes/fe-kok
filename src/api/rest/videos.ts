@@ -1,4 +1,4 @@
-import { ECategories } from '@/features/home/enums/categories'
+import { ECategories } from 'enums/categories'
 import { TOwnerVideo, TVideo } from '@/types/video'
 import { api } from './instance'
 import { TAxiosResponse } from './types'
