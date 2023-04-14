@@ -1,4 +1,4 @@
-import { Loader } from '@/components/Loader'
+import { Loader } from '@/components/loaders/Loader'
 import { useRedux } from '@/hooks/use-redux'
 import Box from '@/components/Box'
 import React, { FC } from 'react'

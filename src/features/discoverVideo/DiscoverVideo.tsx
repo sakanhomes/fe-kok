@@ -1,6 +1,6 @@
 import { Avatar } from '@/components/Avatar'
 import { BaseButton } from '@/components/buttons/BaseButton'
-import { Loader } from '@/components/Loader'
+import { Loader } from '@/components/loaders/Loader'
 import { Text } from '@/components/Text'
 import { Tooltip } from '@/components/Tooltip'
 import { VideoPlayer } from '@/components/VideoPlayer'

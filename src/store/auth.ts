@@ -94,7 +94,10 @@ const getProfileAsync =
   (callback?: () => void): TAsyncAction =>
   async (dispatch) => {
     try {
-      if (!authorized.get()) return dispatch(actions.setGlobalFetching(false))
+      if (!authorized.get())
+        return setTimeout(() => {
+          dispatch(actions.setGlobalFetching(false))
+        }, 1000)
       const { data } = await profileApi.get()
       dispatch(setUserData(data.data.user))
       dispatch(getSubscriptionsAsync())
@@ -106,7 +109,9 @@ const getProfileAsync =
         additionalConditions: () => true,
       })
     } finally {
-      dispatch(actions.setGlobalFetching(false))
+      setTimeout(() => {
+        dispatch(actions.setGlobalFetching(false))
+      }, 1000)
     }
   }
 

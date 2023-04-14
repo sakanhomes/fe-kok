@@ -1,7 +1,7 @@
 import { IPalette } from '@/styles/styled'
 import React, { FC } from 'react'
 import styled from 'styled-components'
-import { Spinner } from '../Spinner'
+import { Spinner } from '../../Spinner'
 
 const Wrapper = styled.div`
   width: 100%;

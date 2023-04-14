@@ -1,4 +1,4 @@
-import { Loader } from '@/components/Loader'
+import { Loader } from '@/components/loaders/Loader'
 import { Text } from '@/components/Text'
 import { VideoCard } from '@/components/VideoCard'
 import Box from '@/components/Box'
