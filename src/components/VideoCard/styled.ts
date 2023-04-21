@@ -3,11 +3,13 @@ import { Text } from '@/components/Text'
 import Box from '@/components/Box'
 import LinesEllipsis from 'react-lines-ellipsis'
 import styled from 'styled-components'
+import { rgba } from 'emotion-rgba'
 
 export const ImageButton = styled(BaseButton)<{
   image: string
   height?: number
   isHorizontal?: boolean
+  shadow: boolean
 }>`
   width: 100%;
   height: ${({ height }) => (height ? `${height}px` : '170px')};
@@ -18,6 +20,8 @@ export const ImageButton = styled(BaseButton)<{
   border-radius: 8px;
   position: relative;
   ${({ isHorizontal }) => isHorizontal && 'max-width: 240px;'}
+  ${({ shadow, theme }) =>
+    shadow && `filter: drop-shadow(0px 4px 4px ${rgba(theme.palette.primary100, 0.25)});`}
 `
 
 export const Duration = styled(Text)`

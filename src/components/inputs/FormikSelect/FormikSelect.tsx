@@ -3,6 +3,7 @@ import { TFormik } from '@/types/formik'
 import React, { FC, ReactNode } from 'react'
 import styled from 'styled-components'
 import useTranslation from 'next-translate/useTranslation'
+import Box from '@/components/Box'
 import { Label } from '../Label'
 import { TLabelProps } from '../types'
 import { ISelectProps, Select } from '../Select'
@@ -45,39 +46,43 @@ export const FormikSelect: FC<TFormikSelectProps> = ({
   }
 
   const fieldError = error?.includes('validation:') ? t(error) : error
-  return label ? (
-    <Label error={error} {...label} htmlFor={id}>
-      <Select
-        {...props}
-        {...field}
-        value={
-          props.options?.find((option) => {
-            const formatedOption = option as { label: ReactNode; value: string }
-            return formatedOption.value === field.value
-          }) ?? ''
-        }
-        id={id}
-        error={!touched || !error ? '' : error}
-        onFocus={() => {
-          if (!field.value) formik.setFieldError(name, 'validation:required')
-        }}
-        onChange={handlerChange}
-      />
-    </Label>
-  ) : (
-    <>
-      <Select
-        {...props}
-        {...field}
-        id={id}
-        error={!touched || !error || props.isDisabled ? '' : error}
-        onChange={handlerChange}
-      />
-      {formik.errors[name] && (
-        <ErrorComponent>
-          {!touched || !error || props.isDisabled ? '' : fieldError}
-        </ErrorComponent>
+  return (
+    <Box position="relative">
+      {label ? (
+        <Label error={error} {...label} htmlFor={id}>
+          <Select
+            {...props}
+            {...field}
+            value={
+              props.options?.find((option) => {
+                const formatedOption = option as { label: ReactNode; value: string }
+                return formatedOption.value === field.value
+              }) ?? ''
+            }
+            id={id}
+            error={!touched || !error ? '' : error}
+            onFocus={() => {
+              if (!field.value) formik.setFieldError(name, 'validation:required')
+            }}
+            onChange={handlerChange}
+          />
+        </Label>
+      ) : (
+        <>
+          <Select
+            {...props}
+            {...field}
+            id={id}
+            error={!touched || !error || props.isDisabled ? '' : error}
+            onChange={handlerChange}
+          />
+          {formik.errors[name] && (
+            <ErrorComponent>
+              {!touched || !error || props.isDisabled ? '' : fieldError}
+            </ErrorComponent>
+          )}
+        </>
       )}
-    </>
+    </Box>
   )
 }

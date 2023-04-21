@@ -8,7 +8,7 @@ export const Wrapper = styled.div<{ open: boolean }>`
   overflow-y: auto;
   overflow-x: hidden;
   transition: 0.3s;
-  padding: ${({ open }) => (open ? ' 0 10px 40px 15px' : '0 0 40px')};
+  padding: ${({ open }) => (open ? ' 0 15px 40px' : '0 0 40px')};
   min-width: ${({ open }) => (open ? SIDEBAR_OPEN_WIDTH : SIDEBAR_CLOSE_WIDTH)};
   max-width: ${({ open }) => (open ? SIDEBAR_OPEN_WIDTH : SIDEBAR_CLOSE_WIDTH)};
   position: fixed;
@@ -18,19 +18,15 @@ export const Wrapper = styled.div<{ open: boolean }>`
   background-color: ${({ theme }) => theme.palette.secondary100};
 `
 
-export const StyledLogo = styled.div<{ open: boolean }>`
+export const StyledLogo = styled.div`
   position: relative;
   transform: translateX(-50%);
-  left: ${({ open }) => (open ? 50 : 45)}%;
+  left: 50%;
   transition: 0.3s;
   cursor: pointer;
-  width: 100%;
   display: flex;
   justify-content: center;
   margin-top: 15px;
-  svg {
-    min-width: 133px;
-  }
 `
 
 export const AdditionalBox = styled(Box)<{ isOpen: boolean }>`

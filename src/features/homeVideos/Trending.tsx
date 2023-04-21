@@ -21,7 +21,7 @@ export const TrendingVideos: FC = () => {
       <Title>{t('trending')}</Title>
       <Box width="100%" display="grid" gridGap={18} gridTemplateColumns="repeat(4, 1fr)">
         {tranding.map((video) => (
-          <VideoCard uniqId="for_you" key={video.id} {...video} />
+          <VideoCard shadow={false} uniqId="for_you" key={video.id} {...video} />
         ))}
         {tranding.length === 0 && (
           <Text variant="p2" color="primary600">

@@ -19,7 +19,6 @@ import { useDiscoverVideo } from './hooks/useDiscoverVideo'
 const PlayerWrapper = styled(Box)`
   border-radius: 20px;
   cursor: pointer;
-  overflow: hidden;
   text-align: left;
   position: relative;
   background-color: ${({ theme }) => theme.palette.primary200};
@@ -43,6 +42,7 @@ const ContentWrapper = styled(Box)`
   position: absolute;
   top: 0;
   left: 0;
+  border-radius: 20px;
   width: 100%;
   height: 100%;
   padding: 42px;
@@ -51,6 +51,11 @@ const ContentWrapper = styled(Box)`
     ${({ theme }) => rgba(theme.palette.primary100, 0.9)} 20%,
     ${({ theme }) => rgba(theme.palette.primary100, 0)} 50%
   );
+`
+
+const StyledVideoplayer = styled(VideoPlayer)`
+  border-radius: 20px !important;
+  filter: drop-shadow(6px 6px 10px ${({ theme }) => rgba(theme.palette.accent100, 0.3)});
 `
 
 const UserName = styled(Text)`
@@ -93,7 +98,7 @@ export const DiscoverVideo: FC = () => {
         {status === 'loading' && <Loader color="secondary100" />}
         {status === 'ready' && video && (
           <>
-            <VideoPlayer url={video?.video} height="379px" preview secconds={15} />
+            <StyledVideoplayer url={video?.video} height="100%" preview secconds={15} />
             <ContentWrapper>
               <Box width="50%">
                 <Title maxLine={5} text={video.title} basedOn="words" />

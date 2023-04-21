@@ -19,6 +19,7 @@ export const StyledText = styled(Text)<{ isOpen: boolean }>(({ isOpen }) => {
 export const MenuText = styled(Text)`
   overflow: hidden;
   transition: 300ms;
+  text-transform: uppercase;
 `
 
 export const ItemBox = styled(Box)<{ isOpen: boolean; active: boolean }>(

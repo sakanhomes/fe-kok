@@ -5,6 +5,7 @@ import Box from '@/components/Box'
 import useTranslation from 'next-translate/useTranslation'
 import { FC } from 'react'
 import styled from 'styled-components'
+import { rgba } from 'emotion-rgba'
 import { UserCard } from '../homeVideos/components/UserCard'
 import { useLeaderboard } from './hooks/useLeaderboard'
 
@@ -12,6 +13,7 @@ const Wrapper = styled(Box)`
   background: ${({ theme }) => theme.uniq.leaderboardBg};
   border-radius: 15px;
   text-align: center;
+  filter: drop-shadow(6px 6px 10px ${({ theme }) => rgba(theme.palette.accent100, 0.3)});
 `
 
 export const Leaderboard: FC = () => {
@@ -19,7 +21,7 @@ export const Leaderboard: FC = () => {
   const { leaderboard, fetching } = useLeaderboard()
 
   return (
-    <Wrapper maxWidth={384} padding={22}>
+    <Wrapper padding={22}>
       <Text variant="h3" tag="h2" margin="0 0 32px">
         {t('ranking')}
       </Text>

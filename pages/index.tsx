@@ -11,13 +11,7 @@ import { TrendingVideos } from '@/features/homeVideos/Trending'
 
 const Home: NextPage = () => (
   <Layout searchInput={<SearchInput />}>
-    <Box
-      height="443px"
-      display="grid"
-      gridTemplateColumns="2fr 1fr"
-      gridGap={40}
-      marginBottom={47}
-    >
+    <Box display="grid" gridTemplateColumns="2fr 1fr" gridGap={40} marginBottom={47}>
       <DiscoverVideo />
       <Leaderboard />
     </Box>

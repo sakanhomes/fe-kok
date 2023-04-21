@@ -38,6 +38,7 @@ export type TVideoCard = {
     fullUsername?: boolean
   }
   height?: number
+  shadow?: boolean
 } & TOwnerVideo
 
 export const VideoCard: FC<TVideoCard> = ({
@@ -48,6 +49,7 @@ export const VideoCard: FC<TVideoCard> = ({
   duration,
   createdAt,
   user,
+  shadow = true,
   isHorizontal,
   horizontalCogfig,
   height,
@@ -89,6 +91,7 @@ export const VideoCard: FC<TVideoCard> = ({
           </Text>
         </Duration>
         <S.ImageButton
+          shadow={shadow}
           height={height}
           isHorizontal={isHorizontal}
           image={previewImage}

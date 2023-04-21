@@ -30,7 +30,7 @@ export const SideMenu: FC<{ open: boolean; toggleMenu: () => void }> = ({
         onMouseLeave={open ? toggleMenu : undefined}
       >
         <Link href={ROUTES.HOME} passHref>
-          <S.StyledLogo open={open}>
+          <S.StyledLogo>
             <Logo />
           </S.StyledLogo>
         </Link>

@@ -80,7 +80,7 @@ export const UploadVideoForm: FC<{ videoData: TVideoData }> = ({ videoData }) =>
   const formik = useFormik({
     initialValues: {
       category: undefined,
-      isPublic: '',
+      isPublic: 'public',
       title: '',
       description: '',
     },

@@ -41,6 +41,10 @@ const UserBox = styled(Box)`
   border-top: 1px solid ${({ theme }) => theme.palette.secondary200};
 `
 
+const UserButton = styled(BaseButton)`
+  text-align: left;
+`
+
 export const VideoViewer: FC<{ commnets: (id: string) => void }> = ({ commnets }) => {
   const { query, push } = useRouter()
   const { dispatch, select } = useRedux()
@@ -129,7 +133,7 @@ export const VideoViewer: FC<{ commnets: (id: string) => void }> = ({ commnets }
             justifyContent="space-between"
             alignItems="center"
           >
-            <BaseButton
+            <UserButton
               onClick={() =>
                 push({
                   pathname: `${ROUTES.CREATOR_PAGE}/${memorizedVideo.user.address}`,
@@ -147,7 +151,7 @@ export const VideoViewer: FC<{ commnets: (id: string) => void }> = ({ commnets }
                   </Text>
                 </Box>
               </Box>
-            </BaseButton>
+            </UserButton>
             {typeof isSubscribed !== 'undefined' && (
               <FollowingButton
                 isSubscribed={isSubscribed}

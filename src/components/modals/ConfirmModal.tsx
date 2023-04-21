@@ -1,6 +1,6 @@
 import Box from '@/components/Box'
 import useTranslation from 'next-translate/useTranslation'
-import React, { FC } from 'react'
+import React, { FC, ReactNode } from 'react'
 import styled from 'styled-components'
 import { BaseButton } from '../buttons/BaseButton'
 import { TButton } from '../buttons/types'
@@ -31,14 +31,17 @@ const ModalTitle = styled(Text)`
 
 export const ConfirmModal: FC<{
   modal: TModalBase
-  title: string
+  title: string | ReactNode
   cancel: { title?: string } & TButton
   confirm: { title: string } & TButton
-}> = ({ modal, title, cancel, confirm }) => {
+  onClose?: () => void
+}> = ({ modal, title, cancel, confirm, onClose }) => {
   const { t } = useTranslation('common')
   return (
-    <Modal maxWidth="509px" padding="36px" {...modal}>
-      <ModalTitle variant="h5">{title}</ModalTitle>
+    <Modal maxWidth="509px" onClose={onClose} padding="36px" {...modal}>
+      <ModalTitle tag="div" variant="h5">
+        {title}
+      </ModalTitle>
       <Box marginTop={56} paddingX={48} display="flex" justifyContent="space-between">
         <CancelButton {...cancel}>{cancel.title ?? t('common:cancel')}</CancelButton>
         <ConfirmButton {...confirm}>{confirm.title}</ConfirmButton>

@@ -77,7 +77,17 @@ export const Video: FC<{ video: TOwnerVideo }> = ({ video }) => {
           </BaseButton>
           <ConfirmModal
             modal={{ open: openDeleteModal }}
-            title={t('deleteTitle')}
+            onClose={() => setOpenDeleteModal(false)}
+            title={
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                gridGap="10px"
+              >
+                <DeleteIcon color="primary300" /> {t('deleteTitle')}
+              </Box>
+            }
             confirm={{
               onClick: deleteVideo,
               title: t('common:delete'),

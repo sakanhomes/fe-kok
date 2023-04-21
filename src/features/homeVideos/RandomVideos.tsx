@@ -21,7 +21,7 @@ export const RandomVideos: FC = () => {
       <Title>{t('forYou')}</Title>
       <Box width="100%" display="grid" gridGap={18} gridTemplateColumns="repeat(4, 1fr)">
         {randomVideos.map((video) => (
-          <VideoCard uniqId="for_you" key={video.id} {...video} />
+          <VideoCard shadow={false} uniqId="for_you" key={video.id} {...video} />
         ))}
         {randomVideos.length === 0 && (
           <Text variant="p2" color="primary600">
