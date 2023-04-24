@@ -2,10 +2,10 @@ import React, { FC } from 'react'
 import { SVG } from '../SVG'
 import { TIcon } from '../type'
 
-export const DeleteIcon: FC<TIcon> = (props) => (
+export const DeleteIcon: FC<TIcon & { size?: string }> = ({ size, ...props }) => (
   <SVG
-    width="24"
-    height="24"
+    width={size ?? '24'}
+    height={size ?? '24'}
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
     type="fill"

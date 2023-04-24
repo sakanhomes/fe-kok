@@ -12,6 +12,10 @@ const categories = [
     label: 'all',
   },
   {
+    label: 'web3',
+    category: ECategories.WEB3,
+  },
+  {
     label: 'music',
     category: ECategories.MUSIC,
   },
@@ -56,12 +60,12 @@ const categories = [
     category: ECategories.DOCUMENTARY,
   },
   {
-    label: 'web3',
-    category: ECategories.WEB3,
-  },
-  {
     label: 'animals',
     category: ECategories.ANIMALS,
+  },
+  {
+    label: 'sports',
+    category: ECategories.SPORTS,
   },
 ]
 

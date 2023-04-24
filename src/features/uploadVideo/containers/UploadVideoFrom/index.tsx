@@ -87,7 +87,7 @@ export const UploadVideoForm: FC<{ videoData: TVideoData }> = ({ videoData }) =>
     validationSchema: yup.object().shape({
       category: validation.required,
       isPublic: validation.required,
-      title: validation.required,
+      title: validation.maxWidth(50, t),
       description: validation.required,
     }),
     onSubmit: ({ title, description, ...formData }) => {

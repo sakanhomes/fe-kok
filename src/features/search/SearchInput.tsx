@@ -18,7 +18,7 @@ export const SearchInput: FC = () => {
     initialValues: {
       value: '',
     },
-    validationSchema: yup.object().shape({ value: validation.minWidth(3, t) }),
+    validationSchema: yup.object().shape({ value: validation.minWidth(2, t) }),
     onSubmit: ({ value }) => {
       if (value) router.push({ pathname: ROUTES.SEARCH, query: { value } })
     },

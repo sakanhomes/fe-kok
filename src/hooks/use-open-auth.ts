@@ -6,8 +6,8 @@ export const useOpenAuth = (): (() => void) | null => {
   const { openConnectModal } = useConnectModal()
 
   const openAuth = () => {
-    if (!user && !address && openConnectModal) {
-      openConnectModal()
+    if (!user || !address) {
+      openConnectModal?.()
     }
   }
 

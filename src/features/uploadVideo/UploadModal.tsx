@@ -5,7 +5,6 @@ import { UploadFiles } from '@/components/UploadFiles'
 import 'react-circular-progressbar/dist/styles.css'
 import { useRedux } from '@/hooks/use-redux'
 import useTranslation from 'next-translate/useTranslation'
-import { ConfirmModal } from '@/components/modals/ConfirmModal'
 import { cancelTokenSource, resetCancelToken } from '@/api/rest/instance'
 import { UploadVideoForm } from './containers/UploadVideoFrom'
 import {
@@ -17,6 +16,7 @@ import {
   uploadVideoSelector,
 } from './store/uploadVideo'
 import { SuccessModal } from './components/SuccessModal'
+import { ConfirmModal } from './components/ConfirmModal'
 
 export const UploadModal: FC<{
   onClose: () => void
