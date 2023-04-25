@@ -53,4 +53,8 @@ export const categoriesOptions = [
     label: 'Nature',
     value: ECategories.NATURE,
   },
+  {
+    label: 'Sports',
+    value: ECategories.SPORTS,
+  },
 ]
