@@ -39,7 +39,7 @@ export const ConfirmModal: FC<{
 }> = ({ modal, title, cancel, confirm, onClose }) => {
   const { t } = useTranslation('common')
   return (
-    <Modal maxWidth="296px" onClose={onClose} padding="20px 44px" {...modal}>
+    <Modal maxWidth="296px" onClose={onClose} padding="30px 44px" {...modal}>
       <ModalTitle tag="div" variant="p2">
         {title}
       </ModalTitle>
