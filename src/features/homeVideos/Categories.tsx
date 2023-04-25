@@ -60,8 +60,8 @@ const categories = [
     category: ECategories.DOCUMENTARY,
   },
   {
-    label: 'animals',
-    category: ECategories.ANIMALS,
+    label: 'nature',
+    category: ECategories.NATURE,
   },
   {
     label: 'sports',

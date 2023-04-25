@@ -13,7 +13,7 @@ export const Popup = styled(PopupComponent)`
     pointer-events: none;
   }
   &-content {
-    width: 100%;
+    width: fit-content;
     padding: 16px;
   }
 `

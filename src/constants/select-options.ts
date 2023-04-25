@@ -50,7 +50,7 @@ export const categoriesOptions = [
     value: ECategories.WEB3,
   },
   {
-    label: 'Animals',
-    value: ECategories.ANIMALS,
+    label: 'Nature',
+    value: ECategories.NATURE,
   },
 ]
