@@ -100,7 +100,7 @@ export const NetworksDropdown: FC = () => {
       >
         <NetworksIcon network={selectedNetwork.network} />
       </Button>
-      {user && <AmountWrapper>KOK {user.balance}</AmountWrapper>}
+      {user && <AmountWrapper>Kredit {user.balance}</AmountWrapper>}
     </Box>
   )
 }
