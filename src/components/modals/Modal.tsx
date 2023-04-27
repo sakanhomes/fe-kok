@@ -85,13 +85,8 @@ export const Modal: React.FC<TModalBase> = ({
   if (!isClient) return null
 
   return (
-    <S.Popup modal nested open={open} onClose={onClose}>
-      <S.Container
-        padding={padding}
-        ref={containerRef}
-        className={className}
-        maxWidth={maxWidth}
-      >
+    <S.Popup modal maxWidth={maxWidth} nested open={open} onClose={onClose}>
+      <S.Container padding={padding} ref={containerRef} className={className}>
         {title && (
           <Text variant="h7" tag="h2" margin="0 0 26px">
             {title}

@@ -4,5 +4,6 @@
   "uploadVideo": "Upload video",
   "public": "Public",
   "private": "Private",
-  "deleteTitle": "Delete video forever"
+  "deleteTitle": "Delete video forever",
+  "deleteTitleConfirmation": "<0>Confirmation required</0><0>Type 'Delete' to permanently delete the video</0>"
 }

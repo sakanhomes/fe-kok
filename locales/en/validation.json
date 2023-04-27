@@ -1,5 +1,6 @@
 {
   "required": "This field is required",
   "moreThan": "Must be more than {{length}} characters",
-  "lessThan": "Must be less than {{length}} characters"
+  "lessThan": "Must be less than {{length}} characters",
+  "equalTo": "This value must be equal to {{value}}"
 }

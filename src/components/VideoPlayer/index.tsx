@@ -34,13 +34,6 @@ export const VideoPlayer: FC<
       }
     : {}
 
-  const previewAtributes = preview
-    ? {
-        autoPlay: true,
-        muted: true,
-      }
-    : {}
-
   return (
     <Box position="relative" height="100%">
       <Player
@@ -51,7 +44,8 @@ export const VideoPlayer: FC<
           file: {
             attributes: {
               controlsList: 'nodownload',
-              ...previewAtributes,
+              autoPlay: true,
+              muted: !!preview,
             },
           },
         }}

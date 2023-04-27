@@ -20,6 +20,18 @@ const maxWidth = (
     .string()
     .test('len', t('validation:lessThan', { length }), (val = '') => val.length <= length)
 
+const equalTo = (
+  value: string,
+  t: Translate
+): yup.StringSchema<string | undefined, AnyObject, string | undefined> =>
+  yup
+    .string()
+    .test(
+      'equal',
+      t('validation:equalTo', { value }),
+      (val) => val?.toLowerCase() === value
+    )
+
 const singleCheckbox = yup.bool().oneOf([true], 'validation:required')
 
 export const validation = {
@@ -27,4 +39,5 @@ export const validation = {
   singleCheckbox,
   minWidth,
   maxWidth,
+  equalTo,
 }

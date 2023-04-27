@@ -3,7 +3,9 @@ import PopupComponent from 'reactjs-popup'
 import styled, { CSSProperties } from 'styled-components'
 import { BaseButton } from '../buttons/BaseButton'
 
-export const Popup = styled(PopupComponent)`
+export const Popup = styled(PopupComponent)<{
+  maxWidth?: CSSProperties['maxWidth']
+}>`
   &-overlay {
     overflow-y: auto;
     height: var(--window-height);
@@ -11,10 +13,12 @@ export const Popup = styled(PopupComponent)`
     top: 0 !important;
     background-color: ${({ theme }) => rgba(theme.palette.primary100, 0.4)};
     pointer-events: none;
+    padding: 16px;
   }
   &-content {
-    width: fit-content;
-    padding: 16px;
+    max-width: ${({ maxWidth }) =>
+      typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth};
+    width: 100%;
   }
 `
 
@@ -25,16 +29,14 @@ export const Close = styled(BaseButton)`
 `
 
 export const Container = styled.div<{
-  maxWidth?: CSSProperties['maxWidth']
   padding: CSSProperties['padding']
 }>`
-  max-width: ${({ maxWidth }) =>
-    typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth};
   background-color: ${({ theme }) => theme.palette.secondary100};
   border-radius: 10px;
   padding: ${({ padding }) => padding ?? '20px 60px'};
   margin: 0 auto;
   position: relative;
+  width: 100%;
 `
 
 export const CloseButton = styled(BaseButton)`

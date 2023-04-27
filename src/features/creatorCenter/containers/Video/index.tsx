@@ -10,6 +10,7 @@ import { TOwnerVideo } from '@/types/video'
 import { handleActionErrors } from '@/utils/handleActionErrors'
 import useTranslation from 'next-translate/useTranslation'
 import React, { FC, useState } from 'react'
+import { DeleteVideoConfirmation } from '../../DeleteVideoConfirmation/DeleteVideoConfiramtion'
 
 export const Video: FC<{ video: TOwnerVideo }> = ({ video }) => {
   const [newVideo, setNewVideo] = useState(video)
@@ -20,6 +21,8 @@ export const Video: FC<{ video: TOwnerVideo }> = ({ video }) => {
   const { t } = useTranslation('creator-center')
   const { dispatch } = useRedux()
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
+  const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false)
+
   const updateVideo = async () => {
     try {
       setIsUpdating(true)
@@ -89,12 +92,27 @@ export const Video: FC<{ video: TOwnerVideo }> = ({ video }) => {
               </Box>
             }
             confirm={{
-              onClick: deleteVideo,
+              onClick: () => {
+                setOpenDeleteModal(false)
+                setOpenDeleteConfirmation(true)
+              },
               title: t('common:delete'),
               isLoading: deletingStatus === 'deleting',
             }}
             cancel={{
               onClick: () => setOpenDeleteModal(false),
+            }}
+          />
+          <DeleteVideoConfirmation
+            modal={{ open: openDeleteConfirmation, withCloseButton: false }}
+            onClose={() => setOpenDeleteConfirmation(false)}
+            confirm={{
+              onClick: deleteVideo,
+              title: t('common:delete'),
+              isLoading: deletingStatus === 'deleting',
+            }}
+            cancel={{
+              onClick: () => setOpenDeleteConfirmation(false),
             }}
           />
         </Box>
