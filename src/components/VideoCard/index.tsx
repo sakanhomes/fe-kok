@@ -117,7 +117,7 @@ export const VideoCard: FC<TVideoCard> = ({
           alignItems="center"
         >
           <Text color="primary600" variant="p4" tag="span">
-            {formatViews(viewsAmount)} {t('views')}
+            {formatViews(viewsAmount)} {t(viewsAmount === 1 ? 'view' : 'views')}
           </Text>
           <S.DotSeparator />
           {time && (

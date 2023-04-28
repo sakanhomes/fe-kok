@@ -46,7 +46,7 @@ export const VideoHistory: FC<TVideo> = ({
         </S.TitleButton>
         <Box marginBottom="10px">
           <Text color="primary600" variant="p4" tag="span">
-            {formatViews(viewsAmount)} {t('views')}
+            {formatViews(viewsAmount)} {t(viewsAmount === 1 ? 'view' : 'views')}
           </Text>
         </Box>
         <S.User
