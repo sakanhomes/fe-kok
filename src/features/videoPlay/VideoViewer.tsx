@@ -102,7 +102,8 @@ export const VideoViewer: FC<{ commnets: (id: string) => void }> = ({ commnets }
           </Text>
           <Box display="flex" gridGap="16px" alignItems="center">
             <Text color="primary600" variant="p4" tag="span">
-              {formatViews(memorizedVideo.viewsAmount)} {t('views')}
+              {formatViews(memorizedVideo.viewsAmount)}{' '}
+              {t(memorizedVideo.viewsAmount === 1 ? 'view' : 'views')}
             </Text>
             <DotSeparator />
             {time && (

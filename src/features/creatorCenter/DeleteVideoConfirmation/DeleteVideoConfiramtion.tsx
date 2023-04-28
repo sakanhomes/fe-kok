@@ -69,7 +69,7 @@ export const DeleteVideoConfirmation: FC<{
           </Title>
         </ModalTitle>
         <Box marginBottom={35} marginTop={25}>
-          <FormikInput formik={formik} name="deleteInput" placeholder="Enter 'delete'" />
+          <FormikInput formik={formik} name="deleteInput" placeholder="Enter 'Delete'" />
         </Box>
         <Box display="flex" justifyContent="center" gridGap={25}>
           <ConfirmButton {...confirm} type="submit">
