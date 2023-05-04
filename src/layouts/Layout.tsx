@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode } from 'react'
 import Box from '@/components/Box'
 import styled from 'styled-components'
 import { LEYAOUT_CONTENT } from '@/constants/ids'
@@ -9,23 +9,20 @@ const Wrapper = styled(Box)`
   transition: 0.3s;
 `
 
-export const Layout: React.FC<{ searchInput: ReactNode; withSpaces?: boolean }> = ({
-  children,
-  searchInput,
-  withSpaces = true,
-}) => {
-  const [openSideMenu, setOpenSideMenu] = useState(false)
-  const openMenutoggle = () => setOpenSideMenu(!openSideMenu)
-
+export const Layout: React.FC<{
+  hasBurger?: boolean
+  searchInput: ReactNode
+  withSpaces?: boolean
+}> = ({ children, searchInput, withSpaces = true, hasBurger }) => {
   const { wrapGap, bodyGap, bodyPR } = {
-    wrapGap: withSpaces ? 35 : undefined,
+    wrapGap: withSpaces && !hasBurger ? 35 : undefined,
     bodyPR: withSpaces ? 44 : undefined,
     bodyGap: withSpaces ? 35 : undefined,
   }
 
   return (
     <Wrapper display="flex" maxHeight="100vh" overflow="hidden" gridGap={wrapGap}>
-      <SideMenu open={openSideMenu} toggleMenu={openMenutoggle} />
+      <SideMenu hasBurger={hasBurger} />
       <Box overflowY="auto" minHeight="100vh" width="100%">
         <Box
           id={LEYAOUT_CONTENT}
@@ -39,7 +36,11 @@ export const Layout: React.FC<{ searchInput: ReactNode; withSpaces?: boolean }> 
           paddingRight={bodyPR}
         >
           <Box position="sticky" top="0" left="0" zIndex="10">
-            <Header searchInput={searchInput} withSpaces={!withSpaces} />
+            <Header
+              hasBurger={hasBurger}
+              searchInput={searchInput}
+              withSpaces={!withSpaces}
+            />
           </Box>
           <Box
             display="grid"

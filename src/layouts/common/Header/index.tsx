@@ -11,12 +11,16 @@ import { Notifications } from '@/features/notification/Notifications'
 import { useOpenAuth } from '@/hooks/use-open-auth'
 import { Tooltip } from '@/components/Tooltip'
 import { ConnectWallet } from '@/containers/ConnectWallet'
+import { Logo } from '@/components/icons/Logo'
+import { ROUTES } from '@/constants/routes'
+import { Link } from '@/components/Link'
 import { NetworksDropdown } from '../NetworksDropdown'
 import { UserMenu } from '../UserMenu'
 
 export type THeader = {
   searchInput: ReactNode
   withSpaces: boolean
+  hasBurger?: boolean
 }
 
 const ConnectWalletButton = styled(BaseButton)`
@@ -30,7 +34,7 @@ const ConnectWalletButton = styled(BaseButton)`
   padding: 0 9px;
 `
 
-export const Header: FC<THeader> = ({ searchInput, withSpaces }) => {
+export const Header: FC<THeader> = ({ searchInput, withSpaces, hasBurger }) => {
   const openAuth = useOpenAuth()
   const { t } = useTranslation('layout')
   const { palette } = useTheme()
@@ -46,6 +50,13 @@ export const Header: FC<THeader> = ({ searchInput, withSpaces }) => {
       backgroundColor={palette.secondary100}
       padding={withSpaces ? '0 44px 0 35px' : undefined}
     >
+      {hasBurger && (
+        <Link href={ROUTES.HOME}>
+          <Box display="flex" alignItems="center" height={103}>
+            <Logo />
+          </Box>
+        </Link>
+      )}
       <Box width="45%">{searchInput}</Box>
       <Box>
         <NetworksDropdown />

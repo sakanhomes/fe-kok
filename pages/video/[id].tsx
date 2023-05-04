@@ -8,7 +8,7 @@ import { RealatedVideos } from '@/features/videoPlay/RelatedVideos'
 import { Comments } from '@/features/videoPlay/Comments'
 
 const Video: NextPage = () => (
-  <Layout searchInput={<SearchInput />}>
+  <Layout searchInput={<SearchInput />} hasBurger>
     <Box display="grid" gridTemplateColumns="2fr 1fr" gridGap={15}>
       <VideoViewer commnets={(id) => <Comments id={id} />} />
       <RealatedVideos />
